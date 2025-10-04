@@ -1,25 +1,31 @@
 <?php
 
-namespace CodeKaizen\WPPackageAutoupdater\AutoUpdater;
+namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater;
 
-use CodeKaizen\WPPackageAutoupdater\Contract\InitializerInterface;
-use Monolog\Logger; // The Logger instance
-use Monolog\Handler\ErrorLogHandler; // The StreamHandler sends log messages to a file on your disk
-use Monolog\Level;
-use CodeKaizen\WPPackageAutoupdater\Client\ORASHub\ORASHubClientPlugin;
-use CodeKaizen\WPPackageAutoupdater\Hook\CheckUpdateHookPlugin;
-use CodeKaizen\WPPackageAutoupdater\Hook\CheckInfoHookPlugin;
+use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
+use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
+use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
+use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as PackageMetaPluginPackageMetaProviderFactoryV1;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-class AutoUpdaterPluginORASHubV1 implements InitializerInterface
+class AutoUpdaterPluginORASHubV1 implements InitializerContract
 {
-    private InitializerInterface $checkUpdateHook;
-    private InitializerInterface $checkInfoHook;
-    public function __construct(string $filePath, string $baseURL, string $metaKey = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata', string $loggerName = 'WPPackageAutoUpdate', int|string|Level $logLevel = Level::Debug)
-    {
-        $logger = new Logger($loggerName, [new ErrorLogHandler(3, $logLevel)]);
-        $client = new ORASHubClientPlugin($baseURL, $metaKey);
-        $this->checkUpdateHook = new CheckUpdateHookPlugin($filePath, $client, $logger);
-        $this->checkInfoHook = new CheckInfoHookPlugin($filePath, $client, $logger);
+    protected InitializerContract $checkUpdateHook;
+    protected InitializerContract $checkInfoHook;
+    public function __construct(
+        string $filePath,
+        string $baseURL,
+        string $metaKey = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata',
+        LoggerInterface $logger = new NullLogger()
+    ) {
+        $localPackageMetaProviderFactory = new PluginPackageMetaProviderFactoryV1($filePath, new PluginSlugParser($filePath, new PluginPackageRoot()), $logger);
+        $remotePackageMetaProviderFactory = new PackageMetaPluginPackageMetaProviderFactoryV1($baseURL, $metaKey, $logger);
+        $this->checkUpdateHook = new PluginCheckUpdateHook($localPackageMetaProviderFactory, $remotePackageMetaProviderFactory, $logger);
+        $this->checkInfoHook = new PluginCheckInfoHook($localPackageMetaProviderFactory, $remotePackageMetaProviderFactory, $logger);
     }
     public function init(): void
     {

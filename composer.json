@@ -1,5 +1,5 @@
 {
-    "name": "codekaizen/wp-package-autoupdater",
+    "name": "codekaizen/wp-package-auto-updater",
     "authors": [
         {
             "name": "Andrew Dawes",
@@ -8,15 +8,43 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "respect/validation": "^2.4",
+        "php": "^8.1",
+        "codekaizen/wp-package-meta-provider-contract": "dev-main",
         "psr/log": "^3.0",
-        "monolog/monolog": "^3.9"
+        "respect/validation": "^2.2",
+        "codekaizen/wp-package-meta-provider-orashub": "dev-main",
+        "codekaizen/wp-package-meta-provider-local": "dev-main"
+    },
+    "config": {
+        "platform": {
+            "php": "8.1.0"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "autoload": {
         "psr-4": {
-            "CodeKaizen\\WPPackageAutoupdater\\": "src/"
+            "CodeKaizen\\WPPackageAutoUpdater\\": "src/"
         }
     },
-    "scripts": {}
+    "autoload-dev": {
+        "psr-4": {
+            "CodeKaizen\\WPPackageAutoUpdaterTests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyze": "phpstan",
+        "sniff": "phpcs -ps src/ tests/",
+        "fix": "phpcbf src/ tests/"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.0",
+        "wp-coding-standards/wpcs": "^3.0",
+        "mockery/mockery": "^1.6",
+        "phpstan/phpstan-mockery": "^2.0"
+    }
 }

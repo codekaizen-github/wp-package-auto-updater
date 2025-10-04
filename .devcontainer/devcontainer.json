@@ -1,5 +1,5 @@
 {
-    "name": "WP Package Autoupdater WordPress Development Environment",
+    "name": "WP Package AutoUpdater WordPress Development Environment",
     "dockerComposeFile": "docker-compose.yml",
     "service": "dev",
     "workspaceFolder": "/workspace",
