@@ -7,7 +7,6 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateMetaFormatterTheme;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFactoryContract;
 
 class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract

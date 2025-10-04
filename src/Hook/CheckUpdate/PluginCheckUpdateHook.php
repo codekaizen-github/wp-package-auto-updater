@@ -7,7 +7,6 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateMetaFormatterPlugin;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 
 class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract
