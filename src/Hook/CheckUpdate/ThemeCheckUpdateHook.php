@@ -23,7 +23,7 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
     }
     public function init(): void
     {
-        add_filter('pre_set_site_transient_update_plugins', array($this, 'checkUpdate'));
+        add_filter('pre_set_site_transient_update_themes', array($this, 'checkUpdate'));
     }
     public function checkUpdate(object $transient): object
     {

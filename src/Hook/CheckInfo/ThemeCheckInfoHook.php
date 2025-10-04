@@ -22,7 +22,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
     }
     public function init(): void
     {
-        add_filter('plugins_api', array($this, 'checkInfo'), 10, 3);
+        add_filter('themes_api', array($this, 'checkInfo'), 10, 3);
     }
     public function checkInfo(bool $false, array $action, object $arg): bool|object
     {
