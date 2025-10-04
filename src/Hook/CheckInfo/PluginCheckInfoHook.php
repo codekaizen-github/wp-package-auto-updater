@@ -5,7 +5,6 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
-use CodeKaizen\WPPackageAutoUpdater\Hook\Strategy\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\CheckInfoMetaFormatterPlugin;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
