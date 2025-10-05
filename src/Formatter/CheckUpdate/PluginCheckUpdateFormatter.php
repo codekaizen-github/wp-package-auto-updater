@@ -6,19 +6,19 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFo
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use stdClass;
 
-class CheckUpdateFormatterPlugin implements CheckUpdateFormatterContract
-{
-    public function formatForCheckUpdate(
-        array $response,
-        PackageMetaContract $localPackageMetaProvider,
-        PackageMetaContract $remotePackageMetaProvider
-    ): array {
-        $metaObject = new stdClass();
-        $metaObject->slug = $remotePackageMetaProvider->getShortSlug();
-        $metaObject->new_version = $remotePackageMetaProvider->getVersion();
-        $metaObject->package = $remotePackageMetaProvider->getDownloadURL();
-        $metaObject->url = $remotePackageMetaProvider->getViewURL();
-        $response[$localPackageMetaProvider->getFullSlug()] = $metaObject;
-        return $response;
-    }
+class CheckUpdateFormatterPlugin implements CheckUpdateFormatterContract {
+
+	public function formatForCheckUpdate(
+		array $response,
+		PackageMetaContract $localPackageMetaProvider,
+		PackageMetaContract $remotePackageMetaProvider
+	): array {
+		$metaObject              = new stdClass();
+		$metaObject->slug        = $remotePackageMetaProvider->getShortSlug();
+		$metaObject->new_version = $remotePackageMetaProvider->getVersion();
+		$metaObject->package     = $remotePackageMetaProvider->getDownloadURL();
+		$metaObject->url         = $remotePackageMetaProvider->getViewURL();
+		$response[ $localPackageMetaProvider->getFullSlug() ] = $metaObject;
+		return $response;
+	}
 }

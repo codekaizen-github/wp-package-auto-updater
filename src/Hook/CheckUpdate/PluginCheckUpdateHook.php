@@ -9,25 +9,22 @@ use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatterPl
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 
-class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract
-{
-    protected PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
-    protected PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
-    protected LoggerInterface $logger;
-    public function __construct(PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory, PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory, LoggerInterface $logger)
-    {
-        $this->localPackageMetaProviderFactory = $localPackageMetaProviderFactory;
-        $this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-        $this->logger = $logger;
-    }
-    public function init(): void
-    {
-        add_filter('pre_set_site_transient_update_plugins', array($this, 'checkUpdate'));
-    }
-    public function checkUpdate(object $transient): object
-    {
-        $formatter = new CheckUpdateFormatterPlugin();
-        $checkUpdate = new CheckUpdateStrategy($this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger);
-        return $checkUpdate->checkUpdate($transient);
-    }
+class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
+
+	protected PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
+	protected PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
+	protected LoggerInterface $logger;
+	public function __construct( PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory, PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory, LoggerInterface $logger ) {
+		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
+		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
+		$this->logger                           = $logger;
+	}
+	public function init(): void {
+		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'checkUpdate' ) );
+	}
+	public function checkUpdate( object $transient ): object {
+		$formatter   = new CheckUpdateFormatterPlugin();
+		$checkUpdate = new CheckUpdateStrategy( $this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger );
+		return $checkUpdate->checkUpdate( $transient );
+	}
 }
