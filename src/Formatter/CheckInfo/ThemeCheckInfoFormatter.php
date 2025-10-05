@@ -3,17 +3,17 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 use stdClass;
 
-class CheckInfoMetaFormatterPlugin implements CheckInfoFormatterContract
+class CheckInfoFormatterTheme implements CheckInfoFormatterContract
 {
-    private PluginPackageMetaContract $provider;
-    public function __construct(PluginPackageMetaContract $provider)
+    private ThemePackageMetaContract $provider;
+    public function __construct(ThemePackageMetaContract $provider)
     {
         $this->provider = $provider;
     }
-    public function formatMetaForCheckInfo(): object
+    public function formatForCheckInfo(): object
     {
         $stdObj = new stdClass();
         $stdObj->name = $this->provider->getName();
@@ -28,10 +28,7 @@ class CheckInfoMetaFormatterPlugin implements CheckInfoFormatterContract
         $stdObj->download_link = $this->provider->getDownloadURL();
         $stdObj->update_uri = $this->provider->getDownloadURL();
         // $stdObj->last_updated
-        $stdObj->sections = $this->provider->getSections();
         $stdObj->tags = $this->provider->getTags();
-        // WordPress expects these properties for plugin information
-        $stdObj->external = true; // indicates this is an external package
         return $stdObj;
     }
 }

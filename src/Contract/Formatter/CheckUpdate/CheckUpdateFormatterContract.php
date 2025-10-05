@@ -6,7 +6,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 
 interface CheckUpdateFormatterContract
 {
-    public function formatMetaForCheckUpdate(
+    public function formatForCheckUpdate(
         array $response,
         PackageMetaContract $localPackageMetaProvider,
         PackageMetaContract $remotePackageMetaProvider

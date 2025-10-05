@@ -2,13 +2,13 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateMetaFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use stdClass;
 
-class CheckUpdateMetaFormatterTheme implements CheckUpdateMetaFormatterContract
+class CheckUpdateFormatterTheme implements CheckUpdateFormatterContract
 {
-    public function formatMetaForCheckUpdate(
+    public function formatForCheckUpdate(
         array $response,
         PackageMetaContract $localPackageMetaProvider,
         PackageMetaContract $remotePackageMetaProvider

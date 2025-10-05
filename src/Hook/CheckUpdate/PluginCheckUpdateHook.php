@@ -5,7 +5,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate;
 use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateMetaFormatterPlugin;
+use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatterPlugin;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 
@@ -26,7 +26,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
     }
     public function checkUpdate(object $transient): object
     {
-        $formatter = new CheckUpdateMetaFormatterPlugin();
+        $formatter = new CheckUpdateFormatterPlugin();
         $checkUpdate = new CheckUpdateStrategy($this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger);
         return $checkUpdate->checkUpdate($transient);
     }

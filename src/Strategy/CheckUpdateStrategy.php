@@ -2,7 +2,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateMetaFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract as StrategyCheckUpdateStrategyContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use Psr\Log\LoggerInterface;
@@ -12,9 +12,9 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract
 {
     protected PackageMetaContract $localPackageMetaProvider;
     protected PackageMetaContract $remotePackageMetaProvider;
-    protected CheckUpdateMetaFormatterContract $formatter;
+    protected CheckUpdateFormatterContract $formatter;
     protected LoggerInterface $logger;
-    function __construct(PackageMetaContract $localPackageMetaProvider, PackageMetaContract $remotePackageMetaProvider, CheckUpdateMetaFormatterContract $formatter, LoggerInterface $logger)
+    function __construct(PackageMetaContract $localPackageMetaProvider, PackageMetaContract $remotePackageMetaProvider, CheckUpdateFormatterContract $formatter, LoggerInterface $logger)
     {
         $this->localPackageMetaProvider = $localPackageMetaProvider;
         $this->remotePackageMetaProvider = $remotePackageMetaProvider;
@@ -30,9 +30,9 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract
         }
         try {
             if (version_compare($this->localPackageMetaProvider->getVersion(), $this->remotePackageMetaProvider->getVersion(), '<')) {
-                $transient->response = $this->formatter->formatMetaForCheckUpdate($transient->response, $this->localPackageMetaProvider, $this->remotePackageMetaProvider);
+                $transient->response = $this->formatter->formatForCheckUpdate($transient->response, $this->localPackageMetaProvider, $this->remotePackageMetaProvider);
             } else {
-                $transient->no_update = $this->formatter->formatMetaForCheckUpdate($transient->no_update, $this->localPackageMetaProvider, $this->remotePackageMetaProvider);
+                $transient->no_update = $this->formatter->formatForCheckUpdate($transient->no_update, $this->localPackageMetaProvider, $this->remotePackageMetaProvider);
             }
         } catch (Exception $e) {
             $this->logger->error('Unable to get remote package version: ' . $e);

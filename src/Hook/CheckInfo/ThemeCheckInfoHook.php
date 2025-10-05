@@ -5,7 +5,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\CheckInfoMetaFormatterTheme;
+use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\CheckInfoFormatterTheme;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFactoryContract;
 
@@ -26,7 +26,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
     }
     public function checkInfo(bool $false, array $action, object $arg): bool|object
     {
-        $formatter = new CheckInfoMetaFormatterTheme($this->remotePackageMetaProviderFactory->create());
+        $formatter = new CheckInfoFormatterTheme($this->remotePackageMetaProviderFactory->create());
         $checkInfo = new CheckInfoStrategy($this->localPackageMetaProviderFactory->create(), $formatter, $this->logger);
         return $checkInfo->checkInfo($false, $action, $arg);
     }

@@ -3,12 +3,10 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\LocalPluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\RemotePluginPackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
-use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
-use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as LocalPluginPackageMetaProviderFactoryV1;
-use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -22,8 +20,8 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract
         string $metaKey = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata',
         LoggerInterface $logger = new NullLogger()
     ) {
-        $localPackageMetaProviderFactory = new LocalPluginPackageMetaProviderFactoryV1($filePath, new PluginSlugParser($filePath, new PluginPackageRoot()), $logger);
-        $remotePackageMetaProviderFactory = new RemotePluginPackageMetaProviderFactoryV1($baseURL, $metaKey, $logger);
+        $localPackageMetaProviderFactory = new LocalPluginPackageMetaProviderFactory($filePath, $logger);
+        $remotePackageMetaProviderFactory = new RemotePluginPackageMetaProviderFactory($baseURL, $metaKey, $logger);
         $this->checkUpdateHook = new PluginCheckUpdateHook($localPackageMetaProviderFactory, $remotePackageMetaProviderFactory, $logger);
         $this->checkInfoHook = new PluginCheckInfoHook($localPackageMetaProviderFactory, $remotePackageMetaProviderFactory, $logger);
     }

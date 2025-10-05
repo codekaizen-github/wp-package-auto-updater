@@ -27,7 +27,7 @@ class CheckInfoStrategy implements CheckInfoStrategyContract
         $this->logger->debug("Providing package info for: " . $arg->slug);
 
         // Get metadata from remote source
-        $meta = $this->formatter->formatMetaForCheckInfo();
+        $meta = $this->formatter->formatForCheckInfo();
         if (!$meta) {
             $this->logger->debug("Failed to get metadata for package info");
             return $false;
