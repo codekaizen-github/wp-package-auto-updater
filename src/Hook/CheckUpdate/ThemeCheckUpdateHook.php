@@ -8,6 +8,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatterTheme;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFactoryContract;
+use stdClass;
 
 class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 
@@ -22,7 +23,7 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	public function init(): void {
 		add_filter( 'pre_set_site_transient_update_themes', array( $this, 'checkUpdate' ) );
 	}
-	public function checkUpdate( object $transient ): object {
+	public function checkUpdate( stdClass $transient ): stdClass {
 		$formatter   = new CheckUpdateFormatterTheme();
 		$checkUpdate = new CheckUpdateStrategy( $this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger );
 		return $checkUpdate->checkUpdate( $transient );

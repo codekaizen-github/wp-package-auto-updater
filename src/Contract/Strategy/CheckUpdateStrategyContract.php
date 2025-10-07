@@ -2,7 +2,9 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Contract\Strategy;
 
+use stdClass;
+
 interface CheckUpdateStrategyContract {
 
-	public function checkUpdate( object $transient ): object;
+	public function checkUpdate( stdClass $transient ): stdClass;
 }

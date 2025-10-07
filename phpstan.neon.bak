@@ -1,0 +1,16 @@
+parameters:
+    level: 9
+    paths:
+        - src
+        - tests
+    treatPhpDocTypesAsCertain: false
+    dynamicConstantNames:
+        - WP_DEBUG
+    ignoreErrors:
+        - '#Access to an undefined property object::\$response\.#'
+        - '#Access to an undefined property object::\$no_update\.#'
+        - '#Negated boolean expression is always false\.#'
+includes:
+    - vendor/phpstan/phpstan-mockery/extension.neon
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+

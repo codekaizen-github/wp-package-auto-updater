@@ -8,6 +8,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatterPlugin;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
+use stdClass;
 
 class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 
@@ -22,7 +23,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	public function init(): void {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'checkUpdate' ) );
 	}
-	public function checkUpdate( object $transient ): object {
+	public function checkUpdate( stdClass $transient ): stdClass {
 		$formatter   = new CheckUpdateFormatterPlugin();
 		$checkUpdate = new CheckUpdateStrategy( $this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger );
 		return $checkUpdate->checkUpdate( $transient );

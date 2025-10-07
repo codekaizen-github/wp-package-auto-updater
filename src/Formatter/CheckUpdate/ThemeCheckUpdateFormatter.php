@@ -8,6 +8,14 @@ use stdClass;
 
 class CheckUpdateFormatterTheme implements CheckUpdateFormatterContract {
 
+	/**
+	 * Format the update check response for themes.
+	 *
+	 * @param array<string, mixed> $response               The original response array.
+	 * @param PackageMetaContract  $localPackageMetaProvider  Local package metadata.
+	 * @param PackageMetaContract  $remotePackageMetaProvider Remote package metadata.
+	 * @return array<string, mixed>                        The formatted response.
+	 */
 	public function formatForCheckUpdate(
 		array $response,
 		PackageMetaContract $localPackageMetaProvider,

@@ -35,7 +35,7 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyze": "phpstan",
+        "analyze": "php -d memory_limit=512M vendor/bin/phpstan",
         "sniff": "phpcs -ps src/ tests/",
         "fix": "phpcbf src/ tests/"
     },
