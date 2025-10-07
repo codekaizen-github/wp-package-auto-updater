@@ -5,3 +5,5 @@ parameters:
         - tests
 includes:
     - vendor/phpstan/phpstan-mockery/extension.neon
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
