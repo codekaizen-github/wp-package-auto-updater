@@ -1,4 +1,10 @@
 <?php
+/**
+ * File containing PluginCheckUpdateHook class.
+ *
+ * @package WPPackageAutoUpdater
+ * @subpackage CheckUpdate
+ */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate;
 
@@ -10,22 +16,74 @@ use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 use stdClass;
 
+/**
+ * PluginCheckUpdateHook class.
+ *
+ * @package WPPackageAutoUpdater
+ */
 class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 
+	/**
+	 * The local package meta provider factory.
+	 *
+	 * @var PluginPackageMetaProviderFactoryContract
+	 */
 	protected PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
+
+	/**
+	 * The remote package meta provider factory.
+	 *
+	 * @var PluginPackageMetaProviderFactoryContract
+	 */
 	protected PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
+
+	/**
+	 * The logger instance.
+	 *
+	 * @var LoggerInterface
+	 */
 	protected LoggerInterface $logger;
-	public function __construct( PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory, PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory, LoggerInterface $logger ) {
+	/**
+	 * Constructor.
+	 *
+	 * @param PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local provider factory.
+	 * @param PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory Remote provider factory.
+	 * @param LoggerInterface                          $logger Logger instance.
+	 */
+	public function __construct(
+		PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
+		PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory,
+		LoggerInterface $logger
+	) {
 		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
 		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
 		$this->logger                           = $logger;
 	}
+	/**
+	 * Initialize the component.
+	 *
+	 * @return void
+	 */
 	public function init(): void {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'checkUpdate' ) );
 	}
+	/**
+	 * Check for updates.
+	 *
+	 * @param stdClass $transient WordPress update transient.
+	 *
+	 * @return stdClass Modified transient with update information.
+	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
-		$formatter   = new CheckUpdateFormatterPlugin();
-		$checkUpdate = new CheckUpdateStrategy( $this->localPackageMetaProviderFactory->create(), $this->remotePackageMetaProviderFactory->create(), $formatter, $this->logger );
+		$formatter = new CheckUpdateFormatterPlugin();
+
+		$checkUpdate = new CheckUpdateStrategy(
+			$this->localPackageMetaProviderFactory->create(),
+			$this->remotePackageMetaProviderFactory->create(),
+			$formatter,
+			$this->logger
+		);
+
 		return $checkUpdate->checkUpdate( $transient );
 	}
 }

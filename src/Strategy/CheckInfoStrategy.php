@@ -1,4 +1,10 @@
 <?php
+/**
+ * File containing CheckInfoStrategy class.
+ *
+ * @package WPPackageAutoUpdater
+ * @subpackage Strategy
+ */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
@@ -9,6 +15,11 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Strategy for checking package information.
+ */
+/**
+ * CheckInfoStrategy class.
+ *
+ * @package WPPackageAutoUpdater
  */
 class CheckInfoStrategy implements CheckInfoStrategyContract {
 
@@ -40,6 +51,15 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	 * @param CheckInfoFormatterContract $formatter               The formatter.
 	 * @param LoggerInterface            $logger                  The logger.
 	 */
+	/**
+	 * Constructor.
+	 *
+	 * @param PackageMetaContract        $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param CheckInfoFormatterContract $formatter Description for formatter.
+	 * @param LoggerInterface            $logger Description for logger.
+	 *
+	 * @return mixed
+	 */
 	public function __construct(
 		PackageMetaContract $localPackageMetaProvider,
 		CheckInfoFormatterContract $formatter,
@@ -49,7 +69,6 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 		$this->formatter                = $formatter;
 		$this->logger                   = $logger;
 	}
-
 	/**
 	 * Check package info and inject custom data.
 	 *

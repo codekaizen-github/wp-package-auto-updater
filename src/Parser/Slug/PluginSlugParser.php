@@ -1,4 +1,10 @@
 <?php
+/**
+ * File containing PluginSlugParser class.
+ *
+ * @package WPPackageAutoUpdater
+ * @subpackage Slug
+ */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
 
@@ -8,6 +14,11 @@ use UnexpectedValueException;
 
 /**
  * Parser for plugin slugs.
+ */
+/**
+ * PluginSlugParser class.
+ *
+ * @package WPPackageAutoUpdater
  */
 class PluginSlugParser implements SlugParserContract {
 
@@ -45,6 +56,14 @@ class PluginSlugParser implements SlugParserContract {
 	 * @param string              $filePath    The file path.
 	 * @param PackageRootContract $packageRoot The package root contract.
 	 */
+	/**
+	 * Constructor.
+	 *
+	 * @param string              $filePath Description for filePath.
+	 * @param PackageRootContract $packageRoot Description for packageRoot.
+	 *
+	 * @return mixed
+	 */
 	public function __construct( string $filePath, PackageRootContract $packageRoot ) {
 		$this->filePath    = $filePath;
 		$this->packageRoot = $packageRoot;
@@ -58,6 +77,12 @@ class PluginSlugParser implements SlugParserContract {
 	 * @return string The short slug.
 	 * @throws UnexpectedValueException If the slug cannot be determined.
 	 */
+	/**
+	 * Get Short Slug.
+	 *
+	 * @return string The short slug for this plugin.
+	 * @throws \UnexpectedValueException If the slug cannot be determined.
+	 */
 	public function getShortSlug(): string {
 		if ( null === $this->shortSlug ) {
 			$split           = explode( '/', $this->getFullSlug() );
@@ -66,7 +91,7 @@ class PluginSlugParser implements SlugParserContract {
 
 		// Explicitly ensure the return value is a string.
 		if ( '' === $this->shortSlug ) {
-			throw new UnexpectedValueException( 'Failed to determine short slug.' );
+			throw new UnexpectedValueException( esc_html( 'Failed to determine short slug.' ) );
 		}
 
 		return $this->shortSlug;
@@ -78,6 +103,12 @@ class PluginSlugParser implements SlugParserContract {
 	 * @return string The full slug.
 	 * @throws UnexpectedValueException If the slug cannot be determined.
 	 */
+	/**
+	 * Get Full Slug.
+	 *
+	 * @return string The full slug for this plugin.
+	 * @throws \UnexpectedValueException If the slug cannot be determined.
+	 */
 	public function getFullSlug(): string {
 		if ( null === $this->fullSlug ) {
 			$pluginRoot = $this->packageRoot->getPackageRoot();
@@ -85,7 +116,8 @@ class PluginSlugParser implements SlugParserContract {
 
 			$realPathFile = realpath( $this->filePath );
 			if ( false === $realPathFile ) {
-				throw new UnexpectedValueException( 'Could not resolve real path for file: ' . $this->filePath );
+				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
+				throw new UnexpectedValueException( esc_html( $errorMsg ) );
 			}
 
 			$realPathFileBasename = basename( $realPathFile );
@@ -118,7 +150,7 @@ class PluginSlugParser implements SlugParserContract {
 				}
 			}
 			if ( ! is_string( $slug ) ) {
-				throw new UnexpectedValueException( "Expected slug to be string. Got $slug instead." );
+				throw new UnexpectedValueException( esc_html( "Expected slug to be string. Got $slug instead." ) );
 			}
 			$this->fullSlug = $slug;
 		}

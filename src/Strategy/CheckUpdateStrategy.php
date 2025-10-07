@@ -1,9 +1,15 @@
 <?php
+/**
+ * File containing CheckUpdateStrategy class.
+ *
+ * @package WPPackageAutoUpdater
+ * @subpackage Strategy
+ */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract as StrategyCheckUpdateStrategyContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use Psr\Log\LoggerInterface;
 use Exception;
@@ -12,7 +18,12 @@ use stdClass;
 /**
  * Strategy for checking package updates.
  */
-class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract {
+/**
+ * CheckUpdateStrategy class.
+ *
+ * @package WPPackageAutoUpdater
+ */
+class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 
 	/**
 	 * The local package meta provider.
@@ -50,6 +61,16 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract {
 	 * @param CheckUpdateFormatterContract $formatter                The formatter.
 	 * @param LoggerInterface              $logger                   The logger.
 	 */
+	/**
+	 * Constructor.
+	 *
+	 * @param PackageMetaContract          $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param PackageMetaContract          $remotePackageMetaProvider Description for remotePackageMetaProvider.
+	 * @param CheckUpdateFormatterContract $formatter Description for formatter.
+	 * @param LoggerInterface              $logger Description for logger.
+	 *
+	 * @return mixed
+	 */
 	public function __construct(
 		PackageMetaContract $localPackageMetaProvider,
 		PackageMetaContract $remotePackageMetaProvider,
@@ -68,6 +89,13 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract {
 	 * @param stdClass $transient The transient object containing update data.
 	 * @return stdClass           The modified transient object.
 	 */
+	/**
+	 * Check for updates.
+	 *
+	 * @param stdClass $transient Description for transient.
+	 *
+	 * @return stdClass The modified transient object with update information.
+	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
 		$this->logger->debug( 'Checking for updates ' . $this->localPackageMetaProvider->getFullSlug() );
 		if ( empty( $transient->checked ) ) {
@@ -84,11 +112,11 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract {
 			}
 
 			if ( version_compare( $localVersion, $remoteVersion, '<' ) ) {
-				// Define the response property if it doesn't exist
+				// Define the response property if it doesn't exist.
 				if ( ! property_exists( $transient, 'response' ) ) {
 					$transient->response = [];
 				}
-				// Ensure $transient->response is an array
+				// Ensure $transient->response is an array.
 				if ( ! is_array( $transient->response ) ) {
 					$transient->response = [];
 				}
@@ -98,16 +126,16 @@ class CheckUpdateStrategy implements StrategyCheckUpdateStrategyContract {
 					$this->remotePackageMetaProvider
 				);
 			} else {
-				// Define the no_update property if it doesn't exist
-				if ( ! property_exists( $transient, 'no_update' ) ) {
-					$transient->no_update = [];
+				// Define the noUpdate property if it doesn't exist.
+				if ( ! property_exists( $transient, 'noUpdate' ) ) {
+					$transient->noUpdate = [];
 				}
-				// Ensure $transient->no_update is an array
-				if ( ! is_array( $transient->no_update ) ) {
-					$transient->no_update = [];
+				// Ensure $transient->noUpdate is an array.
+				if ( ! is_array( $transient->noUpdate ) ) {
+					$transient->noUpdate = [];
 				}
-				$transient->no_update = $this->formatter->formatForCheckUpdate(
-					$transient->no_update,
+				$transient->noUpdate = $this->formatter->formatForCheckUpdate(
+					$transient->noUpdate,
 					$this->localPackageMetaProvider,
 					$this->remotePackageMetaProvider
 				);
