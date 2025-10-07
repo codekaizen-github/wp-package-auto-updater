@@ -12,6 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as LocalPluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
 

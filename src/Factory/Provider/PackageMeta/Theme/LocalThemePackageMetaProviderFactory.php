@@ -12,6 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1 as LocalThemePackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
 

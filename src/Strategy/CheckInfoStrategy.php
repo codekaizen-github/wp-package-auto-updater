@@ -76,8 +76,11 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	 * @param array<string, string> $action The type of information being requested.
 	 * @param object                $arg    The arguments passed to the API request.
 	 * @return bool|object                  False if no action taken or object with info.
+	 *
+	 * phpcs:disable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 	 */
 	public function checkInfo( bool $false, array $action, object $arg ): bool|object {
+		// phpcs:enable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 		// Check if this is for our package.
 		if ( ! isset( $arg->slug ) || $arg->slug !== $this->localPackageMetaProvider->getShortSlug() ) {
 			return $false;
@@ -87,7 +90,12 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 		// Get metadata from remote source.
 		$meta = $this->formatter->formatForCheckInfo();
 
-		$this->logger->debug( 'Returning package info with properties: ' . implode( ', ', array_keys( (array) $meta ) ) );
+		$this->logger->debug(
+			'Returning package info with properties: ' . implode(
+				', ',
+				array_keys( (array) $meta )
+			)
+		);
 
 		return $meta;
 	}

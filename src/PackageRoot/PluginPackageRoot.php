@@ -15,8 +15,6 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
  *
  * @package WPPackageAutoUpdater
  */
-
-
 class PluginPackageRoot implements PackageRootContract {
 
 	/**
