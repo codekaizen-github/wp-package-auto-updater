@@ -91,7 +91,7 @@ class PluginSlugParser implements SlugParserContract {
 
 		// Explicitly ensure the return value is a string.
 		if ( '' === $this->shortSlug ) {
-			throw new UnexpectedValueException( esc_html( 'Failed to determine short slug.' ) );
+			throw new UnexpectedValueException( 'Failed to determine short slug.' );
 		}
 
 		return $this->shortSlug;
@@ -117,7 +117,8 @@ class PluginSlugParser implements SlugParserContract {
 			$realPathFile = realpath( $this->filePath );
 			if ( false === $realPathFile ) {
 				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
-				throw new UnexpectedValueException( esc_html( $errorMsg ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				throw new UnexpectedValueException( $errorMsg );
 			}
 
 			$realPathFileBasename = basename( $realPathFile );
@@ -150,7 +151,8 @@ class PluginSlugParser implements SlugParserContract {
 				}
 			}
 			if ( ! is_string( $slug ) ) {
-				throw new UnexpectedValueException( esc_html( "Expected slug to be string. Got $slug instead." ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				throw new UnexpectedValueException( "Expected slug to be string. Got $slug instead." );
 			}
 			$this->fullSlug = $slug;
 		}
