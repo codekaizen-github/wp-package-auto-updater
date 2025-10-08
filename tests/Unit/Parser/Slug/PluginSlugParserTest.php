@@ -28,10 +28,13 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-plugin/my-test-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() . '/plugins/my-test-plugin/my-test-plugin.php';
 		$packageRoot       = Mockery::mock( PackageRootContract::class );
-		$packageRoot->shouldReceive( 'getPackageRoot' )->with()->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
 		$sut = new PluginSlugParser( $filePath, $packageRoot );
-		$this->assertEquals( $sut->getShortSlug(), $shortSlugExpected );
-		$this->assertEquals( $sut->getFullSlug(), $fullSlugExpected );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
 	/**
 	 * Undocumented function
@@ -39,13 +42,71 @@ class PluginSlugParserTest extends TestCase {
 	 * @return void
 	 */
 	public function testNormalPackageRootFolderAndNormalPackageFolderAndMissingPackageFileIsInvalid(): void {
-				$shortSlugExpected = 'my-test-plugin';
-		$fullSlugExpected          = 'my-test-plugin/my-test-plugin.php';
-		$filePath                  = FixturePathHelper::getPathForPlugin() . '/plugins/my-test-plugin/i-do-not-exist.php';
-		$packageRoot               = Mockery::mock( PackageRootContract::class );
-		$packageRoot->shouldReceive( 'getPackageRoot' )->with()->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$filePath    = FixturePathHelper::getPathForPlugin() . '/plugins/my-test-plugin/i-do-not-exist.php';
+		$packageRoot = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
 		$sut = new PluginSlugParser( $filePath, $packageRoot );
 		$this->expectException( UnexpectedValueException::class );
 		$sut->getShortSlug();
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testNormalPackageRootFolderAndSymlinkPackageFolderAndNormalPackageFileIsValid(): void {
+		$shortSlugExpected = 'my-test-plugin-symlink';
+		$fullSlugExpected  = 'my-test-plugin-symlink/my-test-plugin.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins/my-test-plugin-symlink/my-test-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testSymlinkPackageRootFolderAndNormalPackageFolderAndNormalPackageFileIsValid(): void {
+		$shortSlugExpected = 'my-test-plugin';
+		$fullSlugExpected  = 'my-test-plugin/my-test-plugin.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins-symlink/my-test-plugin/my-test-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testSymlinkPackageRootFolderAndSymlinkPackageFolderAndNormalPackageFileIsValid(): void {
+		$shortSlugExpected = 'my-test-plugin-symlink';
+		$fullSlugExpected  = 'my-test-plugin-symlink/my-test-plugin.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins-symlink/my-test-plugin-symlink/my-test-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
 }
