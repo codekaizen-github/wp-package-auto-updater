@@ -128,16 +128,35 @@ class PluginSlugParserTest extends TestCase {
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
-		/**
-		 * Undocumented function
-		 *
-		 * @return void
-		 */
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
 	public function testNormalPackageRootFolderAndNoPackageFolderAndNormalPackageFileIsValid(): void {
 		$shortSlugExpected = 'simple-plugin';
 		$fullSlugExpected  = 'simple-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins/simple-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testNormalPackageRootFolderAndNoPackageFolderAndSymlinkPackageFileIsValid(): void {
+		$shortSlugExpected = 'simple-plugin-symlink';
+		$fullSlugExpected  = 'simple-plugin-symlink.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins/simple-plugin-symlink.php';
 		$packageRoot       = Mockery::mock( PackageRootContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )

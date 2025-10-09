@@ -116,7 +116,7 @@ class PluginSlugParser implements SlugParserContract {
 			$dirEntries = scandir( $pluginRoot );
 
 			$realPathFile = realpath( $this->filePath );
-			echo $realPathFile;
+
 			if ( false === $realPathFile ) {
 				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
@@ -147,7 +147,7 @@ class PluginSlugParser implements SlugParserContract {
 				// Check single-file plugins.
 				if ( is_file( $candidate ) ) {
 					if ( realpath( $candidate ) === $realPathFile ) {
-						$slug = $realPathFileBasename;
+						$slug = $entry;
 						break;
 					}
 				}

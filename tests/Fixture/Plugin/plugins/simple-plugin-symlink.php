@@ -1,1 +1,1 @@
-simple-plugin.php
+../plugins-symlink-targets/simple-plugin.php
