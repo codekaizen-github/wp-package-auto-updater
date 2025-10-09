@@ -109,4 +109,42 @@ class PluginSlugParserTest extends TestCase {
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testNormalPackageRootFolderAndNormalPackageFolderAndOtherNamedPackageFileIsValid(): void {
+		$shortSlugExpected = 'other-test-plugin';
+		$fullSlugExpected  = 'other-test-plugin/different-name-plugin.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins/other-test-plugin/different-name-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
+	}
+		/**
+		 * Undocumented function
+		 *
+		 * @return void
+		 */
+	public function testNormalPackageRootFolderAndNoPackageFolderAndNormalPackageFileIsValid(): void {
+		$shortSlugExpected = 'simple-plugin';
+		$fullSlugExpected  = 'simple-plugin.php';
+		$filePath          = FixturePathHelper::getPathForPlugin() .
+			'/plugins/simple-plugin.php';
+		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot
+			->shouldReceive( 'getPackageRoot' )
+			->with()
+			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
+		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
+		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
+	}
 }

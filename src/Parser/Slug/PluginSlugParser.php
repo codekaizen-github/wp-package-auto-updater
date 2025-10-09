@@ -85,8 +85,9 @@ class PluginSlugParser implements SlugParserContract {
 	 */
 	public function getShortSlug(): string {
 		if ( null === $this->shortSlug ) {
-			$split           = explode( '/', $this->getFullSlug() );
-			$this->shortSlug = (string) array_shift( $split );
+			$split             = explode( '/', $this->getFullSlug() );
+			$firstFilePathPart = (string) array_shift( $split );
+			$this->shortSlug   = basename( $firstFilePathPart, '.php' );
 		}
 
 		// Explicitly ensure the return value is a string.
