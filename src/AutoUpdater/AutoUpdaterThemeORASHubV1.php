@@ -13,8 +13,6 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\LocalThem
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\RemoteThemePackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
-use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
-use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
