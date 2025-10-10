@@ -84,14 +84,16 @@ class ThemeSlugParser implements SlugParserContract {
 			$realPathFile = realpath( $this->filePath );
 			if ( false === $realPathFile ) {
 				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
-				throw new UnexpectedValueException( esc_html( $errorMsg ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				throw new UnexpectedValueException( $errorMsg );
 			}
 
 			$realPath = realpath( dirname( $realPathFile ) );
 			if ( false === $realPath ) {
 				$dirPath  = dirname( $realPathFile );
 				$errorMsg = 'Could not resolve real path for directory: ' . $dirPath;
-				throw new UnexpectedValueException( esc_html( $errorMsg ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				throw new UnexpectedValueException( $errorMsg );
 			}
 
 			$slug = null;
@@ -108,7 +110,8 @@ class ThemeSlugParser implements SlugParserContract {
 				}
 			}
 			if ( ! is_string( $slug ) ) {
-				throw new UnexpectedValueException( esc_html( "Expected slug to be string. Got $slug instead." ) );
+				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+				throw new UnexpectedValueException( "Expected slug to be string. Got $slug instead." );
 			}
 			$this->shortSlug = $slug;
 		}
