@@ -9,6 +9,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use stdClass;
 
@@ -42,20 +43,7 @@ class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 	 * @return object The formatted object containing theme information.
 	 */
 	public function formatForCheckInfo(): object {
-		$stdObj          = new stdClass();
-		$stdObj->name    = $this->provider->getName();
-		$stdObj->slug    = $this->provider->getShortSlug();
-		$stdObj->version = $this->provider->getVersion();
-		$stdObj->author  = $this->provider->getAuthor();
-		// Author profile is not available in the current implementation.
-		$stdObj->requires     = $this->provider->getRequiresWordPressVersion();
-		$stdObj->tested       = $this->provider->getTested();
-		$stdObj->requiresPhp  = $this->provider->getRequiresPHPVersion();
-		$stdObj->homepage     = $this->provider->getViewURL();
-		$stdObj->downloadLink = $this->provider->getDownloadURL();
-		$stdObj->updateUri    = $this->provider->getDownloadURL();
-		// Last updated date is not available in the current implementation.
-		$stdObj->tags = $this->provider->getTags();
+		$stdObj = new ThemeCheckInfoMetaObject( $this->provider );
 		return $stdObj;
 	}
 }
