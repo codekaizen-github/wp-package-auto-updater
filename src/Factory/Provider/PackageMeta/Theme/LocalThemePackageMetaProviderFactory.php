@@ -6,7 +6,7 @@
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;

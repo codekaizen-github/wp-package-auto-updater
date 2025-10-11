@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\LocalPluginPackageMetaProviderFactory;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local\RemotePluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\LocalPluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePluginPackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
 use Psr\Log\LoggerInterface;
@@ -24,18 +24,29 @@ use Psr\Log\NullLogger;
 class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 
 	/**
-	 * The check update hook.
+	 * Undocumented variable
 	 *
-	 * @var InitializerContract
+	 * @var string
 	 */
-	protected InitializerContract $checkUpdateHook;
-
+	protected string $filePath;
 	/**
-	 * The check info hook.
+	 * Undocumented variable
 	 *
-	 * @var InitializerContract
+	 * @var string
 	 */
-	protected InitializerContract $checkInfoHook;
+	protected string $baseURL;
+	/**
+	 * Undocumented variable
+	 *
+	 * @var string
+	 */
+	protected string $metaKey;
+	/**
+	 * Undocumented variable
+	 *
+	 * @var LoggerInterface
+	 */
+	protected LoggerInterface $logger;
 	/**
 	 * Constructor.
 	 *
@@ -52,18 +63,10 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 		string $metaKey = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata',
 		LoggerInterface $logger = new NullLogger()
 	) {
-		$localPackageMetaProviderFactory  = new LocalPluginPackageMetaProviderFactory( $filePath, $logger );
-		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaProviderFactory( $baseURL, $metaKey, $logger );
-		$this->checkUpdateHook            = new PluginCheckUpdateHook(
-			$localPackageMetaProviderFactory,
-			$remotePackageMetaProviderFactory,
-			$logger
-		);
-		$this->checkInfoHook              = new PluginCheckInfoHook(
-			$localPackageMetaProviderFactory,
-			$remotePackageMetaProviderFactory,
-			$logger
-		);
+		$this->filePath = $filePath;
+		$this->baseURL  = $baseURL;
+		$this->metaKey  = $metaKey;
+		$this->logger   = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -71,7 +74,23 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 	 * @return void
 	 */
 	public function init(): void {
-		$this->checkUpdateHook->init();
-		$this->checkInfoHook->init();
+		$localPackageMetaProviderFactory  = new LocalPluginPackageMetaProviderFactory( $this->filePath, $this->logger );
+		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaProviderFactory(
+			$this->baseURL,
+			$this->metaKey,
+			$this->logger
+		);
+		$checkUpdateHook                  = new PluginCheckUpdateHook(
+			$localPackageMetaProviderFactory,
+			$remotePackageMetaProviderFactory,
+			$this->logger
+		);
+		$checkInfoHook                    = new PluginCheckInfoHook(
+			$localPackageMetaProviderFactory,
+			$remotePackageMetaProviderFactory,
+			$this->logger
+		);
+		$checkUpdateHook->init();
+		$checkInfoHook->init();
 	}
 }

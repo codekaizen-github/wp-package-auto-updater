@@ -6,7 +6,7 @@
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Local;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
