@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing CheckInfoFormatterTheme class.
+ * File containing ThemeCheckInfoFormatter class.
  *
  * @package WPPackageAutoUpdater
  * @subpackage CheckInfo
@@ -9,31 +9,31 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use stdClass;
 
 /**
- * CheckInfoFormatterTheme class.
+ * ThemeCheckInfoFormatter class.
  *
  * @package WPPackageAutoUpdater
  */
-class CheckInfoFormatterTheme implements CheckInfoFormatterContract {
+class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 
 	/**
 	 * The theme package meta provider.
 	 *
-	 * @var ThemePackageMetaContract
+	 * @var PackageMetaContract
 	 */
-	private ThemePackageMetaContract $provider;
+	private PackageMetaContract $provider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaContract $provider Description for provider.
+	 * @param PackageMetaContract $provider Description for provider.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( ThemePackageMetaContract $provider ) {
+	public function __construct( PackageMetaContract $provider ) {
 		$this->provider = $provider;
 	}
 	/**

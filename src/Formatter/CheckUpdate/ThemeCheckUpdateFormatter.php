@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
-use stdClass;
 
 /**
  * CheckUpdateFormatterTheme class.
@@ -41,11 +41,7 @@ class CheckUpdateFormatterTheme implements CheckUpdateFormatterContract {
 		PackageMetaContract $localPackageMetaProvider,
 		PackageMetaContract $remotePackageMetaProvider
 	): array {
-		$metaObject             = new stdClass();
-		$metaObject->slug       = $remotePackageMetaProvider->getShortSlug();
-		$metaObject->newVersion = $remotePackageMetaProvider->getVersion();
-		$metaObject->package    = $remotePackageMetaProvider->getDownloadURL();
-		$metaObject->url        = $remotePackageMetaProvider->getViewURL();
+		$metaObject = new CheckUpdateMetaObject( $remotePackageMetaProvider );
 		$response[ $localPackageMetaProvider->getFullSlug() ] = (array) $metaObject;
 		return $response;
 	}

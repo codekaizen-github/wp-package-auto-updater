@@ -11,7 +11,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\CheckInfoFormatterPlugin;
+use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 
@@ -76,7 +76,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	 * @return bool|object                  False if no action taken or object with info.
 	 */
 	public function checkInfo( bool $result, array $action, object $arg ): bool|object {
-		$formatter = new CheckInfoFormatterPlugin( $this->remotePackageMetaProviderFactory->create() );
+		$formatter = new PluginCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
 
 		$checkInfo = new CheckInfoStrategy(
 			$this->localPackageMetaProviderFactory->create(),
