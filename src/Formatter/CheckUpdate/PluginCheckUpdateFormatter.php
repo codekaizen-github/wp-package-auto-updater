@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing CheckUpdateFormatterPlugin class.
+ * File containing PluginCheckUpdateFormatter class.
  *
  * @package WPPackageAutoUpdater
  * @subpackage CheckUpdate
@@ -13,11 +13,11 @@ use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 
 /**
- * CheckUpdateFormatterPlugin class.
+ * PluginCheckUpdateFormatter class.
  *
  * @package WPPackageAutoUpdater
  */
-class CheckUpdateFormatterPlugin implements CheckUpdateFormatterContract {
+class PluginCheckUpdateFormatter implements CheckUpdateFormatterContract {
 
 	/**
 	 * Format the update check response for plugins.

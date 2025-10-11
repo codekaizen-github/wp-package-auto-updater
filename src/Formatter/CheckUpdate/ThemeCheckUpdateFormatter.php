@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing CheckUpdateFormatterTheme class.
+ * File containing ThemeCheckUpdateFormatter class.
  *
  * @package WPPackageAutoUpdater
  * @subpackage CheckUpdate
@@ -13,11 +13,11 @@ use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 
 /**
- * CheckUpdateFormatterTheme class.
+ * ThemeCheckUpdateFormatter class.
  *
  * @package WPPackageAutoUpdater
  */
-class CheckUpdateFormatterTheme implements CheckUpdateFormatterContract {
+class ThemeCheckUpdateFormatter implements CheckUpdateFormatterContract {
 
 	/**
 	 * Format the update check response for themes.

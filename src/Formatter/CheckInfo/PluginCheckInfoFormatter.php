@@ -39,9 +39,9 @@ class PluginCheckInfoFormatter implements CheckInfoFormatterContract {
 	/**
 	 * Format data for check info.
 	 *
-	 * @return object The formatted object containing plugin information.
+	 * @return PluginCheckInfoMetaObject The formatted PluginCheckInfoMetaObject containing plugin information.
 	 */
-	public function formatForCheckInfo(): object {
+	public function formatForCheckInfo(): PluginCheckInfoMetaObject {
 		$stdObj = new PluginCheckInfoMetaObject( $this->provider );
 		return $stdObj;
 	}

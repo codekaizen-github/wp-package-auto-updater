@@ -40,9 +40,9 @@ class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 	/**
 	 * Format data for check info.
 	 *
-	 * @return object The formatted object containing theme information.
+	 * @return ThemeCheckInfoMetaObject The formatted ThemeCheckInfoMetaObject containing theme information.
 	 */
-	public function formatForCheckInfo(): object {
+	public function formatForCheckInfo(): ThemeCheckInfoMetaObject {
 		$stdObj = new ThemeCheckInfoMetaObject( $this->provider );
 		return $stdObj;
 	}
