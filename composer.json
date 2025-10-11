@@ -46,6 +46,7 @@
         "wp-coding-standards/wpcs": "^3.0",
         "mockery/mockery": "^1.6",
         "phpstan/phpstan-mockery": "^2.0",
-        "szepeviktor/phpstan-wordpress": "^2.0"
+        "szepeviktor/phpstan-wordpress": "^2.0",
+        "10up/wp_mock": "^1.1"
     }
 }
