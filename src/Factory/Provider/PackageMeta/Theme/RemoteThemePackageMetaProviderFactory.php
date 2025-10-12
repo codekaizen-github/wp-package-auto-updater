@@ -56,9 +56,10 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	 * @param LoggerInterface $logger Description for logger.
 	 */
 	public function __construct( string $baseURL, string $metaKey, LoggerInterface $logger ) {
-		$this->baseURL = $baseURL;
-		$this->metaKey = $metaKey;
-		$this->logger  = $logger;
+		$this->baseURL  = $baseURL;
+		$this->metaKey  = $metaKey;
+		$this->logger   = $logger;
+		$this->provider = null;
 	}
 	/**
 	 * Create a new instance.

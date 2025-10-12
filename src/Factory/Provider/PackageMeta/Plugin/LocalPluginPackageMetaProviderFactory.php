@@ -53,6 +53,7 @@ class LocalPluginPackageMetaProviderFactory implements PluginPackageMetaProvider
 	public function __construct( string $filePath, LoggerInterface $logger ) {
 		$this->filePath = $filePath;
 		$this->logger   = $logger;
+		$this->provider = null;
 	}
 	/**
 	 * Create a new instance.
