@@ -75,7 +75,11 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 	 */
 	public function init(): void {
 		$localPackageMetaProviderFactory  = new LocalThemePackageMetaProviderFactory( $this->filePath, $this->logger );
-		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaProviderFactory( $this->baseURL, $this->metaKey, $this->logger );
+		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaProviderFactory(
+			$this->baseURL,
+			$this->metaKey,
+			$this->logger
+		);
 		$checkUpdateHook                  = new ThemeCheckUpdateHook(
 			$localPackageMetaProviderFactory,
 			$remotePackageMetaProviderFactory,
