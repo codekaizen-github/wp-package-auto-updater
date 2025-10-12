@@ -2,7 +2,7 @@
 /**
  * File containing PluginCheckUpdateFormatter class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate
  * @subpackage CheckUpdate
  */
 
@@ -15,7 +15,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 /**
  * PluginCheckUpdateFormatter class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate
  */
 class PluginCheckUpdateFormatter implements CheckUpdateFormatterContract {
 

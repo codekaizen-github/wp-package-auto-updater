@@ -2,7 +2,7 @@
 /**
  * File containing CheckInfoFormatterContract Interface class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo
  * @subpackage CheckInfo
  */
 

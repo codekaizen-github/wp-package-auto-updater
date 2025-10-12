@@ -2,7 +2,7 @@
 /**
  * File containing RemotePluginPackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  * @subpackage Local
  */
 
@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 /**
  * RemotePluginPackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  */
 class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProviderFactoryContract {
 

@@ -2,7 +2,7 @@
 /**
  * File containing CheckUpdateStrategyContract Interface class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Strategy
  * @subpackage Strategy
  */
 

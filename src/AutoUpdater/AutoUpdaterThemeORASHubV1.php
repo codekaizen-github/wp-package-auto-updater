@@ -2,7 +2,7 @@
 /**
  * File containing AutoUpdaterThemeORASHubV1 class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\AutoUpdater
  * @subpackage AutoUpdater
  */
 
@@ -19,7 +19,7 @@ use Psr\Log\NullLogger;
 /**
  * AutoUpdaterThemeORASHubV1 class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\AutoUpdater
  */
 class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 

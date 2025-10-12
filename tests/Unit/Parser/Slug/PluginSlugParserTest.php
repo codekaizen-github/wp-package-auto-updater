@@ -2,7 +2,7 @@
 /**
  * File for PluginSlugParserTest.php.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug;

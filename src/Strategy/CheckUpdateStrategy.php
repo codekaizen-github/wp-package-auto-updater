@@ -2,7 +2,7 @@
 /**
  * File containing CheckUpdateStrategy class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  * @subpackage Strategy
  */
 
@@ -21,7 +21,7 @@ use stdClass;
 /**
  * CheckUpdateStrategy class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  */
 class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 

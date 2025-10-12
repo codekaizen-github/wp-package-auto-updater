@@ -2,7 +2,7 @@
 /**
  * File containing ThemeCheckUpdateHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  * @subpackage CheckUpdate
  */
 
@@ -19,7 +19,7 @@ use stdClass;
 /**
  * ThemeCheckUpdateHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  */
 class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 

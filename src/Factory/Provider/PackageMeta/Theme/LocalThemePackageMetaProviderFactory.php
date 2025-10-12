@@ -2,7 +2,7 @@
 /**
  * File containing LocalThemePackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  * @subpackage Local
  */
 
@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
 /**
  * LocalThemePackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
 class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFactoryContract {
 

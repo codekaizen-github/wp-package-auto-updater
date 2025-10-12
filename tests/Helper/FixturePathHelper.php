@@ -4,7 +4,7 @@
  *
  * Provides utility methods for accessing test fixture file paths.
  *
- * @package CodeKaizen\WPPackageMetaProviderLocalTests\Helper
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Helper
  * @since 1.0.0
  */
 

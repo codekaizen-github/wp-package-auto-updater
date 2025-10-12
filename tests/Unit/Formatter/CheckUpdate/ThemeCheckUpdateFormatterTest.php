@@ -2,7 +2,7 @@
 /**
  * Tests
  *
- * @package CodeKaizen\WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;

@@ -2,7 +2,7 @@
 /**
  * File containing ThemePackageRoot class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\PackageRoot
  * @subpackage PackageRoot
  */
 
@@ -13,7 +13,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
 /**
  * ThemePackageRoot class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\PackageRoot
  */
 class ThemePackageRoot implements PackageRootContract {
 

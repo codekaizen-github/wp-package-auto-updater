@@ -2,7 +2,7 @@
 /**
  * File containing InitializerContract Interface class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract
  * @subpackage Contract
  */
 

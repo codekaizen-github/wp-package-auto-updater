@@ -2,7 +2,7 @@
 /**
  * File containing PluginCheckUpdateHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  * @subpackage CheckUpdate
  */
 
@@ -19,7 +19,7 @@ use stdClass;
 /**
  * PluginCheckUpdateHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  */
 class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 

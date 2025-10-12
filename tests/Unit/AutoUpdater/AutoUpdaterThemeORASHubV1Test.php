@@ -2,7 +2,7 @@
 /**
  * Test
  *
- * @package CodeKaizen\WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater;

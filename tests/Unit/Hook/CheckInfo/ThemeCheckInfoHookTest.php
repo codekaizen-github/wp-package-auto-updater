@@ -2,7 +2,7 @@
 /**
  * Test for ThemeCheckInfoHook.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckInfo
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckInfo;

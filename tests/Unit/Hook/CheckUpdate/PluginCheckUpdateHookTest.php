@@ -2,7 +2,7 @@
 /**
  * Test for PluginCheckUpdateHook.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;

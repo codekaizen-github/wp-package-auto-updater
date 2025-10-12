@@ -2,7 +2,7 @@
 /**
  * Tests
  *
- * @package CodeKaizen\WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo;

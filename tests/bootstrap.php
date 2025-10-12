@@ -2,7 +2,7 @@
 /**
  * This is a doc.
  *
- * @package CodeKaizen\WPPackageAutoupdater
+ * @package CodeKaizen\WPPackageAutoUpdaterTests
  */
 
 /**

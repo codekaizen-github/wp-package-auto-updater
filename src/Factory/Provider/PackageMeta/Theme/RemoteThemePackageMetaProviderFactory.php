@@ -2,7 +2,7 @@
 /**
  * File containing RemoteThemePackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  * @subpackage Local
  */
 
@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 /**
  * RemoteThemePackageMetaProviderFactory class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
 class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderFactoryContract {
 

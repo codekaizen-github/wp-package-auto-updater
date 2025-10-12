@@ -2,7 +2,7 @@
 /**
  * File containing CheckInfoStrategy class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  * @subpackage Strategy
  */
 
@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
 /**
  * CheckInfoStrategy class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  */
 class CheckInfoStrategy implements CheckInfoStrategyContract {
 

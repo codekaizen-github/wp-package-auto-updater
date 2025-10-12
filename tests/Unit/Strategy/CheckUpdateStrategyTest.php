@@ -2,7 +2,7 @@
 /**
  * Test
  *
- * @package CodeKaizen\WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;

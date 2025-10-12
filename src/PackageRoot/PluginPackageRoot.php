@@ -2,7 +2,7 @@
 /**
  * File containing PluginPackageRoot class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\PackageRoot
  * @subpackage PackageRoot
  */
 
@@ -13,7 +13,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
 /**
  * PluginPackageRoot class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\PackageRoot
  */
 class PluginPackageRoot implements PackageRootContract {
 

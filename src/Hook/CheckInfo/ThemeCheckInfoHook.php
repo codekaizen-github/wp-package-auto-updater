@@ -2,7 +2,7 @@
 /**
  * File containing ThemeCheckInfoHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo
  * @subpackage CheckInfo
  */
 
@@ -18,7 +18,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFa
 /**
  * ThemeCheckInfoHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo
  */
 class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContract {
 

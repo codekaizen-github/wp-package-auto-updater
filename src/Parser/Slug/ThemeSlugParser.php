@@ -2,7 +2,7 @@
 /**
  * File containing ThemeSlugParser class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
  * @subpackage Slug
  */
 
@@ -18,7 +18,7 @@ use UnexpectedValueException;
 /**
  * ThemeSlugParser class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
  */
 class ThemeSlugParser implements SlugParserContract {
 

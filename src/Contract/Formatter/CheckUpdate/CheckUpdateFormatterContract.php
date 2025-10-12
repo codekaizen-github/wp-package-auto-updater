@@ -2,7 +2,7 @@
 /**
  * File containing CheckUpdateFormatterContract Interface class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate
  * @subpackage CheckUpdate
  */
 

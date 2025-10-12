@@ -2,7 +2,7 @@
 /**
  * File containing PackageRootContract Interface class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot
  * @subpackage PackageRoot
  */
 

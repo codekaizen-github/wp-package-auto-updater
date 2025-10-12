@@ -2,7 +2,7 @@
 /**
  * File containing ThemeCheckInfoFormatter class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo
  * @subpackage CheckInfo
  */
 
@@ -16,7 +16,7 @@ use stdClass;
 /**
  * ThemeCheckInfoFormatter class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo
  */
 class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 

@@ -2,7 +2,7 @@
 /**
  * File containing PluginCheckInfoHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo
  * @subpackage CheckInfo
  */
 
@@ -18,7 +18,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderF
 /**
  * PluginCheckInfoHook class.
  *
- * @package WPPackageAutoUpdater
+ *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo
  */
 class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContract {
 

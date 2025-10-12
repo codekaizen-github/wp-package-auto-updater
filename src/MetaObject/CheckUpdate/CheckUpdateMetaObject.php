@@ -2,7 +2,7 @@
 /**
  * PluginCheckUpdateMetaObject
  *
- * @package  CodeKaizen\WPPackageAutoUpdater
+ *   @package CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate;
