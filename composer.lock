@@ -103,12 +103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub.git",
-                "reference": "f7c3cbadd0b3a34e0ac580b5f66967b7565c90e7"
+                "reference": "cb97f3d646783c2ae416e712b713dbcd0f919895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-orashub/zipball/f7c3cbadd0b3a34e0ac580b5f66967b7565c90e7",
-                "reference": "f7c3cbadd0b3a34e0ac580b5f66967b7565c90e7",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-orashub/zipball/cb97f3d646783c2ae416e712b713dbcd0f919895",
+                "reference": "cb97f3d646783c2ae416e712b713dbcd0f919895",
                 "shasum": ""
             },
             "require": {
@@ -147,7 +147,7 @@
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub/issues",
                 "source": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub/tree/main"
             },
-            "time": "2025-10-12T19:33:58+00:00"
+            "time": "2025-10-14T01:18:53+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
