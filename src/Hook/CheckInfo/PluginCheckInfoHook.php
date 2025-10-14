@@ -69,13 +69,13 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	/**
 	 * Check plugin info and inject custom data.
 	 *
-	 * @param bool                  $result Always false initially.
-	 * @param array<string, string> $action The type of information being requested.
-	 * @param object                $arg    The arguments passed to the API request.
+	 * @param bool   $result Always false initially.
+	 * @param string $action The type of information being requested.
+	 * @param object $arg    The arguments passed to the API request.
 	 *
 	 * @return bool|object                  False if no action taken or object with info.
 	 */
-	public function checkInfo( bool $result, array $action, object $arg ): bool|object {
+	public function checkInfo( bool $result, string $action, object $arg ): bool|object {
 		$formatter = new PluginCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
 
 		$checkInfo = new CheckInfoStrategy(

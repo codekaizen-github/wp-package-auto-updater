@@ -32,7 +32,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = null;
-		$actual    = $sut->checkInfo( false, [], $arg );
+		$actual    = $sut->checkInfo( false, '', $arg );
 		$this->assertFalse( $actual );
 	}
 	/**
@@ -48,7 +48,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = 'other-plugin';
-		$actual    = $sut->checkInfo( false, [], $arg );
+		$actual    = $sut->checkInfo( false, '', $arg );
 		$this->assertFalse( $actual );
 	}
 	/**
@@ -67,7 +67,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = 'test-plugin';
-		$actual    = $sut->checkInfo( false, [], $arg );
+		$actual    = $sut->checkInfo( false, '', $arg );
 		$this->assertEquals( $expected, $actual );
 	}
 }
