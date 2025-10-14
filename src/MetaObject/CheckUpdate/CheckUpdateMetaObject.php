@@ -2,7 +2,7 @@
 /**
  * PluginCheckUpdateMetaObject
  *
- *   @package CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate
+ * @package CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate;
@@ -25,7 +25,7 @@ class CheckUpdateMetaObject extends stdClass {
 	 *
 	 * @var string|null
 	 */
-	public ?string $newVersion;
+	public ?string $new_version; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 	/**
 	 * Undocumented variable
 	 *
@@ -44,9 +44,10 @@ class CheckUpdateMetaObject extends stdClass {
 	 * @param PackageMetaContract $provider Provider.
 	 */
 	public function __construct( PackageMetaContract $provider ) {
-		$this->slug       = $provider->getShortSlug();
-		$this->newVersion = $provider->getVersion();
-		$this->package    = $provider->getDownloadURL();
-		$this->url        = $provider->getViewURL();
+		$this->slug = $provider->getShortSlug();
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->new_version = $provider->getVersion();
+		$this->package     = $provider->getDownloadURL();
+		$this->url         = $provider->getViewURL();
 	}
 }

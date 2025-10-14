@@ -43,8 +43,8 @@ class ThemeCheckUpdateFormatterTest extends TestCase {
 		$actualMetaArray = $actualResponse[ $fullSlugExpected ];
 		$this->assertArrayHasKey( 'slug', $actualMetaArray );
 		$this->assertEquals( $actualMetaArray['slug'], $slugExpected );
-		$this->assertArrayHasKey( 'newVersion', $actualMetaArray );
-		$this->assertEquals( $actualMetaArray['newVersion'], $newVersionExpected );
+		$this->assertArrayHasKey( 'new_version', $actualMetaArray );
+		$this->assertEquals( $actualMetaArray['new_version'], $newVersionExpected );
 		$this->assertArrayHasKey( 'package', $actualMetaArray );
 		$this->assertEquals( $actualMetaArray['package'], $packageExpected );
 		$this->assertArrayHasKey( 'url', $actualMetaArray );

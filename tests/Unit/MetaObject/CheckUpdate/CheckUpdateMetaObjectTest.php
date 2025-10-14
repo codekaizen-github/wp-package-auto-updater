@@ -34,8 +34,9 @@ class CheckUpdateMetaObjectTest extends TestCase {
 		$sut = new CheckUpdateMetaObject( $provider );
 		$this->assertObjectHasProperty( 'slug', $sut );
 		$this->assertEquals( $slugExpected, $sut->slug );
-		$this->assertObjectHasProperty( 'newVersion', $sut );
-		$this->assertEquals( $newVersionExpected, $sut->newVersion );
+		$this->assertObjectHasProperty( 'new_version', $sut );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertEquals( $newVersionExpected, $sut->new_version );
 		$this->assertObjectHasProperty( 'package', $sut );
 		$this->assertEquals( $packageExpected, $sut->package );
 		$this->assertObjectHasProperty( 'url', $sut );
