@@ -47,7 +47,10 @@ class PluginCheckUpdateFormatterTest extends TestCase {
 		$remotePackageMetaProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getViewURL' )->with()->andReturn( $urlExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $idExpected );
-		$remotePackageMetaProvider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresExpected );
+		$remotePackageMetaProvider
+			->shouldReceive( 'getRequiresWordPressVersion' )
+			->with()
+			->andReturn( $requiresExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn(

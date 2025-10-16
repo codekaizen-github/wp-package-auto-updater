@@ -109,7 +109,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.1.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedResponse );
 
 		// Call the method under test.
@@ -140,7 +140,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.9.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedNoUpdate );
 
 		// Call the method under test.
@@ -171,7 +171,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedNoUpdate );
 
 		// Call the method under test.
@@ -245,7 +245,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '2.0.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedResponse );
 
 		// Call the method under test.
@@ -276,7 +276,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedNoUpdate );
 
 		// Call the method under test.
@@ -307,7 +307,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '2.0.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedResponse );
 
 		// Call the method under test.
@@ -338,7 +338,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
 		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
 			->once()
-			->with( [], $this->localPackageMetaProvider, $this->remotePackageMetaProvider )
+			->with( [] )
 			->andReturn( $updatedNoUpdate );
 
 		// Call the method under test.
