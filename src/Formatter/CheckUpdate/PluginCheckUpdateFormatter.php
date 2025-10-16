@@ -9,8 +9,9 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\PluginCheckUpdateMetaObject;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
 
 /**
  * PluginCheckUpdateFormatter class.
@@ -18,31 +19,45 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
  *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate
  */
 class PluginCheckUpdateFormatter implements CheckUpdateFormatterContract {
-
 	/**
-	 * Format the update check response for plugins.
+	 * The local plugin package meta provider.
 	 *
-	 * @param array<string, mixed> $response               The original response array.
-	 * @param PackageMetaContract  $localPackageMetaProvider  Local package metadata.
-	 * @param PackageMetaContract  $remotePackageMetaProvider Remote package metadata.
-	 * @return array<string, mixed>                        The formatted response.
+	 * @var PluginPackageMetaContract
 	 */
+	protected PluginPackageMetaContract $localPackageMetaProvider;
+	/**
+	 * The remote plugin package meta provider.
+	 *
+	 * @var PluginPackageMetaContract
+	 */
+	protected PluginPackageMetaContract $remotePackageMetaProvider;
+	/**
+	 * Constructor.
+	 *
+	 * @param PluginPackageMetaContract $localPackageMetaProvider  The local package meta provider.
+	 * @param PluginPackageMetaContract $remotePackageMetaProvider The remote package meta provider.
+	 */
+	public function __construct(
+		PluginPackageMetaContract $localPackageMetaProvider,
+		PluginPackageMetaContract $remotePackageMetaProvider
+	) {
+		$this->localPackageMetaProvider  = $localPackageMetaProvider;
+		$this->remotePackageMetaProvider = $remotePackageMetaProvider;
+		// Constructor can be empty or used for dependency injection if needed in the future.
+	}
+
 	/**
 	 * Format For Check Update.
 	 *
 	 * @param array<string, mixed> $response The original response array.
-	 * @param PackageMetaContract  $localPackageMetaProvider Local package metadata.
-	 * @param PackageMetaContract  $remotePackageMetaProvider Remote package metadata.
 	 *
 	 * @return array<string, mixed> The formatted response with update information.
 	 */
 	public function formatForCheckUpdate(
 		array $response,
-		PackageMetaContract $localPackageMetaProvider,
-		PackageMetaContract $remotePackageMetaProvider
 	): array {
-		$metaObject = new CheckUpdateMetaObject( $remotePackageMetaProvider );
-		$response[ $localPackageMetaProvider->getFullSlug() ] = $metaObject;
+		$metaObject = new PluginCheckUpdateMetaObject( $this->remotePackageMetaProvider );
+		$response[ $this->localPackageMetaProvider->getFullSlug() ] = $metaObject;
 		return $response;
 	}
 }

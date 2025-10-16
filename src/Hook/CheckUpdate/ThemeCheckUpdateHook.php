@@ -75,7 +75,10 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	 * @return stdClass Modified transient with update information.
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
-		$formatter = new ThemeCheckUpdateFormatter();
+		$formatter = new ThemeCheckUpdateFormatter(
+			$this->localPackageMetaProviderFactory->create(),
+			$this->remotePackageMetaProviderFactory->create(),
+		);
 
 		$checkUpdate = new CheckUpdateStrategy(
 			$this->localPackageMetaProviderFactory->create(),

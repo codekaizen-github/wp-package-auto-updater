@@ -122,8 +122,6 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 				}
 				$transient->response = $this->formatter->formatForCheckUpdate(
 					$transient->response,
-					$this->localPackageMetaProvider,
-					$this->remotePackageMetaProvider
 				);
 			} else {
 				// Define the noUpdate property if it doesn't exist.
@@ -136,8 +134,6 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 				}
 				$transient->noUpdate = $this->formatter->formatForCheckUpdate(
 					$transient->noUpdate,
-					$this->localPackageMetaProvider,
-					$this->remotePackageMetaProvider
 				);
 			}
 		} catch ( Exception $e ) {
