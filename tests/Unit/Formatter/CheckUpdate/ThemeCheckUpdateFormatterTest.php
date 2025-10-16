@@ -8,8 +8,6 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\ThemeCheckUpdateFormatter;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
