@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing ThemeCheckUpdateFormatter class.
+ * File containing CheckUpdateFormatter class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate
  * @subpackage CheckUpdate
@@ -9,37 +9,36 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\ThemeCheckUpdateMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
 
 /**
- * ThemeCheckUpdateFormatter class.
+ * CheckUpdateFormatter class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate
  */
-class ThemeCheckUpdateFormatter implements CheckUpdateFormatterContract {
+class CheckUpdateFormatter implements CheckUpdateFormatterContract {
 	/**
 	 * The local plugin package meta provider.
 	 *
-	 * @var ThemePackageMetaContract
+	 * @var PackageMetaContract
 	 */
-	protected ThemePackageMetaContract $localPackageMetaProvider;
+	protected PackageMetaContract $localPackageMetaProvider;
 	/**
 	 * The remote plugin package meta provider.
 	 *
-	 * @var ThemePackageMetaContract
+	 * @var PackageMetaContract
 	 */
-	protected ThemePackageMetaContract $remotePackageMetaProvider;
+	protected PackageMetaContract $remotePackageMetaProvider;
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaContract $localPackageMetaProvider  The local package meta provider.
-	 * @param ThemePackageMetaContract $remotePackageMetaProvider The remote package meta provider.
+	 * @param PackageMetaContract $localPackageMetaProvider  The local package meta provider.
+	 * @param PackageMetaContract $remotePackageMetaProvider The remote package meta provider.
 	 */
 	public function __construct(
-		ThemePackageMetaContract $localPackageMetaProvider,
-		ThemePackageMetaContract $remotePackageMetaProvider
+		PackageMetaContract $localPackageMetaProvider,
+		PackageMetaContract $remotePackageMetaProvider
 	) {
 		$this->localPackageMetaProvider  = $localPackageMetaProvider;
 		$this->remotePackageMetaProvider = $remotePackageMetaProvider;
@@ -56,8 +55,8 @@ class ThemeCheckUpdateFormatter implements CheckUpdateFormatterContract {
 	public function formatForCheckUpdate(
 		array $response,
 	): array {
-		$metaObject = new ThemeCheckUpdateMetaObject( $this->remotePackageMetaProvider );
-		$response[ $this->localPackageMetaProvider->getFullSlug() ] = (array) $metaObject;
+		$metaObject = new CheckUpdateMetaObject( $this->remotePackageMetaProvider );
+		$response[ $this->localPackageMetaProvider->getFullSlug() ] = $metaObject;
 		return $response;
 	}
 }

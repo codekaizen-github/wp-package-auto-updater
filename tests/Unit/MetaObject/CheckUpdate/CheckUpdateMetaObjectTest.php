@@ -7,33 +7,33 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\ThemeCheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Undocumented class
  */
-class ThemeCheckUpdateMetaObjectTest extends TestCase {
+class CheckUpdateMetaObjectTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
 	 * @return void
 	 */
 	public function testValid(): void {
-		$slugExpected        = 'test-theme';
+		$slugExpected        = 'test-plugin';
 		$newVersionExpected  = '3.0.1';
 		$packageExpected     = 'https://github.com/codekaizen-github/wp-package-meta-provider-local';
 		$urlExpected         = 'https://codekaizen.net';
-		$idExpected          = 'test-theme/style.css';
+		$idExpected          = 'test-plugin/test-plugin.php';
 		$iconsExpected       = [];
 		$bannersExpected     = [];
 		$bannersRtlExpected  = [];
 		$requiresExpected    = '6.8.2';
 		$testedExpected      = '6.8.2';
 		$requiresPhpExpected = '8.2.1';
-		$provider            = Mockery::mock( ThemePackageMetaContract::class );
+		$provider            = Mockery::mock( PackageMetaContract::class );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $newVersionExpected );
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
@@ -42,7 +42,7 @@ class ThemeCheckUpdateMetaObjectTest extends TestCase {
 		$provider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresExpected );
 		$provider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$provider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );
-		$sut = new ThemeCheckUpdateMetaObject( $provider );
+		$sut = new CheckUpdateMetaObject( $provider );
 		$this->assertObjectHasProperty( 'slug', $sut );
 		$this->assertEquals( $slugExpected, $sut->slug );
 		$this->assertObjectHasProperty( 'new_version', $sut );

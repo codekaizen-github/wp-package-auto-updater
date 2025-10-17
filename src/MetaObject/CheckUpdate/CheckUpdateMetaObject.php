@@ -1,19 +1,25 @@
 <?php
 /**
- * PluginCheckUpdateMetaObject
+ * CheckUpdateMetaObject
  *
  * @package CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use stdClass;
 
 /**
  * Undocumented class
  */
-class PluginCheckUpdateMetaObject extends stdClass {
+class CheckUpdateMetaObject extends stdClass {
+	/**
+	 * Undocumented variable
+	 *
+	 * @var string
+	 */
+	public string $id;
 	/**
 	 * Undocumented variable
 	 *
@@ -31,24 +37,13 @@ class PluginCheckUpdateMetaObject extends stdClass {
 	 *
 	 * @var string|null
 	 */
-	public ?string $package;
-	/**
-	 * Undocumented variable
-	 *
-	 * @var string|null
-	 */
-	/**
-	 * Undocumented variable
-	 *
-	 * @var string|null
-	 */
 	public ?string $url;
 	/**
 	 * Undocumented variable
 	 *
 	 * @var string|null
 	 */
-	public ?string $id;
+	public ?string $package;
 	/**
 	 * Undocumented variable
 	 *
@@ -72,13 +67,13 @@ class PluginCheckUpdateMetaObject extends stdClass {
 	 *
 	 * @var string|null
 	 */
-	public ?string $requires;
+	public ?string $tested;
 	/**
 	 * Undocumented variable
 	 *
 	 * @var string|null
 	 */
-	public ?string $tested;
+	public ?string $requires;
 	/**
 	 * Undocumented variable
 	 *
@@ -86,32 +81,24 @@ class PluginCheckUpdateMetaObject extends stdClass {
 	 */
 	public ?string $requires_php; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 	/**
-	 * Undocumented variable
-	 *
-	 * @var array<string>
-	 */
-	public array $requires_plugins; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-	/**
 	 * Undocumented function
 	 *
-	 * @param PluginPackageMetaContract $provider Provider.
+	 * @param PackageMetaContract $provider Provider.
 	 */
-	public function __construct( PluginPackageMetaContract $provider ) {
+	public function __construct( PackageMetaContract $provider ) {
+		$this->id   = $provider->getFullSlug();
 		$this->slug = $provider->getShortSlug();
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 		$this->new_version = $provider->getVersion();
-		$this->package     = $provider->getDownloadURL();
 		$this->url         = $provider->getViewURL();
-		$this->id          = $provider->getFullSlug();
+		$this->package     = $provider->getDownloadURL();
 		$this->icons       = [];
 		$this->banners     = [];
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 		$this->banners_rtl = [];
-		$this->requires    = $provider->getRequiresWordPressVersion();
 		$this->tested      = $provider->getTested();
+		$this->requires    = $provider->getRequiresWordPressVersion();
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 		$this->requires_php = $provider->getRequiresPHPVersion();
-		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-		$this->requires_plugins = $provider->getRequiresPlugins();
 	}
 }

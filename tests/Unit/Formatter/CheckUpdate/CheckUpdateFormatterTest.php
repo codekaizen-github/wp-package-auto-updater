@@ -7,16 +7,16 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\PluginCheckUpdateFormatter;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\PluginCheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
+use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Undocumented class
  */
-class PluginCheckUpdateFormatterTest extends TestCase {
+class CheckUpdateFormatterTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -35,13 +35,13 @@ class PluginCheckUpdateFormatterTest extends TestCase {
 		$requiresExpected         = '6.8.2';
 		$testedExpected           = '6.8.2';
 		$requiresPhpExpected      = '8.2.1';
-		$requiresPluginsExpected  = [
+		$requiressExpected        = [
 			'plugin-one/plugin-one.php',
 			'plugin-two/plugin-two.php',
 		];
-		$localPackageMetaProvider = Mockery::mock( PluginPackageMetaContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
-		$remotePackageMetaProvider = Mockery::mock( PluginPackageMetaContract::class );
+		$remotePackageMetaProvider = Mockery::mock( PackageMetaContract::class );
 		$remotePackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getVersion' )->with()->andReturn( $newVersionExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
@@ -53,15 +53,15 @@ class PluginCheckUpdateFormatterTest extends TestCase {
 			->andReturn( $requiresExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );
-		$remotePackageMetaProvider->shouldReceive( 'getRequiresPlugins' )->with()->andReturn(
-			$requiresPluginsExpected
+		$remotePackageMetaProvider->shouldReceive( 'getRequiress' )->with()->andReturn(
+			$requiressExpected
 		);
-		$sut            = new PluginCheckUpdateFormatter( $localPackageMetaProvider, $remotePackageMetaProvider );
+		$sut            = new CheckUpdateFormatter( $localPackageMetaProvider, $remotePackageMetaProvider );
 		$actualResponse = $sut
 			->formatForCheckUpdate( [] );
 		$this->assertArrayHasKey( $fullSlugExpected, $actualResponse );
 		$this->assertIsObject( $actualResponse[ $fullSlugExpected ] );
 		$actualMetaObject = $actualResponse[ $fullSlugExpected ];
-		$this->assertInstanceOf( PluginCheckUpdateMetaObject::class, $actualMetaObject );
+		$this->assertInstanceOf( CheckUpdateMetaObject::class, $actualMetaObject );
 	}
 }
