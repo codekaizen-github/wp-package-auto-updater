@@ -10,8 +10,9 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaProviderFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1 as LocalThemePackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
@@ -40,9 +41,9 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 	/**
 	 * The theme package meta provider instance.
 	 *
-	 * @var ThemePackageMetaContract|null
+	 * @var ThemePackageMetaProviderContract|null
 	 */
-	protected ?ThemePackageMetaContract $provider;
+	protected ?ThemePackageMetaProviderContract $provider;
 	/**
 	 * Constructor.
 	 *
@@ -57,9 +58,9 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 	/**
 	 * Create a new instance.
 	 *
-	 * @return ThemePackageMetaContract The created theme package meta provider.
+	 * @return ThemePackageMetaProviderContract The created theme package meta provider.
 	 */
-	public function create(): ThemePackageMetaContract {
+	public function create(): ThemePackageMetaProviderContract {
 		if ( null === $this->provider ) {
 			$themeSlugParser = new ThemeSlugParser(
 				$this->filePath,

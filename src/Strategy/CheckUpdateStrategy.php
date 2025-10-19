@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Psr\Log\LoggerInterface;
 use Exception;
 use stdClass;
@@ -28,16 +28,16 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 	/**
 	 * The local package meta provider.
 	 *
-	 * @var PackageMetaContract
+	 * @var PackageMetaProviderContract
 	 */
-	protected PackageMetaContract $localPackageMetaProvider;
+	protected PackageMetaProviderContract $localPackageMetaProvider;
 
 	/**
 	 * The remote package meta provider.
 	 *
-	 * @var PackageMetaContract
+	 * @var PackageMetaProviderContract
 	 */
-	protected PackageMetaContract $remotePackageMetaProvider;
+	protected PackageMetaProviderContract $remotePackageMetaProvider;
 
 	/**
 	 * The formatter.
@@ -56,24 +56,24 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaContract          $localPackageMetaProvider  The local package meta provider.
-	 * @param PackageMetaContract          $remotePackageMetaProvider The remote package meta provider.
+	 * @param PackageMetaProviderContract          $localPackageMetaProvider  The local package meta provider.
+	 * @param PackageMetaProviderContract          $remotePackageMetaProvider The remote package meta provider.
 	 * @param CheckUpdateFormatterContract $formatter                The formatter.
 	 * @param LoggerInterface              $logger                   The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaContract          $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param PackageMetaContract          $remotePackageMetaProvider Description for remotePackageMetaProvider.
+	 * @param PackageMetaProviderContract  $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param PackageMetaProviderContract  $remotePackageMetaProvider Description for remotePackageMetaProvider.
 	 * @param CheckUpdateFormatterContract $formatter Description for formatter.
 	 * @param LoggerInterface              $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
-		PackageMetaContract $localPackageMetaProvider,
-		PackageMetaContract $remotePackageMetaProvider,
+		PackageMetaProviderContract $localPackageMetaProvider,
+		PackageMetaProviderContract $remotePackageMetaProvider,
 		CheckUpdateFormatterContract $formatter,
 		LoggerInterface $logger
 	) {

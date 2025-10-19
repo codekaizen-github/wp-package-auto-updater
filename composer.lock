@@ -4,26 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d6000c0c82dd8a7e9c48d1fb2274240",
+    "content-hash": "1e3f8543236c1169b823cbf6733343d3",
     "packages": [
         {
             "name": "codekaizen/wp-package-meta-provider-contract",
-            "version": "dev-main",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-contract.git",
-                "reference": "b16ce19cb2a229dc9f03690d62e6f960ad9d383a"
+                "reference": "b5ee6d54f729ccb379d6b1644dc5acc4cf95eaef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-contract/zipball/b16ce19cb2a229dc9f03690d62e6f960ad9d383a",
-                "reference": "b16ce19cb2a229dc9f03690d62e6f960ad9d383a",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-contract/zipball/b5ee6d54f729ccb379d6b1644dc5acc4cf95eaef",
+                "reference": "b5ee6d54f729ccb379d6b1644dc5acc4cf95eaef",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0"
             },
-            "default-branch": true,
+            "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "squizlabs/php_codesniffer": "^3.0",
+                "wp-coding-standards/wpcs": "^3.0"
+            },
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -42,26 +46,26 @@
             ],
             "support": {
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/issues",
-                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/tree/main"
+                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/tree/1.0.0"
             },
-            "time": "2025-09-27T16:46:55+00:00"
+            "time": "2025-10-18T19:16:10+00:00"
         },
         {
             "name": "codekaizen/wp-package-meta-provider-local",
-            "version": "dev-main",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-local.git",
-                "reference": "d139056231832c78ed0afbab326a66563700a14c"
+                "reference": "5aff4c458ef4282e034c30cfcde2a34bfbbbffbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/d139056231832c78ed0afbab326a66563700a14c",
-                "reference": "d139056231832c78ed0afbab326a66563700a14c",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-local/zipball/5aff4c458ef4282e034c30cfcde2a34bfbbbffbc",
+                "reference": "5aff4c458ef4282e034c30cfcde2a34bfbbbffbc",
                 "shasum": ""
             },
             "require": {
-                "codekaizen/wp-package-meta-provider-contract": "dev-main",
+                "codekaizen/wp-package-meta-provider-contract": "^1.0",
                 "php": "^8.1",
                 "psr/log": "^3.0",
                 "respect/validation": "^2.2"
@@ -74,7 +78,6 @@
                 "squizlabs/php_codesniffer": "^3.0",
                 "wp-coding-standards/wpcs": "^3.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -93,26 +96,26 @@
             ],
             "support": {
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-local/issues",
-                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/main"
+                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-local/tree/1.0.2"
             },
-            "time": "2025-10-12T17:36:07+00:00"
+            "time": "2025-10-19T18:51:42+00:00"
         },
         {
             "name": "codekaizen/wp-package-meta-provider-orashub",
-            "version": "dev-main",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub.git",
-                "reference": "cb97f3d646783c2ae416e712b713dbcd0f919895"
+                "reference": "7dbf766e08af39d4bf8be84c15754feb95001a75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-orashub/zipball/cb97f3d646783c2ae416e712b713dbcd0f919895",
-                "reference": "cb97f3d646783c2ae416e712b713dbcd0f919895",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-orashub/zipball/7dbf766e08af39d4bf8be84c15754feb95001a75",
+                "reference": "7dbf766e08af39d4bf8be84c15754feb95001a75",
                 "shasum": ""
             },
             "require": {
-                "codekaizen/wp-package-meta-provider-contract": "dev-main",
+                "codekaizen/wp-package-meta-provider-contract": "^1.0",
                 "guzzlehttp/guzzle": "^7.10",
                 "php": "^8.1",
                 "psr/log": "^3.0",
@@ -126,7 +129,6 @@
                 "squizlabs/php_codesniffer": "^3.0",
                 "wp-coding-standards/wpcs": "^3.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -145,9 +147,9 @@
             ],
             "support": {
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub/issues",
-                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub/tree/main"
+                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-orashub/tree/1.0.0"
             },
-            "time": "2025-10-14T01:18:53+00:00"
+            "time": "2025-10-19T19:16:46+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1777,16 +1779,16 @@
         },
         {
             "name": "phpcsstandards/phpcsutils",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "b22b59e3d9ec8fe4953e42c7d59117c6eae70eae"
+                "reference": "8b8e17615d04f2fc2cd46fc1d2fd888fa21b3cf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/b22b59e3d9ec8fe4953e42c7d59117c6eae70eae",
-                "reference": "b22b59e3d9ec8fe4953e42c7d59117c6eae70eae",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/8b8e17615d04f2fc2cd46fc1d2fd888fa21b3cf9",
+                "reference": "8b8e17615d04f2fc2cd46fc1d2fd888fa21b3cf9",
                 "shasum": ""
             },
             "require": {
@@ -1866,7 +1868,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-09-05T00:00:03+00:00"
+            "time": "2025-10-16T16:39:32+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -3677,12 +3679,8 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "codekaizen/wp-package-meta-provider-contract": 20,
-        "codekaizen/wp-package-meta-provider-local": 20,
-        "codekaizen/wp-package-meta-provider-orashub": 20
-    },
-    "prefer-stable": false,
+    "stability-flags": {},
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"

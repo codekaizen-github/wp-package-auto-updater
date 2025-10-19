@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,9 +26,9 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * The local package meta provider.
 	 *
-	 * @var PackageMetaContract
+	 * @var PackageMetaProviderContract
 	 */
-	protected PackageMetaContract $localPackageMetaProvider;
+	protected PackageMetaProviderContract $localPackageMetaProvider;
 
 	/**
 	 * The formatter.
@@ -47,21 +47,21 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaContract        $localPackageMetaProvider The local package meta provider.
+	 * @param PackageMetaProviderContract        $localPackageMetaProvider The local package meta provider.
 	 * @param CheckInfoFormatterContract $formatter               The formatter.
 	 * @param LoggerInterface            $logger                  The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaContract        $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param CheckInfoFormatterContract $formatter Description for formatter.
-	 * @param LoggerInterface            $logger Description for logger.
+	 * @param PackageMetaProviderContract $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param CheckInfoFormatterContract  $formatter Description for formatter.
+	 * @param LoggerInterface             $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
-		PackageMetaContract $localPackageMetaProvider,
+		PackageMetaProviderContract $localPackageMetaProvider,
 		CheckInfoFormatterContract $formatter,
 		LoggerInterface $logger
 	) {

@@ -10,8 +10,9 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as LocalPluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
@@ -40,9 +41,9 @@ class LocalPluginPackageMetaProviderFactory implements PluginPackageMetaProvider
 	/**
 	 * The plugin package meta provider instance.
 	 *
-	 * @var PluginPackageMetaContract|null
+	 * @var PluginPackageMetaProviderContract|null
 	 */
-	protected ?PluginPackageMetaContract $provider;
+	protected ?PluginPackageMetaProviderContract $provider;
 
 	/**
 	 * Constructor.
@@ -58,9 +59,9 @@ class LocalPluginPackageMetaProviderFactory implements PluginPackageMetaProvider
 	/**
 	 * Create a new instance.
 	 *
-	 * @return PluginPackageMetaContract The created plugin package meta provider.
+	 * @return PluginPackageMetaProviderContract The created plugin package meta provider.
 	 */
-	public function create(): PluginPackageMetaContract {
+	public function create(): PluginPackageMetaProviderContract {
 		if ( null === $this->provider ) {
 			$slugParser     = new PluginSlugParser( $this->filePath, new PluginPackageRoot() );
 			$factory        = new LocalPluginPackageMetaProviderFactoryV1(

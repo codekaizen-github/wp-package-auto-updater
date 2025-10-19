@@ -7,8 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
-
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use stdClass;
 
 /**
@@ -97,9 +96,9 @@ class ThemeCheckInfoMetaObject extends stdClass {
 	/**
 	 * Undocumented function
 	 *
-	 * @param PackageMetaContract $provider Provider.
+	 * @param PackageMetaProviderContract $provider Provider.
 	 */
-	public function __construct( PackageMetaContract $provider ) {
+	public function __construct( PackageMetaProviderContract $provider ) {
 		$this->name    = $provider->getName();
 		$this->slug    = $provider->getShortSlug();
 		$this->version = $provider->getVersion();

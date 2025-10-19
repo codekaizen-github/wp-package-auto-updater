@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 
 /**
  * CheckUpdateFormatter class.
@@ -21,24 +21,24 @@ class CheckUpdateFormatter implements CheckUpdateFormatterContract {
 	/**
 	 * The local plugin package meta provider.
 	 *
-	 * @var PackageMetaContract
+	 * @var PackageMetaProviderContract
 	 */
-	protected PackageMetaContract $localPackageMetaProvider;
+	protected PackageMetaProviderContract $localPackageMetaProvider;
 	/**
 	 * The remote plugin package meta provider.
 	 *
-	 * @var PackageMetaContract
+	 * @var PackageMetaProviderContract
 	 */
-	protected PackageMetaContract $remotePackageMetaProvider;
+	protected PackageMetaProviderContract $remotePackageMetaProvider;
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaContract $localPackageMetaProvider  The local package meta provider.
-	 * @param PackageMetaContract $remotePackageMetaProvider The remote package meta provider.
+	 * @param PackageMetaProviderContract $localPackageMetaProvider  The local package meta provider.
+	 * @param PackageMetaProviderContract $remotePackageMetaProvider The remote package meta provider.
 	 */
 	public function __construct(
-		PackageMetaContract $localPackageMetaProvider,
-		PackageMetaContract $remotePackageMetaProvider
+		PackageMetaProviderContract $localPackageMetaProvider,
+		PackageMetaProviderContract $remotePackageMetaProvider
 	) {
 		$this->localPackageMetaProvider  = $localPackageMetaProvider;
 		$this->remotePackageMetaProvider = $remotePackageMetaProvider;

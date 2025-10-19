@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\PluginCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 
 /**
  * PluginCheckInfoFormatter class.
@@ -22,18 +22,18 @@ class PluginCheckInfoFormatter implements CheckInfoFormatterContract {
 	/**
 	 * The plugin package meta provider.
 	 *
-	 * @var PluginPackageMetaContract
+	 * @var PluginPackageMetaProviderContract
 	 */
-	private PluginPackageMetaContract $provider;
+	private PluginPackageMetaProviderContract $provider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaContract $provider Description for provider.
+	 * @param PluginPackageMetaProviderContract $provider Description for provider.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( PluginPackageMetaContract $provider ) {
+	public function __construct( PluginPackageMetaProviderContract $provider ) {
 		$this->provider = $provider;
 	}
 	/**

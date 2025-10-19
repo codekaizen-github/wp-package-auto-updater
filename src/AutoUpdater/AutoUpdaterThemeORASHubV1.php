@@ -44,16 +44,23 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 	/**
 	 * Undocumented variable
 	 *
+	 * @var array<string,mixed>
+	 */
+	protected array $httpOptions;
+	/**
+	 * Undocumented variable
+	 *
 	 * @var LoggerInterface
 	 */
 	protected LoggerInterface $logger;
 	/**
 	 * Constructor.
 	 *
-	 * @param string          $filePath Description for filePath.
-	 * @param string          $baseURL Description for baseURL.
-	 * @param string          $metaKey Description for metaKey.
-	 * @param LoggerInterface $logger Description for logger.
+	 * @param string              $filePath Description for filePath.
+	 * @param string              $baseURL Description for baseURL.
+	 * @param string              $metaKey Description for metaKey.
+	 * @param array<string,mixed> $httpOptions Description for httpOptions.
+	 * @param LoggerInterface     $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
@@ -61,12 +68,14 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 		string $filePath,
 		string $baseURL,
 		string $metaKey = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata',
+		array $httpOptions = [],
 		LoggerInterface $logger = new NullLogger()
 	) {
-		$this->filePath = $filePath;
-		$this->baseURL  = $baseURL;
-		$this->metaKey  = $metaKey;
-		$this->logger   = $logger;
+		$this->filePath    = $filePath;
+		$this->baseURL     = $baseURL;
+		$this->metaKey     = $metaKey;
+		$this->httpOptions = $httpOptions;
+		$this->logger      = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -78,6 +87,7 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaProviderFactory(
 			$this->baseURL,
 			$this->metaKey,
+			$this->httpOptions,
 			$this->logger
 		);
 		$checkUpdateHook                  = new ThemeCheckUpdateHook(

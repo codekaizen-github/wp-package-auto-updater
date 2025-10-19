@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use stdClass;
 
 /**
@@ -83,9 +83,9 @@ class CheckUpdateMetaObject extends stdClass {
 	/**
 	 * Undocumented function
 	 *
-	 * @param PackageMetaContract $provider Provider.
+	 * @param PackageMetaProviderContract $provider Provider.
 	 */
-	public function __construct( PackageMetaContract $provider ) {
+	public function __construct( PackageMetaProviderContract $provider ) {
 		$this->id   = $provider->getFullSlug();
 		$this->slug = $provider->getShortSlug();
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps

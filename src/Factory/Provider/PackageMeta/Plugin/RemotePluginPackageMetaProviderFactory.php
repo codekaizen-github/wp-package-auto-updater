@@ -8,9 +8,10 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaProviderFactoryContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
+
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
 
@@ -36,6 +37,13 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	protected string $metaKey;
 
 	/**
+	 * The HTTP options for the remote requests.
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected array $httpOptions;
+
+	/**
 	 * The logger instance.
 	 *
 	 * @var LoggerInterface
@@ -45,33 +53,36 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	/**
 	 * The plugin package meta provider instance.
 	 *
-	 * @var PluginPackageMetaContract|null
+	 * @var PluginPackageMetaProviderContract|null
 	 */
-	protected ?PluginPackageMetaContract $provider;
+	protected ?PluginPackageMetaProviderContract $provider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param string          $baseURL Description for baseURL.
-	 * @param string          $metaKey Description for metaKey.
-	 * @param LoggerInterface $logger Description for logger.
+	 * @param string              $baseURL Description for baseURL.
+	 * @param string              $metaKey Description for metaKey.
+	 * @param array<string,mixed> $httpOptions Description for httpOptions.
+	 * @param LoggerInterface     $logger Description for logger.
 	 */
-	public function __construct( string $baseURL, string $metaKey, LoggerInterface $logger ) {
-		$this->baseURL  = $baseURL;
-		$this->metaKey  = $metaKey;
-		$this->logger   = $logger;
-		$this->provider = null;
+	public function __construct( string $baseURL, string $metaKey, array $httpOptions, LoggerInterface $logger ) {
+		$this->baseURL     = $baseURL;
+		$this->metaKey     = $metaKey;
+		$this->httpOptions = $httpOptions;
+		$this->logger      = $logger;
+		$this->provider    = null;
 	}
 	/**
 	 * Create a new instance.
 	 *
-	 * @return PluginPackageMetaContract The created plugin package meta provider.
+	 * @return PluginPackageMetaProviderContract The created plugin package meta provider.
 	 */
-	public function create(): PluginPackageMetaContract {
+	public function create(): PluginPackageMetaProviderContract {
 		if ( null === $this->provider ) {
 			$factory        = new RemotePluginPackageMetaProviderFactoryV1(
 				$this->baseURL,
 				$this->metaKey,
+				$this->httpOptions,
 				$this->logger
 			);
 			$this->provider = $factory->create();

@@ -9,11 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "codekaizen/wp-package-meta-provider-contract": "dev-main",
         "psr/log": "^3.0",
         "respect/validation": "^2.2",
-        "codekaizen/wp-package-meta-provider-orashub": "dev-main",
-        "codekaizen/wp-package-meta-provider-local": "dev-main"
+        "codekaizen/wp-package-meta-provider-orashub": "^1.0",
+        "codekaizen/wp-package-meta-provider-local": "^1.0",
+        "codekaizen/wp-package-meta-provider-contract": "^1.0"
     },
     "config": {
         "platform": {
@@ -48,5 +48,7 @@
         "phpstan/phpstan-mockery": "^2.0",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "10up/wp_mock": "^1.1"
-    }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
