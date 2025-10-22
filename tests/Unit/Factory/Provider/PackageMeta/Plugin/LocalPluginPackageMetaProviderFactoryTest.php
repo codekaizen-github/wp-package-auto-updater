@@ -34,7 +34,9 @@ class LocalPluginPackageMetaProviderFactoryTest extends TestCase {
 			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( PluginPackageMetaProviderContract::class ) );
+		$providerFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( PluginPackageMetaProviderContract::class )
+		);
 		$sut    = new LocalPluginPackageMetaProviderFactory( $filePath, $logger );
 		$return = $sut->create();
 		$this->assertInstanceOf( PluginPackageMetaProviderContract::class, $return );

@@ -9,9 +9,9 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
-
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
 

@@ -36,7 +36,9 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 			'overload:CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( PluginPackageMetaProviderContract::class ) );
+		$providerFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( PluginPackageMetaProviderContract::class )
+		);
 		$sut    = new RemotePluginPackageMetaProviderFactory( $baseUrl, $metaKey, $httpOptions, $logger );
 		$return = $sut->create();
 		$this->assertInstanceOf( PluginPackageMetaProviderContract::class, $return );

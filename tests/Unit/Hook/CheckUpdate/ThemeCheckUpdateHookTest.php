@@ -8,6 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
