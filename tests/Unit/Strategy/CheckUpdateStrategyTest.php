@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -22,14 +22,14 @@ class CheckUpdateStrategyTest extends TestCase {
 	/**
 	 * Local package meta provider mock.
 	 *
-	 * @var PackageMetaContract|Mockery\MockInterface
+	 * @var PackageMetaProviderContract|Mockery\MockInterface
 	 */
 	private $localPackageMetaProvider;
 
 	/**
 	 * Remote package meta provider mock.
 	 *
-	 * @var PackageMetaContract|Mockery\MockInterface
+	 * @var PackageMetaProviderContract|Mockery\MockInterface
 	 */
 	private $remotePackageMetaProvider;
 
@@ -62,8 +62,8 @@ class CheckUpdateStrategyTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->localPackageMetaProvider  = Mockery::mock( PackageMetaContract::class );
-		$this->remotePackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$this->localPackageMetaProvider  = Mockery::mock( PackageMetaProviderContract::class );
+		$this->remotePackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$this->formatter                 = Mockery::mock( CheckUpdateFormatterContract::class );
 		$this->logger                    = Mockery::mock( LoggerInterface::class );
 

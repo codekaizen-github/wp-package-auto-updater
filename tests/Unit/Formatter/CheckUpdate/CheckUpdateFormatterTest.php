@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -39,9 +39,9 @@ class CheckUpdateFormatterTest extends TestCase {
 			'plugin-one/plugin-one.php',
 			'plugin-two/plugin-two.php',
 		];
-		$localPackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $fullSlugExpected );
-		$remotePackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$remotePackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$remotePackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getVersion' )->with()->andReturn( $newVersionExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );

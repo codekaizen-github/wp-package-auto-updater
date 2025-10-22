@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\LocalThemePackageMetaProviderFactory;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\ThemePackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
@@ -34,9 +34,9 @@ class LocalThemePackageMetaProviderFactoryTest extends TestCase {
 			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( ThemePackageMetaContract::class ) );
+		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( ThemePackageMetaProviderContract::class ) );
 		$sut    = new LocalThemePackageMetaProviderFactory( $filePath, $logger );
 		$return = $sut->create();
-		$this->assertInstanceOf( ThemePackageMetaContract::class, $return );
+		$this->assertInstanceOf( ThemePackageMetaProviderContract::class, $return );
 	}
 }

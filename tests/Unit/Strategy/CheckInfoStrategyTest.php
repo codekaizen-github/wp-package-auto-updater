@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -25,7 +25,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testSlugNotSetValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$logger    = Mockery::mock( LoggerInterface::class );
@@ -41,7 +41,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testSlugsDoNotMatchValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$logger    = Mockery::mock( LoggerInterface::class );
@@ -57,7 +57,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testPackageCheckInfoValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$expected  = new stdClass();

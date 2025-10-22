@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePluginPackageMetaProviderFactory;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PluginPackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
@@ -26,18 +26,19 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 	 * @return void
 	 */
 	public function testCreate(): void {
-		$baseUrl = '';
-		$metaKey = '';
-		$logger  = Mockery::mock( LoggerInterface::class );
+		$baseUrl     = '';
+		$metaKey     = '';
+		$httpOptions = [];
+		$logger      = Mockery::mock( LoggerInterface::class );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
 			'overload:CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( PluginPackageMetaContract::class ) );
-		$sut    = new RemotePluginPackageMetaProviderFactory( $baseUrl, $metaKey, $logger );
+		$providerFactory->shouldReceive( 'create' )->andReturn( Mockery::mock( PluginPackageMetaProviderContract::class ) );
+		$sut    = new RemotePluginPackageMetaProviderFactory( $baseUrl, $metaKey, $httpOptions, $logger );
 		$return = $sut->create();
-		$this->assertInstanceOf( PluginPackageMetaContract::class, $return );
+		$this->assertInstanceOf( PluginPackageMetaProviderContract::class, $return );
 	}
 }

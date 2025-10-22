@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\PackageMetaContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +33,7 @@ class CheckUpdateMetaObjectTest extends TestCase {
 		$requiresExpected    = '6.8.2';
 		$testedExpected      = '6.8.2';
 		$requiresPhpExpected = '8.2.1';
-		$provider            = Mockery::mock( PackageMetaContract::class );
+		$provider            = Mockery::mock( PackageMetaProviderContract::class );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $newVersionExpected );
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
