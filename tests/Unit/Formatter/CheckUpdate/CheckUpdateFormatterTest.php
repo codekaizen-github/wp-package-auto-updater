@@ -29,9 +29,19 @@ class CheckUpdateFormatterTest extends TestCase {
 		$urlExpected              = 'https://codekaizen.net';
 		$fullSlugExpected         = 'test-plugin/test-plugin.php';
 		$idExpected               = 'test-theme/style.css';
-		$iconsExpected            = [];
-		$bannersExpected          = [];
-		$bannersRtlExpected       = [];
+		$iconsExpected            = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$bannersExpected          = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersRtlExpected       = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
 		$requiresExpected         = '6.8.2';
 		$testedExpected           = '6.8.2';
 		$requiresPhpExpected      = '8.2.1';
@@ -47,6 +57,9 @@ class CheckUpdateFormatterTest extends TestCase {
 		$remotePackageMetaProvider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getViewURL' )->with()->andReturn( $urlExpected );
 		$remotePackageMetaProvider->shouldReceive( 'getFullSlug' )->with()->andReturn( $idExpected );
+		$remotePackageMetaProvider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$remotePackageMetaProvider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$remotePackageMetaProvider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$remotePackageMetaProvider
 			->shouldReceive( 'getRequiresWordPressVersion' )
 			->with()

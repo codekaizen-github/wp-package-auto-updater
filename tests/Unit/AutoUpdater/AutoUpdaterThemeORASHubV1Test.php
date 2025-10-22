@@ -10,6 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater;
 use CodeKaizen\WPPackageAutoUpdater\AutoUpdater\AutoUpdaterThemeORASHubV1;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
+use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
 
 /**
@@ -29,13 +30,16 @@ class AutoUpdaterThemeORASHubV1Test extends TestCase {
 	public function testInitHooks(): void {
 		$filePath      = FixturePathHelper::getPathForTheme() . '/plugins/my-test-plugin/my-test-plugin.php';
 		$baseURL       = 'https://codekaizen.net';
+		$metaKey       = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata';
+		$httpOptions   = [];
+		$logger        = Mockery::mock( LoggerInterface::class );
 		$checkInfoHook = Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook' );
 		$checkInfoHook->shouldReceive( 'init' )->once();
 		$checkUpdateHook = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook'
 		);
 		$checkUpdateHook->shouldReceive( 'init' )->once();
-		$sut = new AutoUpdaterThemeORASHubV1( $filePath, $baseURL );
+		$sut = new AutoUpdaterThemeORASHubV1( $filePath, $baseURL, $metaKey, $httpOptions, $logger );
 		$sut->init();
 		$this->expectNotToPerformAssertions();
 	}

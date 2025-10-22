@@ -27,9 +27,19 @@ class CheckUpdateMetaObjectTest extends TestCase {
 		$packageExpected     = 'https://github.com/codekaizen-github/wp-package-meta-provider-local';
 		$urlExpected         = 'https://codekaizen.net';
 		$idExpected          = 'test-plugin/test-plugin.php';
-		$iconsExpected       = [];
-		$bannersExpected     = [];
-		$bannersRtlExpected  = [];
+		$iconsExpected       = [
+			'1x'  => 'https://example.com/icon-128x128.png',
+			'2x'  => 'https://example.com/icon-256x256.png',
+			'svg' => 'https://example.com/icon.svg',
+		];
+		$bannersExpected     = [
+			'1x' => 'https://example.com/banner-772x250.png',
+			'2x' => 'https://example.com/banner-1544x500.png',
+		];
+		$bannersRtlExpected  = [
+			'1x' => 'https://example.com/banner-rtl-772x250.png',
+			'2x' => 'https://example.com/banner-rtl-1544x500.png',
+		];
 		$requiresExpected    = '6.8.2';
 		$testedExpected      = '6.8.2';
 		$requiresPhpExpected = '8.2.1';
@@ -39,6 +49,9 @@ class CheckUpdateMetaObjectTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $packageExpected );
 		$provider->shouldReceive( 'getViewURL' )->with()->andReturn( $urlExpected );
 		$provider->shouldReceive( 'getFullSlug' )->with()->andReturn( $idExpected );
+		$provider->shouldReceive( 'getIcons' )->with()->andReturn( $iconsExpected );
+		$provider->shouldReceive( 'getBanners' )->with()->andReturn( $bannersExpected );
+		$provider->shouldReceive( 'getBannersRTL' )->with()->andReturn( $bannersRtlExpected );
 		$provider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresExpected );
 		$provider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$provider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );

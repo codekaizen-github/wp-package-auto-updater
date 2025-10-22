@@ -92,10 +92,10 @@ class CheckUpdateMetaObject extends stdClass {
 		$this->new_version = $provider->getVersion();
 		$this->url         = $provider->getViewURL();
 		$this->package     = $provider->getDownloadURL();
-		$this->icons       = [];
-		$this->banners     = [];
+		$this->icons       = $provider->getIcons();
+		$this->banners     = $provider->getBanners();
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
-		$this->banners_rtl = [];
+		$this->banners_rtl = $provider->getBannersRTL();
 		$this->tested      = $provider->getTested();
 		$this->requires    = $provider->getRequiresWordPressVersion();
 		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
