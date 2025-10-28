@@ -8,12 +8,16 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
-// phpcs:ignore Generic.Files.LineLength.TooLong
+// phpcs:disable Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote\CreateRemotePluginPackageMetaProviderFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote\CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
-// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
+use UnexpectedValueException;
+
+// phpcs:enable Generic.Files.LineLength.TooLong
 
 /**
  * RemotePluginPackageMetaProviderFactory class.
@@ -76,14 +80,39 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	 * Create a new instance.
 	 *
 	 * @return PluginPackageMetaProviderContract The created plugin package meta provider.
+	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
 	public function create(): PluginPackageMetaProviderContract {
 		if ( null === $this->provider ) {
+			// phpcs:disable Generic.Files.LineLength.TooLong
+			/**
+			 * Filter
+			 *
+			 * @param CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
+			 */
+			// phpcs:enable Generic.Files.LineLength.TooLong
+			$options = apply_filters(
+				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_instance_options',
+				new CreateRemotePluginPackageMetaProviderFactoryFilterArgument(
+					$this->baseURL,
+					$this->metaKey,
+					$this->httpOptions,
+					$this->logger
+				)
+			);
+			/**
+			 * Cannot trust the type coming from the filter.
+			 *
+			 * @var mixed $options
+			 */
+			if ( ! $options instanceof CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract ) {
+				throw new UnexpectedValueException( 'Invalid options provided' );
+			}
 			$factory        = new RemotePluginPackageMetaProviderFactoryV1(
-				$this->baseURL,
-				$this->metaKey,
-				$this->httpOptions,
-				$this->logger
+				$options->getBaseURL(),
+				$options->getMetaKey(),
+				$options->getHttpOptions(),
+				$options->getLogger()
 			);
 			$this->provider = $factory->create();
 		}
