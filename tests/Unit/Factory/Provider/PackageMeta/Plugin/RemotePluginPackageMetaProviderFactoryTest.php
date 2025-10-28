@@ -17,7 +17,6 @@ use stdClass;
 use WP_Mock\Tools\TestCase;
 use UnexpectedValueException;
 use WP_Mock;
-use WP_Mock\Filter_Responder;
 
 // phpcs:enable Generic.Files.LineLength.TooLong
 
@@ -78,13 +77,11 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);
 		/**
-		 * Ignore phpstan error
+		 * Fix PHPStan error
 		 *
-		 * @var Filter_Responder $responder
-		 * @phpstan-ignore class.notFound
+		 * @var WP_Mock\Filter_Responder $responder
 		 */
 		$responder = $filter->withAnyArgs();
-		// @phpstan-ignore class.notFound
 		$responder->reply( null );
 		$this->expectException( UnexpectedValueException::class );
 		$this->expectExceptionMessage( 'Invalid options provided' );
@@ -117,13 +114,11 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);
 		/**
-		 * Ignore phpstan error
+		 * Fix PHPStan error
 		 *
-		 * @var Filter_Responder $responder
-		 * @phpstan-ignore class.notFound
+		 * @var WP_Mock\Filter_Responder $responder
 		 */
 		$responder = $filter->withAnyArgs();
-		// @phpstan-ignore class.notFound
 		$responder->reply(
 			new stdClass()
 		);
@@ -173,13 +168,11 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);
 		/**
-		 * Ignore phpstan error
+		 * Fix PHPStan error
 		 *
-		 * @var Filter_Responder $responder
-		 * @phpstan-ignore class.notFound
+		 * @var WP_Mock\Filter_Responder $responder
 		 */
 		$responder = $filter->withAnyArgs();
-		// @phpstan-ignore class.notFound
 		$responder->reply(
 			$argument
 		);
