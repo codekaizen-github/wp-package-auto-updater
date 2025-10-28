@@ -2,21 +2,21 @@
 /**
  * Test
  *
- * @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote
+ * @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Argument\Filter\Factory\Provider\PackageMeta\Remote
  */
 
-namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote;
+namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Argument\Filter\Factory\Provider\PackageMeta\Remote;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote\CreateRemotePluginPackageMetaProviderFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test CreateRemotePluginPackageMetaProviderFactoryFilterArgument class.
+ * Test CreateRemotePackageMetaProviderFactoryFilterArgument class.
  */
-class CreateRemotePluginPackageMetaProviderFactoryFilterArgumentTest extends TestCase {
+class CreateRemotePackageMetaProviderFactoryFilterArgumentTest extends TestCase {
 	/**
 	 * Test constructor and properties.
 	 *
@@ -30,7 +30,7 @@ class CreateRemotePluginPackageMetaProviderFactoryFilterArgumentTest extends Tes
 		];
 		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$argument = new CreateRemotePluginPackageMetaProviderFactoryFilterArgument(
+		$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
 			$baseURL,
 			$metaKey,
 			$httpOptions,

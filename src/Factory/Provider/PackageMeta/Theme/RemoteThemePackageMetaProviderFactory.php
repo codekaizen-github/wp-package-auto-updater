@@ -8,12 +8,16 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 
-// phpcs:ignore Generic.Files.LineLength.TooLong
+// phpcs:disable Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
-// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1 as RemoteThemePackageMetaProviderFactoryV1;
 use Psr\Log\LoggerInterface;
+use UnexpectedValueException;
+
+// phpcs:enable Generic.Files.LineLength.TooLong
 
 /**
  * RemoteThemePackageMetaProviderFactory class.
@@ -75,14 +79,39 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	 * Create a new instance.
 	 *
 	 * @return ThemePackageMetaProviderContract The created theme package meta provider.
+	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
 	public function create(): ThemePackageMetaProviderContract {
 		if ( null === $this->provider ) {
+			// phpcs:disable Generic.Files.LineLength.TooLong
+			/**
+			 * Filter
+			 *
+			 * @param CreateRemotePackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
+			 */
+			$options = apply_filters(
+				'wp_package_auto_updater_remote_theme_package_meta_provider_factory_v1_instance_options',
+				new CreateRemotePackageMetaProviderFactoryFilterArgument(
+					$this->baseURL,
+					$this->metaKey,
+					$this->httpOptions,
+					$this->logger
+				)
+			);
+			// phpcs:enable Generic.Files.LineLength.TooLong
+			/**
+			 * Cannot trust the type coming from the filter.
+			 *
+			 * @var mixed $options
+			 */
+			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
+				throw new UnexpectedValueException( 'Invalid options provided' );
+			}
 			$factory        = new RemoteThemePackageMetaProviderFactoryV1(
-				$this->baseURL,
-				$this->metaKey,
-				$this->httpOptions,
-				$this->logger
+				$options->getBaseURL(),
+				$options->getMetaKey(),
+				$options->getHttpOptions(),
+				$options->getLogger()
 			);
 			$this->provider = $factory->create();
 		}

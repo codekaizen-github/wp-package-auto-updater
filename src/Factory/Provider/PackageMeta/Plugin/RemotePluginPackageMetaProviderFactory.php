@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote\CreateRemotePluginPackageMetaProviderFactoryFilterArgument;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Plugin\Remote\CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract;
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
@@ -88,24 +88,24 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 			/**
 			 * Filter
 			 *
-			 * @param CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
+			 * @param CreateRemotePackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
 			 */
-			// phpcs:enable Generic.Files.LineLength.TooLong
 			$options = apply_filters(
-				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_instance_options',
-				new CreateRemotePluginPackageMetaProviderFactoryFilterArgument(
+				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options',
+				new CreateRemotePackageMetaProviderFactoryFilterArgument(
 					$this->baseURL,
 					$this->metaKey,
 					$this->httpOptions,
 					$this->logger
 				)
 			);
+			// phpcs:enable Generic.Files.LineLength.TooLong
 			/**
 			 * Cannot trust the type coming from the filter.
 			 *
 			 * @var mixed $options
 			 */
-			if ( ! $options instanceof CreateRemotePluginPackageMetaProviderFactoryFilterArgumentContract ) {
+			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
 			$factory        = new RemotePluginPackageMetaProviderFactoryV1(
