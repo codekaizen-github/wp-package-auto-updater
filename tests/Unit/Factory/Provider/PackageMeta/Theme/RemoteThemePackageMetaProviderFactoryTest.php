@@ -17,6 +17,7 @@ use stdClass;
 use UnexpectedValueException;
 use WP_Mock;
 use WP_Mock\Tools\TestCase;
+use WP_Mock\Filter_Responder;
 
 // phpcs:enable Generic.Files.LineLength.TooLong
 
