@@ -77,15 +77,15 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
 		$localPackageMetaProvider         = $this->localPackageMetaProviderFactory->create();
-		$remotePackageMetaProviderFactory = $this->remotePackageMetaProviderFactory->create();
+		$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
 		$formatter                        = new CheckUpdateFormatter(
 			$localPackageMetaProvider,
-			$remotePackageMetaProviderFactory
+			$remotePackageMetaProvider
 		);
 
 		$checkUpdate = new CheckUpdateStrategy(
 			$localPackageMetaProvider,
-			$remotePackageMetaProviderFactory,
+			$remotePackageMetaProvider,
 			$formatter,
 			$this->logger
 		);
