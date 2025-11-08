@@ -16,6 +16,7 @@ use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
 use stdClass;
+use Throwable;
 
 /**
  * ThemeCheckUpdateHook class.
@@ -76,18 +77,24 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	 * @return stdClass Modified transient with update information.
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
-		$formatter = new CheckUpdateFormatter(
-			$this->localPackageMetaProviderFactory->create(),
-			$this->remotePackageMetaProviderFactory->create(),
-		);
+		try {
+			$formatter = new CheckUpdateFormatter(
+				$this->localPackageMetaProviderFactory->create(),
+				$this->remotePackageMetaProviderFactory->create(),
+			);
 
-		$checkUpdate = new CheckUpdateStrategy(
-			$this->localPackageMetaProviderFactory->create(),
-			$this->remotePackageMetaProviderFactory->create(),
-			$formatter,
-			$this->logger
-		);
+			$checkUpdate = new CheckUpdateStrategy(
+				$this->localPackageMetaProviderFactory->create(),
+				$this->remotePackageMetaProviderFactory->create(),
+				$formatter,
+				$this->logger
+			);
 
-		return $checkUpdate->checkUpdate( $transient );
+			$transient = $checkUpdate->checkUpdate( $transient );
+		} catch ( Throwable $e ) {
+			$this->logger->error( 'Error in ThemeCheckUpdateHook: ' . $e->getMessage() );
+		} finally {
+			return $transient;
+		}
 	}
 }

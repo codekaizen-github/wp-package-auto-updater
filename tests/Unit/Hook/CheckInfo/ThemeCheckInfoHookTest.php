@@ -10,6 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
+use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use WP_Mock;
@@ -43,5 +45,36 @@ class ThemeCheckInfoHookTest extends TestCase {
 
 		// This is important for WP_Mock assertions to work.
 		$this->assertConditionsMet();
+	}
+	/**
+	 * Mock a CheckInfoStrategy and have it throw an exception on the checkInfo call.
+	 * Test to ensure that the sut gracefully handles the exception and logs an error.
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function testExceptionHandlingInCheckInfo(): void {
+		// Mock the dependencies.
+		$localFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
+		$localFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( ThemePackageMetaProviderContract::class )
+		);
+		$remoteFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
+		$remoteFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( ThemePackageMetaProviderContract::class )
+		);
+		$logger = Mockery::mock( LoggerInterface::class );
+		$sut    = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter'
+		);
+		$strategy = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy'
+		);
+		$strategy->shouldReceive( 'checkInfo' )->andThrow( new Exception( 'Test exception' ) );
+		$logger->shouldReceive( 'error' );
+		// Call the method under test.
+		$result = $sut->checkInfo( false, 'theme_information', (object) [] );
+		$this->assertFalse( $result );
 	}
 }

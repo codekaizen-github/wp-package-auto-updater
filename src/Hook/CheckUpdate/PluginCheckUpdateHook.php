@@ -16,6 +16,7 @@ use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use stdClass;
+use Throwable;
 
 /**
  * PluginCheckUpdateHook class.
@@ -76,20 +77,26 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	 * @return stdClass Modified transient with update information.
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
-		$localPackageMetaProvider  = $this->localPackageMetaProviderFactory->create();
-		$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
-		$formatter                 = new CheckUpdateFormatter(
-			$localPackageMetaProvider,
-			$remotePackageMetaProvider
-		);
+		try {
+			$localPackageMetaProvider  = $this->localPackageMetaProviderFactory->create();
+			$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
+			$formatter                 = new CheckUpdateFormatter(
+				$localPackageMetaProvider,
+				$remotePackageMetaProvider
+			);
 
-		$checkUpdate = new CheckUpdateStrategy(
-			$localPackageMetaProvider,
-			$remotePackageMetaProvider,
-			$formatter,
-			$this->logger
-		);
+			$checkUpdate = new CheckUpdateStrategy(
+				$localPackageMetaProvider,
+				$remotePackageMetaProvider,
+				$formatter,
+				$this->logger
+			);
 
-		return $checkUpdate->checkUpdate( $transient );
+			$transient = $checkUpdate->checkUpdate( $transient );
+		} catch ( Throwable $e ) {
+			$this->logger->error( 'Error in PluginCheckUpdateHook: ' . $e->getMessage() );
+		} finally {
+			return $transient;
+		}
 	}
 }

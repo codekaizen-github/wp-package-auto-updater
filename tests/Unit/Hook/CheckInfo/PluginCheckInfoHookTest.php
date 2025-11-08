@@ -10,6 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use WP_Mock;
@@ -43,5 +45,36 @@ class PluginCheckInfoHookTest extends TestCase {
 
 		// This is important for WP_Mock assertions to work.
 		$this->assertConditionsMet();
+	}
+	/**
+	 * Mock a CheckInfoStrategy and have it throw an exception on the checkInfo call.
+	 * Test to ensure that the sut gracefully handles the exception and logs an error.
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 */
+	public function testExceptionHandlingInCheckInfo(): void {
+		// Mock the dependencies.
+		$localFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$localFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( PluginPackageMetaProviderContract::class )
+		);
+		$remoteFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$remoteFactory->shouldReceive( 'create' )->andReturn(
+			Mockery::mock( PluginPackageMetaProviderContract::class )
+		);
+		$logger = Mockery::mock( LoggerInterface::class );
+		$sut    = new PluginCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter'
+		);
+		$strategy = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy'
+		);
+		$strategy->shouldReceive( 'checkInfo' )->andThrow( new Exception( 'Test exception' ) );
+		$logger->shouldReceive( 'error' );
+		// Call the method under test.
+		$result = $sut->checkInfo( false, 'plugin_information', (object) [] );
+		$this->assertFalse( $result );
 	}
 }

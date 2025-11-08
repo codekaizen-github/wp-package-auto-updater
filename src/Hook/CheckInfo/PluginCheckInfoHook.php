@@ -15,6 +15,7 @@ use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use Throwable;
 
 /**
  * PluginCheckInfoHook class.
@@ -77,14 +78,20 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	 * @return bool|object                  False if no action taken or object with info.
 	 */
 	public function checkInfo( bool|object $result, string $action, object $arg ): bool|object {
-		$formatter = new PluginCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
+		try {
+			$formatter = new PluginCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
 
-		$checkInfo = new CheckInfoStrategy(
-			$this->localPackageMetaProviderFactory->create(),
-			$formatter,
-			$this->logger
-		);
+			$checkInfo = new CheckInfoStrategy(
+				$this->localPackageMetaProviderFactory->create(),
+				$formatter,
+				$this->logger
+			);
 
-		return $checkInfo->checkInfo( $result, $action, $arg );
+			$result = $checkInfo->checkInfo( $result, $action, $arg );
+		} catch ( Throwable $e ) {
+			$this->logger->error( 'Error in PluginCheckInfoHook::checkInfo: ' . $e->getMessage() );
+		} finally {
+			return $result;
+		}
 	}
 }
