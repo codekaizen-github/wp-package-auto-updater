@@ -72,14 +72,14 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * Check package info and inject custom data.
 	 *
-	 * @param bool   $false  Always false initially.
-	 * @param string $action The type of information being requested.
-	 * @param object $arg    The arguments passed to the API request.
+	 * @param bool|object $false  Always false initially.
+	 * @param string      $action The type of information being requested.
+	 * @param object      $arg    The arguments passed to the API request.
 	 * @return bool|object                  False if no action taken or object with info.
 	 *
 	 * phpcs:disable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 	 */
-	public function checkInfo( bool $false, string $action, object $arg ): bool|object {
+	public function checkInfo( bool|object $false, string $action, object $arg ): bool|object {
 		// phpcs:enable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 		// Check if this is for our package.
 		if ( ! isset( $arg->slug ) || $arg->slug !== $this->localPackageMetaProvider->getShortSlug() ) {
