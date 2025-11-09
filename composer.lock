@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e3f8543236c1169b823cbf6733343d3",
+    "content-hash": "3cb6f1e88c700ae81598c4f9a5c9d578",
     "packages": [
         {
             "name": "codekaizen/wp-package-meta-provider-contract",
