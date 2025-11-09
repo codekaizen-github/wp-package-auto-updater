@@ -99,10 +99,12 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 				$this->logger
 			);
 
-			return $downloadStrategy->downloadUpgrade( $reply, $package, $upgrader, $hookExtra );
+			$reply = $downloadStrategy->downloadUpgrade( $reply, $package, $upgrader, $hookExtra );
 		} catch ( \Throwable $e ) {
+			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
-			return false;
+		} finally {
+			return $reply;
 		}
 	}
 }

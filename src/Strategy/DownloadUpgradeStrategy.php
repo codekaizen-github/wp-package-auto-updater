@@ -90,6 +90,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 				$reply = $this->fileDownloader->getFileName() ?? false;
 			}
 		} catch ( Throwable $e ) {
+			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeStrategy: ' . $e->getMessage() );
 		} finally {
 			return $reply;
