@@ -10,6 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -414,7 +415,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
 		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()
-			->andThrow( new \Exception( $exceptionMessage ) );
+			->andThrow( new Exception( $exceptionMessage ) );
 
 		// Set up error log.
 		$errorMessage = 'Unable to get remote package version: ' . $exceptionMessage;

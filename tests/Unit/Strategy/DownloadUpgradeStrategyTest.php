@@ -10,6 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -168,7 +169,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	public function testDownloadUpgradeWhenErrorOccurs(): void {
 		// Arrange.
 		$downloadUrl = 'https://example.com/plugin.zip';
-		$error       = new \Exception( 'Download failed' );
+		$error       = new Exception( 'Download failed' );
 
 		$this->remoteProvider->shouldReceive( 'getDownloadUrl' )
 			->andThrow( $error );

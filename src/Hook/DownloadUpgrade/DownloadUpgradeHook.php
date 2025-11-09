@@ -14,6 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyCon
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * Hook for handling package downloads during upgrades.
@@ -100,7 +101,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			);
 
 			$reply = $downloadStrategy->downloadUpgrade( $reply, $package, $upgrader, $hookExtra );
-		} catch ( \Throwable $e ) {
+		} catch ( Throwable $e ) {
 			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
 		} finally {

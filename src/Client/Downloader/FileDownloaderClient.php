@@ -9,6 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Client\Downloader;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
+use Exception;
+use GuzzleHttp\Client;
 
 /**
  * Undocumented class
@@ -50,10 +52,10 @@ class FileDownloaderClient implements FileDownloaderClientContract {
 	 * Download the file from the specified URL.
 	 *
 	 * @return void
-	 * @throws \Exception If the download fails.
+	 * @throws Exception If the download fails.
 	 */
 	public function download() {
-		$client   = new \GuzzleHttp\Client( $this->httpOptions );
+		$client   = new Client( $this->httpOptions );
 		$tempFile = tempnam( sys_get_temp_dir(), 'download_' );
 		$response = $client->request( 'GET', $this->url, [ 'sink' => $tempFile ] );
 		if ( $response->getStatusCode() === 200 ) {
@@ -62,7 +64,7 @@ class FileDownloaderClient implements FileDownloaderClientContract {
 			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
 			unlink( $tempFile );
 			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
-			throw new \Exception( 'Failed to download file: ' . $response->getStatusCode() );
+			throw new Exception( 'Failed to download file: ' . $response->getStatusCode() );
 		}
 		$this->fileName = $tempFile;
 	}
