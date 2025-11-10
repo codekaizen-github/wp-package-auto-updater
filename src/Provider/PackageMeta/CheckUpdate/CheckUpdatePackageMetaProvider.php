@@ -9,8 +9,10 @@ namespace CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
 use CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject\CheckUpdate\CheckUpdateMetaObjectValidator;
+use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 use stdClass;
+use UnexpectedValueException;
 
 /**
  * Undocumented class
@@ -26,9 +28,15 @@ class CheckUpdatePackageMetaProvider implements CheckUpdatePackageMetaProviderCo
 	 * Undocumented function
 	 *
 	 * @param stdClass $data Data.
+	 * @throws UnexpectedValueException If validation fails.
 	 */
 	public function __construct( stdClass $data ) {
-		Validator::create( new CheckUpdateMetaObjectValidator() )->check( $data );
+		try {
+			Validator::create( new CheckUpdateMetaObjectValidator() )->check( $data );
+		} catch ( ValidationException $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new UnexpectedValueException( $e->getMessage(), 0, $e );
+		}
 		$this->data = $data;
 	}
 	/**
