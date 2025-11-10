@@ -8,8 +8,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -19,18 +19,11 @@ use Throwable;
 class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 
 	/**
-	 * Local package meta provider.
-	 *
-	 * @var PackageMetaProviderContract
-	 */
-	protected PackageMetaProviderContract $localPackageMetaProvider;
-
-	/**
 	 * Remote package meta provider.
 	 *
-	 * @var PackageMetaProviderContract
+	 * @var CheckUpdatePackageMetaProviderContract
 	 */
-	protected PackageMetaProviderContract $remotePackageMetaProvider;
+	protected CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider;
 
 	/**
 	 * File downloader client.
@@ -49,21 +42,18 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaProviderContract  $localPackageMetaProvider  Local package meta provider.
-	 * @param PackageMetaProviderContract  $remotePackageMetaProvider Remote package meta provider.
-	 * @param FileDownloaderClientContract $fileDownloader            File downloader client.
-	 * @param LoggerInterface              $logger                    Logger instance.
+	 * @param CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider Remote package meta provider.
+	 * @param FileDownloaderClientContract           $fileDownloader            File downloader client.
+	 * @param LoggerInterface                        $logger                    Logger instance.
 	 */
 	public function __construct(
-		PackageMetaProviderContract $localPackageMetaProvider,
-		PackageMetaProviderContract $remotePackageMetaProvider,
+		CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider,
 		FileDownloaderClientContract $fileDownloader,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProvider  = $localPackageMetaProvider;
-		$this->remotePackageMetaProvider = $remotePackageMetaProvider;
-		$this->fileDownloader            = $fileDownloader;
-		$this->logger                    = $logger;
+		$this->checkUpdatePackageMetaProvider = $checkUpdatePackageMetaProvider;
+		$this->fileDownloader                 = $fileDownloader;
+		$this->logger                         = $logger;
 	}
 
 	/**
@@ -79,7 +69,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
 			$this->logger->debug( 'Checking if we should handle download for package: ' . $package );
-			$downloadUrl = $this->remotePackageMetaProvider->getDownloadUrl();
+			$downloadUrl = $this->checkUpdatePackageMetaProvider->getDownloadUrl();
 			// If the package URL matches our download URL, handle it.
 			if ( $package === $downloadUrl ) {
 				// Get the download URL from our remote provider.
