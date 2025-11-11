@@ -8,14 +8,18 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider;
 use stdClass;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
+use Throwable;
 
 /**
  * Undocumented class
  */
-class CheckUpdatePackageMetaProviderFactory {
+class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaProviderFactoryContract {
 	/**
 	 * Undocumented variable
 	 *
@@ -41,15 +45,15 @@ class CheckUpdatePackageMetaProviderFactory {
 	/**
 	 * Undocumented function
 	 *
-	 * @return ?CheckUpdatePackageMetaProviderContract
+	 * @return CheckUpdatePackageMetaProviderContract
+	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
-	public function create() {
+	public function create(): CheckUpdatePackageMetaProviderContract {
 		// - Fetch the transient
 		$transient = $this->accessor->get();
 		// - Confirm it is an array
 		if ( ! is_array( $transient ) ) {
-			// - If not, return null
-			return null;
+			throw new InvalidCheckUpdatePackageMetaException();
 		}
 		/**
 		 * Validated.
@@ -60,9 +64,14 @@ class CheckUpdatePackageMetaProviderFactory {
 		$item = $transient[ $this->fullSlug ] ?? null;
 		// - If not found, return null
 		if ( ! is_object( $item ) ) {
-			return null;
+			throw new InvalidCheckUpdatePackageMetaException();
 		}
 		// - If found, instantiate and return Contract, passing in data
-		return new CheckUpdatePackageMetaProvider( $item );
+		try {
+			return new CheckUpdatePackageMetaProvider( $item );
+		} catch ( Throwable $e ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
+			throw new InvalidCheckUpdatePackageMetaException( $e->getMessage(), $e->getCode(), $e );
+		}
 	}
 }

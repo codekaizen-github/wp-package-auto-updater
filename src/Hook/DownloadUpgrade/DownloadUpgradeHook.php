@@ -8,10 +8,11 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -22,18 +23,11 @@ use Throwable;
 class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrategyContract {
 
 	/**
-	 * The local package meta provider factory.
+	 * The CheckUpdate package meta provider factory.
 	 *
-	 * @var PluginPackageMetaProviderFactoryContract
+	 * @var CheckUpdatePackageMetaProviderFactoryContract
 	 */
-	protected PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
-
-	/**
-	 * The remote package meta provider factory.
-	 *
-	 * @var PluginPackageMetaProviderFactoryContract
-	 */
-	protected PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
+	protected CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory;
 
 	/**
 	 * The file downloader client.
@@ -52,21 +46,18 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory  Local provider factory.
-	 * @param PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param FileDownloaderClientContract             $fileDownloader                   File downloader client.
-	 * @param LoggerInterface                          $logger                          Logger instance.
+	 * @param CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory CheckUpdate.
+	 * @param FileDownloaderClientContract                  $fileDownloader                   File downloader client.
+	 * @param LoggerInterface                               $logger                          Logger instance.
 	 */
 	public function __construct(
-		PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
-		PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory,
+		CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory,
 		FileDownloaderClientContract $fileDownloader,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
-		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-		$this->fileDownloader                   = $fileDownloader;
-		$this->logger                           = $logger;
+		$this->checkUpdatePackageMetaProviderFactory = $checkUpdatePackageMetaProviderFactory;
+		$this->fileDownloader                        = $fileDownloader;
+		$this->logger                                = $logger;
 	}
 
 	/**
@@ -90,12 +81,8 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
-			$localPackageMetaProvider  = $this->localPackageMetaProviderFactory->create();
-			$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
-
 			$downloadStrategy = new DownloadUpgradeStrategy(
-				$localPackageMetaProvider,
-				$remotePackageMetaProvider,
+				$this->checkUpdatePackageMetaProviderFactory->create(),
 				$this->fileDownloader,
 				$this->logger
 			);
