@@ -55,12 +55,13 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	 */
 	protected function setUp(): void {
 		parent::setUp();
-
+		// phpcs:disable Generic.Files.LineLength.TooLong
 		$this->checkUpdatePackageMetaProvider = Mockery::mock(
 			\CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract::class
 		);
-		$this->fileDownloader                 = Mockery::mock( FileDownloaderClientContract::class );
-		$this->logger                         = Mockery::mock( LoggerInterface::class );
+		// phpcs:enable Generic.Files.LineLength.TooLong
+		$this->fileDownloader = Mockery::mock( FileDownloaderClientContract::class );
+		$this->logger         = Mockery::mock( LoggerInterface::class );
 
 		$this->logger->shouldReceive( 'debug' )->byDefault();
 		$this->logger->shouldReceive( 'error' )->byDefault();
