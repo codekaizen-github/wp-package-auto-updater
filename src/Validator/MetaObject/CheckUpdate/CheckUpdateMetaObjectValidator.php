@@ -29,12 +29,12 @@ class CheckUpdateMetaObjectValidator extends Simple {
 		return Validator::create(
 			new Rules\AllOf(
 				new Rules\ObjectType(),
-				new Rules\Key( 'id', new Rules\StringType(), true ),
-				new Rules\Key( 'slug', new Rules\StringType(), true ),
-				new Rules\Key( 'new_version', new FlexibleSemanticVersionRule(), false ),
-				new Rules\Key( 'url', new Rules\Url(), false ),
-				new Rules\Key( 'package', new Rules\Url(), false ),
-				new Rules\Key(
+				new Rules\Attribute( 'id', new Rules\StringType(), true ),
+				new Rules\Attribute( 'slug', new Rules\StringType(), true ),
+				new Rules\Attribute( 'new_version', new FlexibleSemanticVersionRule(), false ),
+				new Rules\Attribute( 'url', new Rules\Url(), false ),
+				new Rules\Attribute( 'package', new Rules\Url(), false ),
+				new Rules\Attribute(
 					'icons',
 					new Rules\AllOf(
 						new Rules\ArrayType(),
@@ -43,7 +43,7 @@ class CheckUpdateMetaObjectValidator extends Simple {
 					),
 					false
 				),
-				new Rules\Key(
+				new Rules\Attribute(
 					'banners',
 					new Rules\AllOf(
 						new Rules\ArrayType(),
@@ -52,7 +52,7 @@ class CheckUpdateMetaObjectValidator extends Simple {
 					),
 					false
 				),
-				new Rules\Key(
+				new Rules\Attribute(
 					'banners_rtl',
 					new Rules\AllOf(
 						new Rules\ArrayType(),
@@ -61,9 +61,9 @@ class CheckUpdateMetaObjectValidator extends Simple {
 					),
 					false
 				),
-				new Rules\Key( 'tested', new FlexibleSemanticVersionRule(), false ),
-				new Rules\Key( 'requires', new FlexibleSemanticVersionRule(), false ),
-				new Rules\Key( 'requires_php', new FlexibleSemanticVersionRule(), false )
+				new Rules\Attribute( 'tested', new FlexibleSemanticVersionRule(), false ),
+				new Rules\Attribute( 'requires', new FlexibleSemanticVersionRule(), false ),
+				new Rules\Attribute( 'requires_php', new FlexibleSemanticVersionRule(), false )
 			)
 		)->isValid( $input );
 	}
