@@ -13,6 +13,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\LocalPlu
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePluginPackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -98,6 +99,11 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 		$checkInfoHook                    = new PluginCheckInfoHook(
 			$localPackageMetaProviderFactory,
 			$remotePackageMetaProviderFactory,
+			$this->logger
+		);
+		$downloadUpgradeHook              = new DownloadUpgradeHook(
+			$localPackageMetaProviderFactory,
+			$this->httpOptions,
 			$this->logger
 		);
 		$checkUpdateHook->init();

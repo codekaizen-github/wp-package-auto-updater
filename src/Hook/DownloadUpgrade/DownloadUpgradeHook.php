@@ -7,13 +7,15 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
+use CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PackageMetaProviderFactoryContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -23,18 +25,18 @@ use Throwable;
 class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrategyContract {
 
 	/**
-	 * The CheckUpdate package meta provider factory.
+	 * Undocumented variable
 	 *
-	 * @var CheckUpdatePackageMetaProviderFactoryContract
+	 * @var PackageMetaProviderFactoryContract
 	 */
-	protected CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory;
+	protected PackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
 
 	/**
-	 * The file downloader client.
+	 * Undocumented variable
 	 *
-	 * @var FileDownloaderClientContract
+	 * @var array<string,mixed>
 	 */
-	protected FileDownloaderClientContract $fileDownloader;
+	protected array $httpOptions;
 
 	/**
 	 * The logger instance.
@@ -46,18 +48,18 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Constructor.
 	 *
-	 * @param CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory CheckUpdate.
-	 * @param FileDownloaderClientContract                  $fileDownloader                   File downloader client.
-	 * @param LoggerInterface                               $logger                          Logger instance.
+	 * @param PackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local.
+	 * @param array<string,mixed>                $httpOptions Http options.
+	 * @param LoggerInterface                    $logger                          Logger instance.
 	 */
 	public function __construct(
-		CheckUpdatePackageMetaProviderFactoryContract $checkUpdatePackageMetaProviderFactory,
-		FileDownloaderClientContract $fileDownloader,
+		PackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
+		array $httpOptions,
 		LoggerInterface $logger
 	) {
-		$this->checkUpdatePackageMetaProviderFactory = $checkUpdatePackageMetaProviderFactory;
-		$this->fileDownloader                        = $fileDownloader;
-		$this->logger                                = $logger;
+		$this->localPackageMetaProviderFactory = $localPackageMetaProviderFactory;
+		$this->httpOptions                     = $httpOptions;
+		$this->logger                          = $logger;
 	}
 
 	/**
@@ -81,9 +83,23 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
+			$localPackageMetaProvider              = $this->localPackageMetaProviderFactory->create();
+			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
+				new TransientWordPressProvider( 'upgrader_pre_download' ),
+				$localPackageMetaProvider->getFullSlug()
+			);
+			$checkUpdatePackageMetaProvider        = $checkUpdatePackageMetaProviderFactory->create();
+			$downloadURL                           = $checkUpdatePackageMetaProvider->getDownloadURL();
+			if ( null === $downloadURL ) {
+				return $reply;
+			}
+			$fileDownloader   = new FileDownloaderClient(
+				$downloadURL,
+				$this->httpOptions
+			);
 			$downloadStrategy = new DownloadUpgradeStrategy(
-				$this->checkUpdatePackageMetaProviderFactory->create(),
-				$this->fileDownloader,
+				$checkUpdatePackageMetaProvider,
+				$fileDownloader,
 				$this->logger
 			);
 
@@ -91,8 +107,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 		} catch ( Throwable $e ) {
 			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
-		} finally {
-			return $reply;
 		}
+		return $reply;
 	}
 }

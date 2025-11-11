@@ -90,8 +90,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 			$result = $checkInfo->checkInfo( $result, $action, $arg );
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error occurred while checking theme info: ' . $e->getMessage() );
-		} finally {
-			return $result;
 		}
+		return $result;
 	}
 }

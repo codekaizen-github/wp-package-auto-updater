@@ -95,8 +95,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 			$transient = $checkUpdate->checkUpdate( $transient );
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error in PluginCheckUpdateHook: ' . $e->getMessage() );
-		} finally {
-			return $transient;
 		}
+		return $transient;
 	}
 }
