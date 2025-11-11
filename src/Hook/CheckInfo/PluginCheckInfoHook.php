@@ -90,8 +90,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 			$result = $checkInfo->checkInfo( $result, $action, $arg );
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error in PluginCheckInfoHook::checkInfo: ' . $e->getMessage() );
-		} finally {
-			return $result;
 		}
+		return $result;
 	}
 }

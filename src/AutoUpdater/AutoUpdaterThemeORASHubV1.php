@@ -13,6 +13,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\LocalThem
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\RemoteThemePackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -100,7 +101,13 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 			$remotePackageMetaProviderFactory,
 			$this->logger
 		);
+		$downloadUpgradeHook              = new DownloadUpgradeHook(
+			$localPackageMetaProviderFactory,
+			$this->httpOptions,
+			$this->logger
+		);
 		$checkUpdateHook->init();
 		$checkInfoHook->init();
+		$downloadUpgradeHook->init();
 	}
 }
