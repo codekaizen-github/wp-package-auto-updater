@@ -108,5 +108,6 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 		);
 		$checkUpdateHook->init();
 		$checkInfoHook->init();
+		$downloadUpgradeHook->init();
 	}
 }
