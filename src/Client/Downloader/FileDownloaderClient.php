@@ -55,9 +55,9 @@ class FileDownloaderClient implements FileDownloaderClientContract {
 	 * @throws Exception If the download fails.
 	 */
 	public function download() {
-		$client   = new Client( $this->httpOptions );
+		$client   = new Client();
 		$tempFile = tempnam( sys_get_temp_dir(), 'download_' );
-		$response = $client->request( 'GET', $this->url, [ 'sink' => $tempFile ] );
+		$response = $client->request( 'GET', $this->url, array_merge( $this->httpOptions, [ 'sink' => $tempFile ] ) );
 		if ( $response->getStatusCode() === 200 ) {
 			$this->fileName = $tempFile;
 		} else {

@@ -11,12 +11,40 @@ use CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Promise\Create as GuzzlePromiseCreate;
+use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for FileDownloaderClient.
  */
 class FileDownloaderClientTest extends TestCase {
+	/**
+	 * Test that httpOptions are passed to the Guzzle client request.
+	 *
+	 * @return void
+	 */
+	public function testHttpOptionsArePassedToRequest(): void {
+		$called            = false;
+		$customOptionValue = 'custom-value';
+		$handler           = function ( $request, array $options ) use ( &$called, $customOptionValue ) {
+			$called = true;
+			// Assert our custom option is present.
+			Assert::assertArrayHasKey( 'custom_option', $options );
+			Assert::assertEquals( $customOptionValue, $options['custom_option'] );
+			return GuzzlePromiseCreate::promiseFor( new Response( 200, [], 'ok' ) );
+		};
+		$handlerStack      = HandlerStack::create( $handler );
+		$sut               = new FileDownloaderClient(
+			'http://example.com/test.zip',
+			[
+				'handler'       => $handlerStack,
+				'custom_option' => $customOptionValue,
+			]
+		);
+		$sut->download();
+		$this->assertTrue( $called, 'Handler was not called' );
+	}
 
 	/**
 	 * Test successful file download.
