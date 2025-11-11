@@ -14,6 +14,7 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Promise\Create as GuzzlePromiseCreate;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\NullLogger;
 
 /**
  * Test class for FileDownloaderClient.
@@ -40,7 +41,8 @@ class FileDownloaderClientTest extends TestCase {
 			[
 				'handler'       => $handlerStack,
 				'custom_option' => $customOptionValue,
-			]
+			],
+			new \Psr\Log\NullLogger()
 		);
 		$sut->download();
 		$this->assertTrue( $called, 'Handler was not called' );
@@ -57,7 +59,8 @@ class FileDownloaderClientTest extends TestCase {
 		$handlerStack = HandlerStack::create( $mockHandler );
 		$sut          = new FileDownloaderClient(
 			'http://example.com/test.zip',
-			[ 'handler' => $handlerStack ]
+			[ 'handler' => $handlerStack ],
+			new \Psr\Log\NullLogger()
 		);
 
 		// Set up mock response.
@@ -89,7 +92,8 @@ class FileDownloaderClientTest extends TestCase {
 		$handlerStack = HandlerStack::create( $mockHandler );
 		$sut          = new FileDownloaderClient(
 			'http://example.com/test.zip',
-			[ 'handler' => $handlerStack ]
+			[ 'handler' => $handlerStack ],
+			new \Psr\Log\NullLogger()
 		);
 
 		// Set up mock response.
@@ -110,7 +114,11 @@ class FileDownloaderClientTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetFileNameBeforeDownload(): void {
-		$sut = new FileDownloaderClient( 'http://example.com/test.zip' );
+		$sut = new FileDownloaderClient(
+			'http://example.com/test.zip',
+			[],
+			new \Psr\Log\NullLogger()
+		);
 		$this->assertNull( $sut->getFileName() );
 	}
 
@@ -121,7 +129,11 @@ class FileDownloaderClientTest extends TestCase {
 	 */
 	public function testConstructorSetsUrl(): void {
 		$url    = 'http://example.com/test.zip';
-		$client = new FileDownloaderClient( $url );
+		$client = new FileDownloaderClient(
+			$url,
+			[],
+			new \Psr\Log\NullLogger()
+		);
 
 		$this->assertInstanceOf( FileDownloaderClient::class, $client );
 		$this->assertNull( $client->getFileName() );
