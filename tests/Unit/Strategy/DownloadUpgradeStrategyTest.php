@@ -19,6 +19,12 @@ use Psr\Log\LoggerInterface;
  * Test class for DownloadUpgradeStrategy.
  */
 class DownloadUpgradeStrategyTest extends TestCase {
+	/**
+	 * Mock check update package meta provider.
+	 *
+	 * @var \CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract|Mockery\MockInterface
+	 */
+	private $checkUpdatePackageMetaProvider;
 
 	/**
 	 * The system under test.
@@ -27,19 +33,6 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	 */
 	private $sut;
 
-	/**
-	 * Mock local package meta provider.
-	 *
-	 * @var PackageMetaProviderContract|Mockery\MockInterface
-	 */
-	private $localProvider;
-
-	/**
-	 * Mock remote package meta provider.
-	 *
-	 * @var PackageMetaProviderContract|Mockery\MockInterface
-	 */
-	private $remoteProvider;
 
 	/**
 	 * Mock file downloader.
@@ -63,17 +56,17 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->localProvider  = Mockery::mock( PackageMetaProviderContract::class );
-		$this->remoteProvider = Mockery::mock( PackageMetaProviderContract::class );
-		$this->fileDownloader = Mockery::mock( FileDownloaderClientContract::class );
-		$this->logger         = Mockery::mock( LoggerInterface::class );
+		$this->checkUpdatePackageMetaProvider = Mockery::mock(
+			\CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract::class
+		);
+		$this->fileDownloader                 = Mockery::mock( FileDownloaderClientContract::class );
+		$this->logger                         = Mockery::mock( LoggerInterface::class );
 
 		$this->logger->shouldReceive( 'debug' )->byDefault();
 		$this->logger->shouldReceive( 'error' )->byDefault();
 
 		$this->sut = new DownloadUpgradeStrategy(
-			$this->localProvider,
-			$this->remoteProvider,
+			$this->checkUpdatePackageMetaProvider,
 			$this->fileDownloader,
 			$this->logger
 		);
@@ -99,7 +92,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		$downloadUrl = 'https://example.com/plugin.zip';
 		$tempFile    = '/tmp/downloaded-file.zip';
 
-		$this->remoteProvider->shouldReceive( 'getDownloadUrl' )
+		$this->checkUpdatePackageMetaProvider->shouldReceive( 'getDownloadUrl' )
 			->andReturn( $downloadUrl );
 
 		$this->fileDownloader->shouldReceive( 'getFileName' )
@@ -124,7 +117,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		$downloadUrl = 'https://example.com/plugin.zip';
 		$tempFile    = '/tmp/downloaded-file.zip';
 
-		$this->remoteProvider->shouldReceive( 'getDownloadUrl' )
+		$this->checkUpdatePackageMetaProvider->shouldReceive( 'getDownloadUrl' )
 			->andReturn( $downloadUrl );
 
 		$this->fileDownloader->shouldReceive( 'getFileName' )
@@ -149,7 +142,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		$downloadUrl = 'https://example.com/plugin.zip';
 		$package     = 'https://different.com/plugin.zip';
 
-		$this->remoteProvider->shouldReceive( 'getDownloadUrl' )
+		$this->checkUpdatePackageMetaProvider->shouldReceive( 'getDownloadUrl' )
 			->andReturn( $downloadUrl );
 
 		$this->fileDownloader->shouldNotReceive( 'download' );
@@ -171,7 +164,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		$downloadUrl = 'https://example.com/plugin.zip';
 		$error       = new Exception( 'Download failed' );
 
-		$this->remoteProvider->shouldReceive( 'getDownloadUrl' )
+		$this->checkUpdatePackageMetaProvider->shouldReceive( 'getDownloadUrl' )
 			->andThrow( $error );
 
 		$this->logger->shouldReceive( 'error' )
@@ -193,7 +186,6 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		// Arrange.
 		$reply = '/existing/file.zip';
 
-		$this->remoteProvider->shouldReceive( 'getDownloadUrl' );
 		$this->fileDownloader->shouldNotReceive( 'download' );
 
 		// Act.

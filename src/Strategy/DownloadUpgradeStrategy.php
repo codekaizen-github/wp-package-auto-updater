@@ -67,6 +67,10 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	 * @return bool|string False to use default upgrade process, or path to downloaded file.
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
+		// If reply is already set (not false), return it immediately.
+		if ( $reply ) {
+			return $reply;
+		}
 		try {
 			$this->logger->debug( 'Checking if we should handle download for package: ' . $package );
 			$downloadUrl = $this->checkUpdatePackageMetaProvider->getDownloadUrl();

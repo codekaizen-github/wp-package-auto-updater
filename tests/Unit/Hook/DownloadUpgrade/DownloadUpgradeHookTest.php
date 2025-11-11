@@ -30,12 +30,11 @@ class DownloadUpgradeHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory   = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
-		$remoteFactory  = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
-		$fileDownloader = Mockery::mock( FileDownloaderClientContract::class );
-		$logger         = Mockery::mock( LoggerInterface::class );
+		$localFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$httpOptions  = [];
+		$logger       = Mockery::mock( LoggerInterface::class );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $remoteFactory, $fileDownloader, $logger );
+		$sut = new DownloadUpgradeHook( $localFactory, $httpOptions, $logger );
 
 		// Set up expectations.
 		WP_Mock::expectFilterAdded(
@@ -65,11 +64,10 @@ class DownloadUpgradeHookTest extends TestCase {
 		$localFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andThrow( $error );
 
-		$remoteFactory  = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
-		$fileDownloader = Mockery::mock( FileDownloaderClientContract::class );
-		$logger         = Mockery::mock( LoggerInterface::class );
+		$httpOptions = [];
+		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $remoteFactory, $fileDownloader, $logger );
+		$sut = new DownloadUpgradeHook( $localFactory, $httpOptions, $logger );
 
 		$logger->shouldReceive( 'error' )
 			->with( 'Error in DownloadUpgradeHook: Test exception' )
