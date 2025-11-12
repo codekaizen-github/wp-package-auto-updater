@@ -83,8 +83,21 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
 	public function create(): PluginPackageMetaProviderContract {
+		$this->logger->info( 'Creating RemotePluginPackageMetaProviderFactory instance.' );
 		if ( null === $this->provider ) {
 			// phpcs:disable Generic.Files.LineLength.TooLong
+			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
+				$this->baseURL,
+				$this->metaKey,
+				$this->httpOptions,
+				$this->logger
+			);
+			$this->logger->info(
+				'Before applying filter in RemotePluginPackageMetaProviderFactory.',
+				[
+					'argument' => $argument,
+				]
+			);
 			/**
 			 * Filter
 			 *
@@ -92,12 +105,13 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 			 */
 			$options = apply_filters(
 				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options',
-				new CreateRemotePackageMetaProviderFactoryFilterArgument(
-					$this->baseURL,
-					$this->metaKey,
-					$this->httpOptions,
-					$this->logger
-				)
+				$argument
+			);
+			$this->logger->info(
+				'After applying filter in RemotePluginPackageMetaProviderFactory.',
+				[
+					'options' => $options,
+				]
 			);
 			// phpcs:enable Generic.Files.LineLength.TooLong
 			/**
@@ -106,6 +120,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 			 * @var mixed $options
 			 */
 			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
+				$this->logger->error( 'Invalid options provided to RemotePluginPackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
 			$factory        = new RemotePluginPackageMetaProviderFactoryV1(

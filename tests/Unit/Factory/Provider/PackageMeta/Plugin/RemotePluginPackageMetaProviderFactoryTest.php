@@ -37,6 +37,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'info' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
@@ -63,6 +64,8 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
@@ -100,6 +103,8 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
@@ -135,10 +140,11 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 	 * @return void
 	 */
 	public function testFilterUpdateValuesValid(): void {
-		$baseUrl            = '';
-		$metaKey            = '';
-		$httpOptions        = [];
-		$logger             = Mockery::mock( LoggerInterface::class );
+		$baseUrl     = '';
+		$metaKey     = '';
+		$httpOptions = [];
+		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'info' );
 		$baseUrlUpdated     = 'https://example.com/';
 		$metaKeyUpdated     = 'updated_meta_key';
 		$httpOptionsUpdated = [ 'timeout' => 30 ];
