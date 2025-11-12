@@ -48,20 +48,34 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 * @return CheckUpdatePackageMetaProviderContract
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
+	/**
+	 * Undocumented function
+	 *
+	 * @return CheckUpdatePackageMetaProviderContract
+	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
+	 */
 	public function create(): CheckUpdatePackageMetaProviderContract {
-		// - Fetch the transient
+		// print file and line number
+		// Fetch the transient.
 		$transient = $this->accessor->get();
+		if ( ! is_object( $transient ) ) {
+			throw new InvalidCheckUpdatePackageMetaException();
+		}
+		if ( ! isset( $transient->response ) ) {
+			throw new InvalidCheckUpdatePackageMetaException();
+		}
+		$transientResponse = $transient->response;
 		// - Confirm it is an array
-		if ( ! is_array( $transient ) ) {
+		if ( ! is_array( $transientResponse ) ) {
 			throw new InvalidCheckUpdatePackageMetaException();
 		}
 		/**
 		 * Validated.
 		 *
-		 * @var array<string,stdClass> $transient.
+		 * @var array<string,stdClass> $transientResponse.
 		 */
 		// - Search for the item with the matching key
-		$item = $transient[ $this->fullSlug ] ?? null;
+		$item = $transientResponse[ $this->fullSlug ] ?? null;
 		// - If not found, return null
 		if ( ! is_object( $item ) ) {
 			throw new InvalidCheckUpdatePackageMetaException();
