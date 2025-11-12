@@ -12,6 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdate
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use stdClass;
 
 /**
@@ -90,8 +91,11 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 			$accessor  = Mockery::mock(
 				\CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract::class
 			);
+			$logger    = Mockery::mock( LoggerInterface::class );
+			$logger->shouldReceive( 'info' );
+			$logger->shouldReceive( 'error' );
 			$accessor->shouldReceive( 'get' )->andReturn( $transient );
-			$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug );
+			$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug, $logger );
 			$this->expectException( InvalidCheckUpdatePackageMetaException::class );
 			$sut->create();
 	}

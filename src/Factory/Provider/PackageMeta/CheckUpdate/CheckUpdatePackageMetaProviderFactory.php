@@ -14,6 +14,8 @@ use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdate
 use stdClass;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Throwable;
 
 /**
@@ -33,14 +35,26 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 */
 	protected string $fullSlug;
 	/**
+	 * Undocumented variable
+	 *
+	 * @var LoggerInterface
+	 */
+	protected LoggerInterface $logger;
+	/**
 	 * Undocumented function
 	 *
 	 * @param MixedAccessorContract $accessor Accessor.
 	 * @param string                $fullSlug FullSlug.
+	 * @param LoggerInterface       $logger   Logger.
 	 */
-	public function __construct( MixedAccessorContract $accessor, string $fullSlug ) {
+	public function __construct(
+		MixedAccessorContract $accessor,
+		string $fullSlug,
+		LoggerInterface $logger = new NullLogger()
+	) {
 		$this->accessor = $accessor;
 		$this->fullSlug = $fullSlug;
+		$this->logger   = $logger;
 	}
 	/**
 	 * Undocumented function
@@ -55,19 +69,25 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
 	public function create(): CheckUpdatePackageMetaProviderContract {
-		// print file and line number
+		$this->logger->info( 'Creating CheckUpdatePackageMetaProvider.', [ 'fullSlug' => $this->fullSlug ] );
 		// Fetch the transient.
 		$transient = $this->accessor->get();
 		if ( ! is_object( $transient ) ) {
-			throw new InvalidCheckUpdatePackageMetaException();
+			$this->logger->error( 'Transient is not an object', [ 'transient' => $transient ] );
+			throw new InvalidCheckUpdatePackageMetaException( 'Transient is not an object' );
 		}
 		if ( ! isset( $transient->response ) ) {
-			throw new InvalidCheckUpdatePackageMetaException();
+			$this->logger->error( 'Transient response is not set.', [ 'transient' => $transient ] );
+			throw new InvalidCheckUpdatePackageMetaException( 'Transient response is not set.' );
 		}
 		$transientResponse = $transient->response;
 		// - Confirm it is an array
 		if ( ! is_array( $transientResponse ) ) {
-			throw new InvalidCheckUpdatePackageMetaException();
+			$this->logger->error(
+				'Transient response is not an array.',
+				[ 'transientResponse' => $transientResponse ]
+			);
+			throw new InvalidCheckUpdatePackageMetaException( 'Transient response is not an array.' );
 		}
 		/**
 		 * Validated.
@@ -78,12 +98,14 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 		$item = $transientResponse[ $this->fullSlug ] ?? null;
 		// - If not found, return null
 		if ( ! is_object( $item ) ) {
-			throw new InvalidCheckUpdatePackageMetaException();
+			$this->logger->error( 'Transient response item is not an object.', [ 'item' => $item ] );
+			throw new InvalidCheckUpdatePackageMetaException( 'Transient response item is not an object.' );
 		}
 		// - If found, instantiate and return Contract, passing in data
 		try {
 			return new CheckUpdatePackageMetaProvider( $item );
 		} catch ( Throwable $e ) {
+			$this->logger->error( 'Error creating CheckUpdatePackageMetaProvider.', [ 'exception' => $e ] );
 			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new InvalidCheckUpdatePackageMetaException( $e->getMessage(), $e->getCode(), $e );
 		}

@@ -96,7 +96,8 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			$localPackageMetaProvider              = $this->localPackageMetaProviderFactory->create();
 			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
 				$this->transientAccessor,
-				$localPackageMetaProvider->getFullSlug()
+				$localPackageMetaProvider->getFullSlug(),
+				$this->logger
 			);
 			$checkUpdatePackageMetaProvider        = $checkUpdatePackageMetaProviderFactory->create();
 			$downloadURL                           = $checkUpdatePackageMetaProvider->getDownloadURL();
