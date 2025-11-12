@@ -33,6 +33,6 @@ class TransientWordPressProvider implements MixedAccessorContract {
 	 * @return mixed
 	 */
 	public function get(): mixed {
-		return get_transient( $this->key );
+		return get_site_transient( $this->key );
 	}
 }
