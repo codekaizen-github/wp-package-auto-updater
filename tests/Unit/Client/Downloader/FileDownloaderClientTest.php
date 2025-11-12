@@ -42,7 +42,7 @@ class FileDownloaderClientTest extends TestCase {
 				'handler'       => $handlerStack,
 				'custom_option' => $customOptionValue,
 			],
-			new \Psr\Log\NullLogger()
+			new NullLogger()
 		);
 		$sut->download();
 		$this->assertTrue( $called, 'Handler was not called' );
@@ -60,7 +60,7 @@ class FileDownloaderClientTest extends TestCase {
 		$sut          = new FileDownloaderClient(
 			'http://example.com/test.zip',
 			[ 'handler' => $handlerStack ],
-			new \Psr\Log\NullLogger()
+			new NullLogger()
 		);
 
 		// Set up mock response.
@@ -93,7 +93,7 @@ class FileDownloaderClientTest extends TestCase {
 		$sut          = new FileDownloaderClient(
 			'http://example.com/test.zip',
 			[ 'handler' => $handlerStack ],
-			new \Psr\Log\NullLogger()
+			new NullLogger()
 		);
 
 		// Set up mock response.
@@ -117,7 +117,7 @@ class FileDownloaderClientTest extends TestCase {
 		$sut = new FileDownloaderClient(
 			'http://example.com/test.zip',
 			[],
-			new \Psr\Log\NullLogger()
+			new NullLogger()
 		);
 		$this->assertNull( $sut->getFileName() );
 	}
@@ -132,7 +132,7 @@ class FileDownloaderClientTest extends TestCase {
 		$client = new FileDownloaderClient(
 			$url,
 			[],
-			new \Psr\Log\NullLogger()
+			new NullLogger()
 		);
 
 		$this->assertInstanceOf( FileDownloaderClient::class, $client );

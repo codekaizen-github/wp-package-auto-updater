@@ -106,7 +106,8 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			}
 			$fileDownloader   = new FileDownloaderClient(
 				$downloadURL,
-				$this->httpOptions
+				$this->httpOptions,
+				$this->logger
 			);
 			$downloadStrategy = new DownloadUpgradeStrategy(
 				$checkUpdatePackageMetaProvider,
