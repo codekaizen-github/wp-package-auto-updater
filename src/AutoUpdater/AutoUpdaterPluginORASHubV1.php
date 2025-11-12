@@ -14,6 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePl
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
+use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -103,6 +104,7 @@ class AutoUpdaterPluginORASHubV1 implements InitializerContract {
 		);
 		$downloadUpgradeHook              = new DownloadUpgradeHook(
 			$localPackageMetaProviderFactory,
+			new TransientWordPressProvider( 'update_plugins' ),
 			$this->httpOptions,
 			$this->logger
 		);

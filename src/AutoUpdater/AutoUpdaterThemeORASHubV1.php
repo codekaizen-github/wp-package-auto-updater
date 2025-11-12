@@ -14,6 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\RemoteThe
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
+use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -103,6 +104,7 @@ class AutoUpdaterThemeORASHubV1 implements InitializerContract {
 		);
 		$downloadUpgradeHook              = new DownloadUpgradeHook(
 			$localPackageMetaProviderFactory,
+			new TransientWordPressProvider( 'update_themes' ),
 			$this->httpOptions,
 			$this->logger
 		);

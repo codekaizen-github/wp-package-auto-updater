@@ -7,6 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\DownloadUpgrade;
 
+use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PackageMetaProviderFactoryContract;
@@ -35,6 +36,8 @@ class DownloadUpgradeHookTest extends TestCase {
 		$localProvider = Mockery::mock( PackageMetaProviderContract::class );
 		$localProvider->shouldReceive( 'getFullSlug' )->andReturn( 'plugin/full-slug' );
 		$localFactory->shouldReceive( 'create' )->andReturn( $localProvider );
+		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
+		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
 		$logger->shouldNotReceive( 'error' );
@@ -57,7 +60,7 @@ class DownloadUpgradeHookTest extends TestCase {
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy' )
 			->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $httpOptions, $logger );
+		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.
 		$result = $sut->downloadUpgrade( false, 'any-package', null, [] );
@@ -73,12 +76,13 @@ class DownloadUpgradeHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory = Mockery::mock( PackageMetaProviderFactoryContract::class );
-		$httpOptions  = [];
-		$logger       = Mockery::mock( LoggerInterface::class );
+		$localFactory      = Mockery::mock( PackageMetaProviderFactoryContract::class );
+		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
+		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
+		$httpOptions = [];
+		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $httpOptions, $logger );
-
+		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 		// Set up expectations.
 		WP_Mock::expectFilterAdded(
 			'upgrader_pre_download',
@@ -107,10 +111,13 @@ class DownloadUpgradeHookTest extends TestCase {
 		$localFactory = Mockery::mock( PackageMetaProviderFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andThrow( $error );
 
+		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
+		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
+
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $httpOptions, $logger );
+		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		$logger->shouldReceive( 'error' )
 			->with( 'Error in DownloadUpgradeHook: Test exception' )

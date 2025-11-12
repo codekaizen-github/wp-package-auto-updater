@@ -8,11 +8,11 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade;
 
 use CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
-use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PackageMetaProviderFactoryContract;
@@ -34,6 +34,13 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Undocumented variable
 	 *
+	 * @var MixedAccessorContract
+	 */
+	protected MixedAccessorContract $transientAccessor;
+
+	/**
+	 * Undocumented variable
+	 *
 	 * @var array<string,mixed>
 	 */
 	protected array $httpOptions;
@@ -49,15 +56,18 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	 * Constructor.
 	 *
 	 * @param PackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local.
-	 * @param array<string,mixed>                $httpOptions Http options.
-	 * @param LoggerInterface                    $logger                          Logger instance.
+	 * @param MixedAccessorContract              $transientAccessor               Transient accessor.
+	 * @param array<string,mixed>                $httpOptions                    Http options.
+	 * @param LoggerInterface                    $logger                        Logger instance.
 	 */
 	public function __construct(
 		PackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
+		MixedAccessorContract $transientAccessor,
 		array $httpOptions,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProviderFactory = $localPackageMetaProviderFactory;
+		$this->transientAccessor               = $transientAccessor;
 		$this->httpOptions                     = $httpOptions;
 		$this->logger                          = $logger;
 	}
@@ -85,7 +95,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 		try {
 			$localPackageMetaProvider              = $this->localPackageMetaProviderFactory->create();
 			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
-				new TransientWordPressProvider( 'upgrader_pre_download' ),
+				$this->transientAccessor,
 				$localPackageMetaProvider->getFullSlug()
 			);
 			$checkUpdatePackageMetaProvider        = $checkUpdatePackageMetaProviderFactory->create();
