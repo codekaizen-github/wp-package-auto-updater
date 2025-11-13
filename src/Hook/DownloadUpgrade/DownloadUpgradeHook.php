@@ -93,7 +93,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
-			$this->logger->info(
+			$this->logger->debug(
 				'Entering DownloadUpgradeHook::downloadUpgrade',
 				[
 					'reply'     => $reply,
@@ -129,7 +129,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
 		}
-		$this->logger->info( 'Exiting DownloadUpgradeHook::downloadUpgrade', [ 'reply' => $reply ] );
+		$this->logger->debug( 'Exiting DownloadUpgradeHook::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;
 	}
 }

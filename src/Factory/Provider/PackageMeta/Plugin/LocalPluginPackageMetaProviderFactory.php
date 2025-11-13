@@ -63,7 +63,7 @@ class LocalPluginPackageMetaProviderFactory implements PluginPackageMetaProvider
 	 */
 	public function create(): PluginPackageMetaProviderContract {
 		if ( null === $this->provider ) {
-			$this->logger->info( 'Creating new plugin package meta provider.' );
+			$this->logger->debug( 'Creating new plugin package meta provider.' );
 			$slugParser     = new PluginSlugParser( $this->filePath, new PluginPackageRoot(), $this->logger );
 			$factory        = new LocalPluginPackageMetaProviderFactoryV1(
 				$this->filePath,

@@ -84,7 +84,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	 */
 	public function create(): PluginPackageMetaProviderContract {
 		if ( null === $this->provider ) {
-			$this->logger->info( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
+			$this->logger->debug( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
 				$this->baseURL,
@@ -92,7 +92,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 				$this->httpOptions,
 				$this->logger
 			);
-			$this->logger->info(
+			$this->logger->debug(
 				'Before applying filter in RemotePluginPackageMetaProviderFactory.',
 				[
 					'argument' => $argument,
@@ -107,7 +107,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options',
 				$argument
 			);
-			$this->logger->info(
+			$this->logger->debug(
 				'After applying filter in RemotePluginPackageMetaProviderFactory.',
 				[
 					'options' => $options,

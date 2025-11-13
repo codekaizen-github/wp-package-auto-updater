@@ -83,7 +83,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	 */
 	public function create(): ThemePackageMetaProviderContract {
 		if ( null === $this->provider ) {
-			$this->logger->info( 'Creating new RemoteThemePackageMetaProviderFactory instance.' );
+			$this->logger->debug( 'Creating new RemoteThemePackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			/**
 			 * Filter
@@ -96,7 +96,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 				$this->httpOptions,
 				$this->logger
 			);
-			$this->logger->info(
+			$this->logger->debug(
 				'Before applying filter in RemoteThemePackageMetaProviderFactory.',
 				[
 					'argument' => $argument,
@@ -106,7 +106,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 				'wp_package_auto_updater_remote_theme_package_meta_provider_factory_v1_instance_options',
 				$argument
 			);
-			$this->logger->info(
+			$this->logger->debug(
 				'After applying filter in RemoteThemePackageMetaProviderFactory.',
 				[
 					'options' => $options,

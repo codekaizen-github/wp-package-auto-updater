@@ -79,7 +79,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	 */
 	public function checkInfo( bool|object $result, string $action, object $arg ): bool|object {
 		try {
-			$this->logger->info(
+			$this->logger->debug(
 				'Entering PluginCheckInfoHook::checkInfo',
 				[
 					'result' => $result,
@@ -99,7 +99,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error in PluginCheckInfoHook::checkInfo: ' . $e->getMessage() );
 		}
-		$this->logger->info( 'Exiting PluginCheckInfoHook::checkInfo', [ 'result' => $result ] );
+		$this->logger->debug( 'Exiting PluginCheckInfoHook::checkInfo', [ 'result' => $result ] );
 		return $result;
 	}
 }

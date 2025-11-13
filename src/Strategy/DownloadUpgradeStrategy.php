@@ -67,7 +67,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	 * @return bool|string False to use default upgrade process, or path to downloaded file.
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
-		$this->logger->info(
+		$this->logger->debug(
 			'Entering DownloadUpgradeStrategy::downloadUpgrade',
 			[
 				'reply'     => $reply,
@@ -78,7 +78,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 		);
 		// If reply is already set (not false), return it immediately.
 		if ( $reply ) {
-			$this->logger->info( 'Reply already set, returning early from DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
+			$this->logger->debug( 'Reply already set, returning early from DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
 			return $reply;
 		}
 		try {
@@ -97,7 +97,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeStrategy: ' . $e->getMessage(), [ 'exception' => $e ] );
 		}
-		$this->logger->info( 'Exiting DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
+		$this->logger->debug( 'Exiting DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;
 	}
 }

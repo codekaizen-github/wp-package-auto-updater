@@ -155,7 +155,7 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 			);
 			return $transient;
 		}
-		$this->logger->info( 'Exiting CheckUpdateStrategy::checkUpdate', [ 'transient' => $transient ] );
+		$this->logger->debug( 'Exiting CheckUpdateStrategy::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

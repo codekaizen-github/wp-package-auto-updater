@@ -80,7 +80,7 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	 * phpcs:disable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 	 */
 	public function checkInfo( bool|object $false, string $action, object $arg ): bool|object {
-		$this->logger->info(
+		$this->logger->debug(
 			'Entering CheckInfoStrategy::checkInfo',
 			[
 				'false'  => $false,

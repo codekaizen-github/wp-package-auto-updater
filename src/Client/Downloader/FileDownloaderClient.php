@@ -67,7 +67,7 @@ class FileDownloaderClient implements FileDownloaderClientContract {
 	 * @throws Exception If the download fails.
 	 */
 	public function download() {
-		$this->logger->info( 'Starting download', [ 'url' => $this->url ] );
+		$this->logger->debug( 'Starting download', [ 'url' => $this->url ] );
 		$client   = new Client();
 		$tempFile = tempnam( sys_get_temp_dir(), 'download_' );
 		try {

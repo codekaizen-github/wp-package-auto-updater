@@ -69,7 +69,7 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
 	public function create(): CheckUpdatePackageMetaProviderContract {
-		$this->logger->info( 'Creating CheckUpdatePackageMetaProvider.', [ 'fullSlug' => $this->fullSlug ] );
+		$this->logger->debug( 'Creating CheckUpdatePackageMetaProvider.', [ 'fullSlug' => $this->fullSlug ] );
 		// Fetch the transient.
 		$transient = $this->accessor->get();
 		if ( ! is_object( $transient ) ) {

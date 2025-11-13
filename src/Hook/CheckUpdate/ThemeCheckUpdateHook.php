@@ -78,7 +78,7 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
 		try {
-			$this->logger->info(
+			$this->logger->debug(
 				'Entering ThemeCheckUpdateHook::checkUpdate',
 				[
 					'transient' => $transient,
@@ -100,7 +100,7 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error in ThemeCheckUpdateHook: ' . $e->getMessage() );
 		}
-		$this->logger->info( 'Exiting ThemeCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
+		$this->logger->debug( 'Exiting ThemeCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

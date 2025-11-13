@@ -79,7 +79,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 	 */
 	public function checkInfo( bool|object $result, string $action, object $arg ): bool|object {
 		try {
-			$this->logger->info(
+			$this->logger->debug(
 				'Entering ThemeCheckInfoHook::checkInfo',
 				[
 					'result' => $result,
@@ -99,7 +99,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error occurred while checking theme info: ' . $e->getMessage() );
 		}
-		$this->logger->info( 'Exiting ThemeCheckInfoHook::checkInfo', [ 'result' => $result ] );
+		$this->logger->debug( 'Exiting ThemeCheckInfoHook::checkInfo', [ 'result' => $result ] );
 		return $result;
 	}
 }
