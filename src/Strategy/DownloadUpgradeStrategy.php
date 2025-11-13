@@ -78,7 +78,10 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 		);
 		// If reply is already set (not false), return it immediately.
 		if ( $reply ) {
-			$this->logger->debug( 'Reply already set, returning early from DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
+			$this->logger->debug(
+				'Reply already set, returning early from DownloadUpgradeStrategy::downloadUpgrade',
+				[ 'reply' => $reply ]
+			);
 			return $reply;
 		}
 		try {

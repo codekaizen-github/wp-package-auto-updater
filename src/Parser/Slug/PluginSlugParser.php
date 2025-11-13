@@ -62,18 +62,17 @@ class PluginSlugParser implements SlugParserContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param string              $filePath    The file path.
-	 * @param PackageRootContract $packageRoot The package root contract.
-	 */
-	/**
-	 * Constructor.
-	 *
 	 * @param string              $filePath Description for filePath.
 	 * @param PackageRootContract $packageRoot Description for packageRoot.
+	 * @param LoggerInterface     $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( string $filePath, PackageRootContract $packageRoot, LoggerInterface $logger = new NullLogger() ) {
+	public function __construct(
+		string $filePath,
+		PackageRootContract $packageRoot,
+		LoggerInterface $logger = new NullLogger()
+	) {
 		$this->filePath    = $filePath;
 		$this->packageRoot = $packageRoot;
 		$this->logger      = $logger;
@@ -115,12 +114,6 @@ class PluginSlugParser implements SlugParserContract {
 		return $this->shortSlug;
 	}
 
-	/**
-	 * Get the full slug for this plugin.
-	 *
-	 * @return string The full slug.
-	 * @throws UnexpectedValueException If the slug cannot be determined.
-	 */
 	/**
 	 * Get Full Slug.
 	 *
