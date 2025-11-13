@@ -83,20 +83,34 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	 */
 	public function create(): ThemePackageMetaProviderContract {
 		if ( null === $this->provider ) {
+			$this->logger->info( 'Creating new RemoteThemePackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			/**
 			 * Filter
 			 *
 			 * @param CreateRemotePackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
 			 */
+			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
+				$this->baseURL,
+				$this->metaKey,
+				$this->httpOptions,
+				$this->logger
+			);
+			$this->logger->info(
+				'Before applying filter in RemoteThemePackageMetaProviderFactory.',
+				[
+					'argument' => $argument,
+				]
+			);
 			$options = apply_filters(
 				'wp_package_auto_updater_remote_theme_package_meta_provider_factory_v1_instance_options',
-				new CreateRemotePackageMetaProviderFactoryFilterArgument(
-					$this->baseURL,
-					$this->metaKey,
-					$this->httpOptions,
-					$this->logger
-				)
+				$argument
+			);
+			$this->logger->info(
+				'After applying filter in RemoteThemePackageMetaProviderFactory.',
+				[
+					'options' => $options,
+				]
 			);
 			// phpcs:enable Generic.Files.LineLength.TooLong
 			/**
@@ -105,6 +119,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 			 * @var mixed $options
 			 */
 			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
+				$this->logger->error( 'Invalid options provided to RemoteThemePackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
 			$factory        = new RemoteThemePackageMetaProviderFactoryV1(

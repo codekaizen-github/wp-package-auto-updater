@@ -97,7 +97,13 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 	 * @return stdClass The modified transient object with update information.
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
-		$this->logger->debug( 'Checking for updates ' . $this->localPackageMetaProvider->getFullSlug() );
+		$this->logger->debug(
+			'Checking for updates',
+			[
+				'fullSlug'  => $this->localPackageMetaProvider->getFullSlug(),
+				'transient' => $transient,
+			]
+		);
 		if ( empty( $transient->checked ) ) {
 			$this->logger->debug( 'No checked packages in transient, skipping' );
 			return $transient;
@@ -105,6 +111,10 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 		try {
 			$localVersion  = $this->localPackageMetaProvider->getVersion();
 			$remoteVersion = $this->remotePackageMetaProvider->getVersion();
+
+			$this->logger->debug(
+				'Local version: ' . $localVersion . ', Remote version: ' . $remoteVersion
+			);
 
 			if ( null === $localVersion || null === $remoteVersion ) {
 				$this->logger->warning( 'Missing version information, skipping update check' );
@@ -137,9 +147,15 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 				);
 			}
 		} catch ( Exception $e ) {
-			$this->logger->error( 'Unable to get remote package version: ' . $e->getMessage() );
+			$this->logger->error(
+				'Unable to get remote package version: ' . $e->getMessage(),
+				[
+					'transient' => $transient,
+				]
+			);
 			return $transient;
 		}
+		$this->logger->info( 'Exiting CheckUpdateStrategy::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

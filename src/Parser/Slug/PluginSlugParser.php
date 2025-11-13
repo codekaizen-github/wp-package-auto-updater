@@ -10,6 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Parser\SlugParserContract;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use UnexpectedValueException;
 
 /**
@@ -35,6 +37,13 @@ class PluginSlugParser implements SlugParserContract {
 	 * @var string
 	 */
 	protected string $filePath;
+
+	/**
+	 * The logger instance.
+	 *
+	 * @var LoggerInterface
+	 */
+	protected LoggerInterface $logger;
 
 	/**
 	 * The short slug.
@@ -64,9 +73,10 @@ class PluginSlugParser implements SlugParserContract {
 	 *
 	 * @return mixed
 	 */
-	public function __construct( string $filePath, PackageRootContract $packageRoot ) {
+	public function __construct( string $filePath, PackageRootContract $packageRoot, LoggerInterface $logger = new NullLogger() ) {
 		$this->filePath    = $filePath;
 		$this->packageRoot = $packageRoot;
+		$this->logger      = $logger;
 		$this->shortSlug   = null;
 		$this->fullSlug    = null;
 	}
@@ -92,6 +102,13 @@ class PluginSlugParser implements SlugParserContract {
 
 		// Explicitly ensure the return value is a string.
 		if ( '' === $this->shortSlug ) {
+			$this->logger->error(
+				'Failed to determine short slug.',
+				[
+					'filePath'  => $this->filePath,
+					'shortSlug' => $this->shortSlug,
+				]
+			);
 			throw new UnexpectedValueException( 'Failed to determine short slug.' );
 		}
 
@@ -119,6 +136,12 @@ class PluginSlugParser implements SlugParserContract {
 
 			if ( false === $realPathFile ) {
 				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
+				$this->logger->error(
+					$errorMsg,
+					[
+						'filePath' => $this->filePath,
+					]
+				);
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				throw new UnexpectedValueException( $errorMsg );
 			}
@@ -153,6 +176,13 @@ class PluginSlugParser implements SlugParserContract {
 				}
 			}
 			if ( ! is_string( $slug ) ) {
+				$this->logger->error(
+					'Failed to determine full slug.',
+					[
+						'filePath' => $this->filePath,
+						'slug'     => $slug,
+					]
+				);
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				throw new UnexpectedValueException( "Expected slug to be string. Got $slug instead." );
 			}

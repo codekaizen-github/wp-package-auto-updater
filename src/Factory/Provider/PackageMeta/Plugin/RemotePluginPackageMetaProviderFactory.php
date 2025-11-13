@@ -83,8 +83,8 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
 	public function create(): PluginPackageMetaProviderContract {
-		$this->logger->info( 'Creating RemotePluginPackageMetaProviderFactory instance.' );
 		if ( null === $this->provider ) {
+			$this->logger->info( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
 				$this->baseURL,

@@ -62,6 +62,7 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 	 */
 	public function create(): ThemePackageMetaProviderContract {
 		if ( null === $this->provider ) {
+			$this->logger->info( 'Creating new theme package meta provider.' );
 			$themeSlugParser = new ThemeSlugParser(
 				$this->filePath,
 				new ThemePackageRoot(),

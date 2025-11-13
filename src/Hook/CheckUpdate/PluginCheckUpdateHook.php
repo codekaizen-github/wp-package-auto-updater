@@ -78,6 +78,12 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
 		try {
+			$this->logger->info(
+				'Entering PluginCheckUpdateHook::checkUpdate',
+				[
+					'transient' => $transient,
+				]
+			);
 			$localPackageMetaProvider  = $this->localPackageMetaProviderFactory->create();
 			$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
 			$formatter                 = new CheckUpdateFormatter(
@@ -96,6 +102,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 		} catch ( Throwable $e ) {
 			$this->logger->error( 'Error in PluginCheckUpdateHook: ' . $e->getMessage() );
 		}
+		$this->logger->info( 'Exiting PluginCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

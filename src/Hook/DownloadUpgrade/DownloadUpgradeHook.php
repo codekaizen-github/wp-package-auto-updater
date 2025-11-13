@@ -93,6 +93,15 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
+			$this->logger->info(
+				'Entering DownloadUpgradeHook::downloadUpgrade',
+				[
+					'reply'     => $reply,
+					'package'   => $package,
+					'upgrader'  => $upgrader,
+					'hookExtra' => $hookExtra,
+				]
+			);
 			$localPackageMetaProvider              = $this->localPackageMetaProviderFactory->create();
 			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
 				$this->transientAccessor,
@@ -120,6 +129,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			$reply = false;
 			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
 		}
+		$this->logger->info( 'Exiting DownloadUpgradeHook::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;
 	}
 }

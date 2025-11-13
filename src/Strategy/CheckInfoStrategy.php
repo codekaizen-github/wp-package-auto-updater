@@ -80,9 +80,25 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	 * phpcs:disable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 	 */
 	public function checkInfo( bool|object $false, string $action, object $arg ): bool|object {
+		$this->logger->info(
+			'Entering CheckInfoStrategy::checkInfo',
+			[
+				'false'  => $false,
+				'action' => $action,
+				'arg'    => $arg,
+			]
+		);
 		// phpcs:enable Universal.NamingConventions.NoReservedKeywordParameterNames.falseFound
 		// Check if this is for our package.
 		if ( ! isset( $arg->slug ) || $arg->slug !== $this->localPackageMetaProvider->getShortSlug() ) {
+			$this->logger->debug(
+				'Slug does not match local package meta provider. Returning false.',
+				[
+					'false'  => $false,
+					'action' => $action,
+					'arg'    => $arg,
+				]
+			);
 			return $false;
 		}
 		$this->logger->debug( 'Providing package info for: ' . $arg->slug );
