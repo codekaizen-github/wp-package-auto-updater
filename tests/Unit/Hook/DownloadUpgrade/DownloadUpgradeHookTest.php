@@ -40,6 +40,8 @@ class DownloadUpgradeHookTest extends TestCase {
 		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
 		$logger->shouldNotReceive( 'error' );
 
 		// Overload hard dependencies.
@@ -116,12 +118,13 @@ class DownloadUpgradeHookTest extends TestCase {
 
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
-
-		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
-
 		$logger->shouldReceive( 'error' )
 			->with( 'Error in DownloadUpgradeHook: Test exception' )
 			->once();
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+
+		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.
 		$result = $sut->downloadUpgrade( false, 'any-package', null, [] );

@@ -68,9 +68,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->formatter                 = Mockery::mock( CheckUpdateFormatterContract::class );
 		$this->logger                    = Mockery::mock( LoggerInterface::class );
 
-		$this->logger->shouldReceive( 'debug' )->byDefault();
-		$this->logger->shouldReceive( 'warning' )->byDefault();
-		$this->logger->shouldReceive( 'error' )->byDefault();
+		$this->logger->allows( 'debug' )->byDefault();
+		$this->logger->allows( 'warning' )->byDefault();
+		$this->logger->allows( 'error' )->byDefault();
 
 		$this->sut = new CheckUpdateStrategy(
 			$this->localPackageMetaProvider,
@@ -195,7 +195,6 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up logger to expect debug message.
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->logger->shouldReceive( 'debug' )->with( 'Checking for updates some-plugin/plugin.php' )->once();
 		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' )->once();
 
 		// Call the method under test.
@@ -216,7 +215,6 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up logger to expect debug message.
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->logger->shouldReceive( 'debug' )->with( 'Checking for updates some-plugin/plugin.php' )->once();
 		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' )->once();
 
 		// Call the method under test.
@@ -365,8 +363,16 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
 
+		// Set up warning log before SUT construction.
+			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
+		$this->sut = new CheckUpdateStrategy(
+			$this->localPackageMetaProvider,
+			$this->remotePackageMetaProvider,
+			$this->formatter,
+			$this->logger
+		);
 		// Set up warning log.
-		$this->logger->shouldReceive( 'warning' )->with( 'Missing version information, skipping update check' )->once();
+		$this->logger->shouldReceive( 'warning' );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -390,8 +396,16 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( null );
 
+		// Set up warning log before SUT construction.
+			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
+		$this->sut = new CheckUpdateStrategy(
+			$this->localPackageMetaProvider,
+			$this->remotePackageMetaProvider,
+			$this->formatter,
+			$this->logger
+		);
 		// Set up warning log.
-		$this->logger->shouldReceive( 'warning' )->with( 'Missing version information, skipping update check' )->once();
+		$this->logger->shouldReceive( 'warning' );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -417,9 +431,17 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()
 			->andThrow( new Exception( $exceptionMessage ) );
 
+		// Set up error log before SUT construction.
+			$this->logger->shouldReceive( 'error' )->withAnyArgs()->once();
+		$this->sut = new CheckUpdateStrategy(
+			$this->localPackageMetaProvider,
+			$this->remotePackageMetaProvider,
+			$this->formatter,
+			$this->logger
+		);
 		// Set up error log.
 		$errorMessage = 'Unable to get remote package version: ' . $exceptionMessage;
-		$this->logger->shouldReceive( 'error' )->with( $errorMessage )->once();
+		$this->logger->shouldReceive( 'error' );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );

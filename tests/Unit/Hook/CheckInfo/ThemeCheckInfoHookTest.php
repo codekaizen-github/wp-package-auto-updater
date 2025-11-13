@@ -30,6 +30,9 @@ class ThemeCheckInfoHookTest extends TestCase {
 		$localFactory  = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
 		$remoteFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 
 		$sut = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
 		// Set up expectations.
@@ -64,7 +67,10 @@ class ThemeCheckInfoHookTest extends TestCase {
 			Mockery::mock( ThemePackageMetaProviderContract::class )
 		);
 		$logger = Mockery::mock( LoggerInterface::class );
-		$sut    = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
+		$sut = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter'
 		);

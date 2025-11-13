@@ -53,7 +53,7 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 			// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 			$pluginData->requires_plugins = [];
 
-			$transient = (object) [
+			$transient    = (object) [
 				'last_checked' => 1762913803,
 				'response'     => [
 					'akismet/akismet.php' => $pluginData,
@@ -64,12 +64,16 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 					'akismet/akismet.php' => '5.3.7',
 				],
 			];
-			$accessor  = Mockery::mock(
-				\CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract::class
-			);
-			$accessor->shouldReceive( 'get' )->andReturn( $transient );
-			$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug );
-			$this->assertInstanceOf( CheckUpdatePackageMetaProvider::class, $sut->create() );
+				$accessor = Mockery::mock(
+					\CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract::class
+				);
+				$logger   = Mockery::mock( LoggerInterface::class );
+				$logger->shouldReceive( 'debug' );
+				$logger->shouldReceive( 'info' );
+				$logger->shouldReceive( 'error' );
+				$accessor->shouldReceive( 'get' )->andReturn( $transient );
+				$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug, $logger );
+				$this->assertInstanceOf( CheckUpdatePackageMetaProvider::class, $sut->create() );
 	}
 
 	/**
@@ -92,6 +96,7 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 				\CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract::class
 			);
 			$logger    = Mockery::mock( LoggerInterface::class );
+			$logger->shouldReceive( 'debug' );
 			$logger->shouldReceive( 'info' );
 			$logger->shouldReceive( 'error' );
 			$accessor->shouldReceive( 'get' )->andReturn( $transient );

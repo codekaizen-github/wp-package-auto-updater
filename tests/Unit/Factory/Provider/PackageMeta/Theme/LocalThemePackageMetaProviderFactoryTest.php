@@ -28,6 +28,9 @@ class LocalThemePackageMetaProviderFactoryTest extends TestCase {
 	public function testCreate(): void {
 		$filePath = '';
 		$logger   = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(

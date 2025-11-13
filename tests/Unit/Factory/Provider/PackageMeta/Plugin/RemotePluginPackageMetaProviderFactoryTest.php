@@ -37,7 +37,9 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
@@ -64,6 +66,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
@@ -103,6 +106,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
@@ -144,11 +148,16 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 		$baseUrlUpdated     = 'https://example.com/';
 		$metaKeyUpdated     = 'updated_meta_key';
 		$httpOptionsUpdated = [ 'timeout' => 30 ];
 		$loggerUpdated      = Mockery::mock( LoggerInterface::class );
+		$loggerUpdated->shouldReceive( 'debug' );
+		$loggerUpdated->shouldReceive( 'info' );
+		$loggerUpdated->shouldReceive( 'error' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(

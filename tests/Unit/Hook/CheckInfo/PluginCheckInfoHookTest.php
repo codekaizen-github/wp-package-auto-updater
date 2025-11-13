@@ -30,6 +30,9 @@ class PluginCheckInfoHookTest extends TestCase {
 		$localFactory  = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
 		$remoteFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
 
 		$sut = new PluginCheckInfoHook( $localFactory, $remoteFactory, $logger );
 		// Set up expectations.
@@ -64,7 +67,10 @@ class PluginCheckInfoHookTest extends TestCase {
 			Mockery::mock( PluginPackageMetaProviderContract::class )
 		);
 		$logger = Mockery::mock( LoggerInterface::class );
-		$sut    = new PluginCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
+		$sut = new PluginCheckInfoHook( $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter'
 		);
