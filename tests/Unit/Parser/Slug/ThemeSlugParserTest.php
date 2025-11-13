@@ -12,6 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 
 /**
@@ -48,7 +49,9 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$logger = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'error' );
+		$sut = new ThemeSlugParser( $filePath, $packageRoot, $logger );
 		$this->expectException( UnexpectedValueException::class );
 		$sut->getShortSlug();
 	}

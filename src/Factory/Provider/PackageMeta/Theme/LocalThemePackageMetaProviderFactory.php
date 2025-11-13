@@ -64,7 +64,8 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 		if ( null === $this->provider ) {
 			$themeSlugParser = new ThemeSlugParser(
 				$this->filePath,
-				new ThemePackageRoot()
+				new ThemePackageRoot(),
+				$this->logger
 			);
 
 			$factory = new LocalThemePackageMetaProviderFactoryV1(

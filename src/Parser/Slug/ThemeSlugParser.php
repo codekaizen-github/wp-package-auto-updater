@@ -10,6 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Parser\SlugParserContract;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use UnexpectedValueException;
 
 /**
@@ -37,6 +39,13 @@ class ThemeSlugParser implements SlugParserContract {
 	protected string $filePath;
 
 	/**
+	 * The logger instance.
+	 *
+	 * @var LoggerInterface
+	 */
+	protected LoggerInterface $logger;
+
+	/**
 	 * The short slug.
 	 *
 	 * @var string|null
@@ -48,18 +57,25 @@ class ThemeSlugParser implements SlugParserContract {
 	 *
 	 * @param string              $filePath    The file path.
 	 * @param PackageRootContract $packageRoot The package root contract.
+	 * @param LoggerInterface     $logger      The logger instance.
 	 */
 	/**
 	 * Constructor.
 	 *
 	 * @param string              $filePath Description for filePath.
 	 * @param PackageRootContract $packageRoot Description for packageRoot.
+	 * @param LoggerInterface     $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( string $filePath, PackageRootContract $packageRoot ) {
+	public function __construct(
+		string $filePath,
+		PackageRootContract $packageRoot,
+		LoggerInterface $logger = new NullLogger()
+	) {
 		$this->filePath    = $filePath;
 		$this->packageRoot = $packageRoot;
+		$this->logger      = $logger;
 		$this->shortSlug   = null;
 	}
 
@@ -84,6 +100,7 @@ class ThemeSlugParser implements SlugParserContract {
 			$realPathFile = realpath( $this->filePath );
 			if ( false === $realPathFile ) {
 				$errorMsg = 'Could not resolve real path for file: ' . $this->filePath;
+				$this->logger->error( $errorMsg );
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				throw new UnexpectedValueException( $errorMsg );
 			}
@@ -92,6 +109,7 @@ class ThemeSlugParser implements SlugParserContract {
 			if ( false === $realPath ) {
 				$dirPath  = dirname( $realPathFile );
 				$errorMsg = 'Could not resolve real path for directory: ' . $dirPath;
+				$this->logger->error( $errorMsg );
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				throw new UnexpectedValueException( $errorMsg );
 			}
@@ -110,6 +128,7 @@ class ThemeSlugParser implements SlugParserContract {
 				}
 			}
 			if ( ! is_string( $slug ) ) {
+				$this->logger->error( 'Expected slug to be string. Got ' . gettype( $slug ) . ' instead.' );
 				// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				throw new UnexpectedValueException( "Expected slug to be string. Got $slug instead." );
 			}
