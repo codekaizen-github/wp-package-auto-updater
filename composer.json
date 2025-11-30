@@ -11,10 +11,10 @@
         "php": "^8.1",
         "psr/log": "^3.0",
         "respect/validation": "^2.2",
-        "codekaizen/wp-package-meta-provider-orashub": "^1.0",
-        "codekaizen/wp-package-meta-provider-local": "^1.0",
-        "codekaizen/wp-package-meta-provider-contract": "^1.0",
-        "guzzlehttp/guzzle": "^7.10"
+        "guzzlehttp/guzzle": "^7.10",
+        "codekaizen/wp-package-meta-provider-contract": "^3.0",
+        "codekaizen/wp-package-meta-provider-orashub": "^3.0",
+        "codekaizen/wp-package-meta-provider-local": "^4.0"
     },
     "config": {
         "platform": {
