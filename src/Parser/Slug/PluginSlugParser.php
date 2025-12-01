@@ -9,7 +9,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
-use CodeKaizen\WPPackageMetaProviderLocal\Contract\Parser\SlugParserContract;
+use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use UnexpectedValueException;
@@ -22,7 +22,7 @@ use UnexpectedValueException;
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
  */
-class PluginSlugParser implements SlugParserContract {
+class PluginSlugParser implements SlugValueContract {
 
 	/**
 	 * The package root contract.
