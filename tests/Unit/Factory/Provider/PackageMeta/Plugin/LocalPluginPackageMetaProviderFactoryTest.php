@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\LocalPluginPackageMetaProviderFactory;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
@@ -34,14 +34,14 @@ class LocalPluginPackageMetaProviderFactoryTest extends TestCase {
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
-			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1'
+			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		$providerFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( PluginPackageMetaProviderContract::class )
+			Mockery::mock( PluginPackageMetaValueServiceContract::class )
 		);
 		$sut    = new LocalPluginPackageMetaProviderFactory( $filePath, $logger );
 		$return = $sut->create();
-		$this->assertInstanceOf( PluginPackageMetaProviderContract::class, $return );
+		$this->assertInstanceOf( PluginPackageMetaValueServiceContract::class, $return );
 	}
 }
