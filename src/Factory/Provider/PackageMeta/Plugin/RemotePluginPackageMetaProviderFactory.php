@@ -11,9 +11,9 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
-use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryV1 as RemotePluginPackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory;
 use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 
@@ -24,7 +24,7 @@ use UnexpectedValueException;
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  */
-class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProviderFactoryContract {
+class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The base URL for the remote provider.
@@ -57,9 +57,9 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	/**
 	 * The plugin package meta provider instance.
 	 *
-	 * @var PluginPackageMetaProviderContract|null
+	 * @var PluginPackageMetaValueServiceContract|null
 	 */
-	protected ?PluginPackageMetaProviderContract $provider;
+	protected ?PluginPackageMetaValueServiceContract $provider;
 
 	/**
 	 * Constructor.
@@ -79,10 +79,10 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 	/**
 	 * Create a new instance.
 	 *
-	 * @return PluginPackageMetaProviderContract The created plugin package meta provider.
+	 * @return PluginPackageMetaValueServiceContract The created plugin package meta provider.
 	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
-	public function create(): PluginPackageMetaProviderContract {
+	public function create(): PluginPackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
@@ -123,7 +123,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaProvide
 				$this->logger->error( 'Invalid options provided to RemotePluginPackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
-			$factory        = new RemotePluginPackageMetaProviderFactoryV1(
+			$factory        = new StandardPluginPackageMetaValueServiceFactory(
 				$options->getBaseURL(),
 				$options->getMetaKey(),
 				$options->getHttpOptions(),
