@@ -11,10 +11,10 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderLocal\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1 as LocalThemePackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
-class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFactoryContract {
+class LocalThemePackageMetaProviderFactory implements ThemePackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The file path for the theme package.
@@ -41,9 +41,9 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 	/**
 	 * The theme package meta provider instance.
 	 *
-	 * @var ThemePackageMetaProviderContract|null
+	 * @var ?ThemePackageMetaValueServiceContract
 	 */
-	protected ?ThemePackageMetaProviderContract $provider;
+	protected ?ThemePackageMetaValueServiceContract $provider;
 	/**
 	 * Constructor.
 	 *
@@ -58,9 +58,9 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 	/**
 	 * Create a new instance.
 	 *
-	 * @return ThemePackageMetaProviderContract The created theme package meta provider.
+	 * @return ThemePackageMetaValueServiceContract The created theme package meta provider.
 	 */
-	public function create(): ThemePackageMetaProviderContract {
+	public function create(): ThemePackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new theme package meta provider.' );
 			$themeSlugParser = new ThemeSlugParser(
@@ -69,7 +69,7 @@ class LocalThemePackageMetaProviderFactory implements ThemePackageMetaProviderFa
 				$this->logger
 			);
 
-			$factory = new LocalThemePackageMetaProviderFactoryV1(
+			$factory = new StandardThemePackageMetaValueServiceFactory(
 				$this->filePath,
 				$themeSlugParser,
 				$this->logger
