@@ -12,7 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider;
 use stdClass;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -59,16 +59,16 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	/**
 	 * Undocumented function
 	 *
-	 * @return CheckUpdatePackageMetaProviderContract
+	 * @return CheckUpdatePackageMetaValueContract
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
 	/**
 	 * Undocumented function
 	 *
-	 * @return CheckUpdatePackageMetaProviderContract
+	 * @return CheckUpdatePackageMetaValueContract
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
-	public function create(): CheckUpdatePackageMetaProviderContract {
+	public function create(): CheckUpdatePackageMetaValueContract {
 		$this->logger->debug( 'Creating CheckUpdatePackageMetaProvider.', [ 'fullSlug' => $this->fullSlug ] );
 		// Fetch the transient.
 		$transient = $this->accessor->get();

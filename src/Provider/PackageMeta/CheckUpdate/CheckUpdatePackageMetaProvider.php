@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject\CheckUpdate\CheckUpdateMetaObjectValidator;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
@@ -17,7 +17,7 @@ use UnexpectedValueException;
 /**
  * Undocumented class
  */
-class CheckUpdatePackageMetaProvider implements CheckUpdatePackageMetaProviderContract {
+class CheckUpdatePackageMetaProvider implements CheckUpdatePackageMetaValueContract {
 	/**
 	 * Undocumented variable
 	 *

@@ -13,7 +13,7 @@ use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PackageMetaProviderFactoryContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -33,7 +33,7 @@ class DownloadUpgradeHookTest extends TestCase {
 	public function testDownloadUpgradeRunsToCompletion(): void {
 		// Mock the dependencies.
 		$localFactory  = Mockery::mock( PackageMetaProviderFactoryContract::class );
-		$localProvider = Mockery::mock( PackageMetaProviderContract::class );
+		$localProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localProvider->shouldReceive( 'getFullSlug' )->andReturn( 'plugin/full-slug' );
 		$localFactory->shouldReceive( 'create' )->andReturn( $localProvider );
 		$transientAccessor = Mockery::mock( MixedAccessorContract::class );

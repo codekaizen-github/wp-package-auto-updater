@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo;
 
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use stdClass;
 
 /**
@@ -95,9 +95,9 @@ class PluginCheckInfoMetaObject extends stdClass {
 	/**
 	 * Undocumented function
 	 *
-	 * @param PluginPackageMetaProviderContract $provider Provider.
+	 * @param PluginPackageMetaValueContract $provider Provider.
 	 */
-	public function __construct( PluginPackageMetaProviderContract $provider ) {
+	public function __construct( PluginPackageMetaValueContract $provider ) {
 		$this->name    = $provider->getName();
 		$this->slug    = $provider->getShortSlug();
 		$this->version = $provider->getVersion();

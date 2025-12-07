@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\PluginCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +37,7 @@ class PluginCheckInfoFormatterTest extends TestCase {
 			'changelog' => 'changed',
 			'about'     => 'this is a plugin about section',
 		];
-		$provider             = Mockery::mock( PluginPackageMetaProviderContract::class );
+		$provider             = Mockery::mock( PluginPackageMetaValueContract::class );
 		$provider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );

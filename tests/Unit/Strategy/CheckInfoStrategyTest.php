@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -25,7 +25,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testSlugNotSetValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$logger    = Mockery::mock( LoggerInterface::class );
@@ -44,7 +44,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testSlugsDoNotMatchValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$logger    = Mockery::mock( LoggerInterface::class );
@@ -63,7 +63,7 @@ class CheckInfoStrategyTest extends TestCase {
 	 * @return void
 	 */
 	public function testPackageCheckInfoValid(): void {
-		$localPackageMetaProvider = Mockery::mock( PackageMetaProviderContract::class );
+		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$expected  = new stdClass();

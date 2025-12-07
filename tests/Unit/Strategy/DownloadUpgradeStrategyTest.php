@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	/**
 	 * Mock check update package meta provider.
 	 *
-	 * @var \CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract|Mockery\MockInterface
+	 * @var \CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract|Mockery\MockInterface
 	 */
 	private $checkUpdatePackageMetaProvider;
 
@@ -57,7 +57,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		parent::setUp();
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$this->checkUpdatePackageMetaProvider = Mockery::mock(
-			\CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract::class
+			\CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract::class
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		$this->fileDownloader = Mockery::mock( FileDownloaderClientContract::class );

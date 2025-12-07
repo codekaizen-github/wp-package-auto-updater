@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +34,7 @@ class ThemeCheckInfoFormatterTest extends TestCase {
 		$updateUriExpected    = $downloadLinkExpected;
 		$testedExpected       = '6.8.2';
 		$tagsExpected         = [ 'tag1', 'tag2', 'tag3' ];
-		$provider             = Mockery::mock( PackageMetaProviderContract::class );
+		$provider             = Mockery::mock( PackageMetaValueContract::class );
 		$provider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );

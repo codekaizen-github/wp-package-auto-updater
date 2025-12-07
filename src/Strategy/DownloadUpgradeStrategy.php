@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -21,9 +21,9 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	/**
 	 * Remote package meta provider.
 	 *
-	 * @var CheckUpdatePackageMetaProviderContract
+	 * @var CheckUpdatePackageMetaValueContract
 	 */
-	protected CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider;
+	protected CheckUpdatePackageMetaValueContract $checkUpdatePackageMetaProvider;
 
 	/**
 	 * File downloader client.
@@ -42,12 +42,12 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider Remote package meta provider.
-	 * @param FileDownloaderClientContract           $fileDownloader            File downloader client.
-	 * @param LoggerInterface                        $logger                    Logger instance.
+	 * @param CheckUpdatePackageMetaValueContract $checkUpdatePackageMetaProvider Remote package meta provider.
+	 * @param FileDownloaderClientContract        $fileDownloader            File downloader client.
+	 * @param LoggerInterface                     $logger                    Logger instance.
 	 */
 	public function __construct(
-		CheckUpdatePackageMetaProviderContract $checkUpdatePackageMetaProvider,
+		CheckUpdatePackageMetaValueContract $checkUpdatePackageMetaProvider,
 		FileDownloaderClientContract $fileDownloader,
 		LoggerInterface $logger
 	) {

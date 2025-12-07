@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -59,11 +59,11 @@ class ThemeCheckUpdateHookTest extends TestCase {
 		// Mock the dependencies.
 		$localFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( ThemePackageMetaProviderContract::class )
+			Mockery::mock( ThemePackageMetaValueContract::class )
 		);
 		$remoteFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( ThemePackageMetaProviderContract::class )
+			Mockery::mock( ThemePackageMetaValueContract::class )
 		);
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );

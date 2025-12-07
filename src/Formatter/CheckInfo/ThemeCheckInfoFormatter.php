@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
 /**
  * ThemeCheckInfoFormatter class.
@@ -22,18 +22,18 @@ class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 	/**
 	 * The theme package meta provider.
 	 *
-	 * @var PackageMetaProviderContract
+	 * @var PackageMetaValueContract
 	 */
-	private PackageMetaProviderContract $provider;
+	private PackageMetaValueContract $provider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaProviderContract $provider Description for provider.
+	 * @param PackageMetaValueContract $provider Description for provider.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( PackageMetaProviderContract $provider ) {
+	public function __construct( PackageMetaValueContract $provider ) {
 		$this->provider = $provider;
 	}
 	/**

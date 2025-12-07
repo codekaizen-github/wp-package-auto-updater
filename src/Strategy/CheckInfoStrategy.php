@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -26,9 +26,9 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * The local package meta provider.
 	 *
-	 * @var PackageMetaProviderContract
+	 * @var PackageMetaValueContract
 	 */
-	protected PackageMetaProviderContract $localPackageMetaProvider;
+	protected PackageMetaValueContract $localPackageMetaProvider;
 
 	/**
 	 * The formatter.
@@ -47,21 +47,21 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaProviderContract        $localPackageMetaProvider The local package meta provider.
+	 * @param PackageMetaValueContract        $localPackageMetaProvider The local package meta provider.
 	 * @param CheckInfoFormatterContract $formatter               The formatter.
 	 * @param LoggerInterface            $logger                  The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaProviderContract $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param CheckInfoFormatterContract  $formatter Description for formatter.
-	 * @param LoggerInterface             $logger Description for logger.
+	 * @param PackageMetaValueContract   $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param CheckInfoFormatterContract $formatter Description for formatter.
+	 * @param LoggerInterface            $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
-		PackageMetaProviderContract $localPackageMetaProvider,
+		PackageMetaValueContract $localPackageMetaProvider,
 		CheckInfoFormatterContract $formatter,
 		LoggerInterface $logger
 	) {

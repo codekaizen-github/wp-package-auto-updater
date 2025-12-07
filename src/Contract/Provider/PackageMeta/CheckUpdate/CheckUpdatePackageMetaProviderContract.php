@@ -9,7 +9,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate;
 
-interface CheckUpdatePackageMetaProviderContract {
+interface CheckUpdatePackageMetaValueContract {
 
 	/**
 	 * Get the full slug of the package.
