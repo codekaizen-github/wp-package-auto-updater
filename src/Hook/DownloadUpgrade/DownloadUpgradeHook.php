@@ -15,7 +15,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyCon
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PackageMetaValueServiceContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -27,9 +27,9 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Undocumented variable
 	 *
-	 * @var PackageMetaProviderFactoryContract
+	 * @var PackageMetaValueServiceContract
 	 */
-	protected PackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
+	protected PackageMetaValueServiceContract $localPackageMetaProviderFactory;
 
 	/**
 	 * Undocumented variable
@@ -55,13 +55,13 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local.
-	 * @param MixedAccessorContract              $transientAccessor               Transient accessor.
-	 * @param array<string,mixed>                $httpOptions                    Http options.
-	 * @param LoggerInterface                    $logger                        Logger instance.
+	 * @param PackageMetaValueServiceContract $localPackageMetaProviderFactory Local.
+	 * @param MixedAccessorContract           $transientAccessor               Transient accessor.
+	 * @param array<string,mixed>             $httpOptions                    Http options.
+	 * @param LoggerInterface                 $logger                        Logger instance.
 	 */
 	public function __construct(
-		PackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
+		PackageMetaValueServiceContract $localPackageMetaProviderFactory,
 		MixedAccessorContract $transientAccessor,
 		array $httpOptions,
 		LoggerInterface $logger

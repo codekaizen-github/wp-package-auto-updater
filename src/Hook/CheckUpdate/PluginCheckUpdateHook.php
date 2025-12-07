@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use stdClass;
 use Throwable;
 
@@ -28,16 +28,16 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	/**
 	 * The local package meta provider factory.
 	 *
-	 * @var PluginPackageMetaProviderFactoryContract
+	 * @var PluginPackageMetaValueServiceContract
 	 */
-	protected PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory;
 
 	/**
 	 * The remote package meta provider factory.
 	 *
-	 * @var PluginPackageMetaProviderFactoryContract
+	 * @var PluginPackageMetaValueServiceContract
 	 */
-	protected PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory;
 
 	/**
 	 * The logger instance.
@@ -48,13 +48,13 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                          $logger Logger instance.
+	 * @param PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
+	 * @param PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
+	 * @param LoggerInterface                       $logger Logger instance.
 	 */
 	public function __construct(
-		PluginPackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
-		PluginPackageMetaProviderFactoryContract $remotePackageMetaProviderFactory,
+		PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory,
+		PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;

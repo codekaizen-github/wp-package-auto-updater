@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\PluginPackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Exception;
 use Mockery;
@@ -28,8 +28,8 @@ class PluginCheckUpdateHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory  = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
-		$remoteFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$localFactory  = Mockery::mock( PluginPackageMetaValueServiceContract::class );
+		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
@@ -57,11 +57,11 @@ class PluginCheckUpdateHookTest extends TestCase {
 	 */
 	public function testExceptionHandlingInCheckUpdate(): void {
 		// Mock the dependencies.
-		$localFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$localFactory = Mockery::mock( PluginPackageMetaValueServiceContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( PluginPackageMetaValueContract::class )
 		);
-		$remoteFactory = Mockery::mock( PluginPackageMetaProviderFactoryContract::class );
+		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceContract::class );
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( PluginPackageMetaValueContract::class )
 		);

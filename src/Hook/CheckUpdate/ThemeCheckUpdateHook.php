@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use stdClass;
 use Throwable;
 
@@ -28,16 +28,16 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	/**
 	 * The local theme package meta provider factory.
 	 *
-	 * @var ThemePackageMetaProviderFactoryContract
+	 * @var ThemePackageMetaValueServiceContract
 	 */
-	protected ThemePackageMetaProviderFactoryContract $localPackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory;
 
 	/**
 	 * The remote theme package meta provider factory.
 	 *
-	 * @var ThemePackageMetaProviderFactoryContract
+	 * @var ThemePackageMetaValueServiceContract
 	 */
-	protected ThemePackageMetaProviderFactoryContract $remotePackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory;
 
 	/**
 	 * The logger instance.
@@ -48,13 +48,13 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaProviderFactoryContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param ThemePackageMetaProviderFactoryContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                         $logger Logger instance.
+	 * @param ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
+	 * @param ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
+	 * @param LoggerInterface                      $logger Logger instance.
 	 */
 	public function __construct(
-		ThemePackageMetaProviderFactoryContract $localPackageMetaProviderFactory,
-		ThemePackageMetaProviderFactoryContract $remotePackageMetaProviderFactory,
+		ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory,
+		ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;

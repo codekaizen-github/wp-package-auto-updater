@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use Exception;
 use Mockery;
@@ -27,8 +27,8 @@ class ThemeCheckInfoHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory  = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
-		$remoteFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
+		$localFactory  = Mockery::mock( ThemePackageMetaValueServiceContract::class );
+		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
@@ -58,11 +58,11 @@ class ThemeCheckInfoHookTest extends TestCase {
 	 */
 	public function testExceptionHandlingInCheckInfo(): void {
 		// Mock the dependencies.
-		$localFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
+		$localFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( ThemePackageMetaValueContract::class )
 		);
-		$remoteFactory = Mockery::mock( ThemePackageMetaProviderFactoryContract::class );
+		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( ThemePackageMetaValueContract::class )
 		);
