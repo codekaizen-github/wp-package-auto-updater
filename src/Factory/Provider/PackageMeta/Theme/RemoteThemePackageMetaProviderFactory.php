@@ -11,9 +11,9 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\ThemePackageMetaProviderContract;
-use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Provider\PackageMeta\ThemePackageMetaProviderFactoryV1 as RemoteThemePackageMetaProviderFactoryV1;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
 use Psr\Log\LoggerInterface;
 use UnexpectedValueException;
 
@@ -24,7 +24,7 @@ use UnexpectedValueException;
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
-class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderFactoryContract {
+class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The base URL for the remote provider.
@@ -57,9 +57,9 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	/**
 	 * The theme package meta provider instance.
 	 *
-	 * @var ThemePackageMetaProviderContract|null
+	 * @var ThemePackageMetaValueServiceContract|null
 	 */
-	protected ?ThemePackageMetaProviderContract $provider;
+	protected ?ThemePackageMetaValueServiceContract $provider;
 	/**
 	 * Constructor.
 	 *
@@ -78,10 +78,10 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 	/**
 	 * Create a new instance.
 	 *
-	 * @return ThemePackageMetaProviderContract The created theme package meta provider.
+	 * @return ThemePackageMetaValueServiceContract The created theme package meta provider.
 	 * @throws UnexpectedValueException If the provided options are invalid.
 	 */
-	public function create(): ThemePackageMetaProviderContract {
+	public function create(): ThemePackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new RemoteThemePackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
@@ -122,7 +122,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaProviderF
 				$this->logger->error( 'Invalid options provided to RemoteThemePackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
-			$factory        = new RemoteThemePackageMetaProviderFactoryV1(
+			$factory        = new StandardThemePackageMetaValueServiceFactory(
 				$options->getBaseURL(),
 				$options->getMetaKey(),
 				$options->getHttpOptions(),
