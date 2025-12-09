@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
 use Throwable;
 
 /**
@@ -25,18 +25,18 @@ use Throwable;
 class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContract {
 
 	/**
-	 * The local theme package meta provider factory.
+	 * The local package meta provider factory.
 	 *
-	 * @var ThemePackageMetaValueServiceContract
+	 * @var ThemePackageMetaValueServiceFactoryContract
 	 */
-	protected ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract;
 
 	/**
-	 * The remote theme package meta provider factory.
+	 * The remote package meta provider factory.
 	 *
-	 * @var ThemePackageMetaValueServiceContract
+	 * @var ThemePackageMetaValueServiceFactoryContract
 	 */
-	protected ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract;
 
 	/**
 	 * The logger instance.
@@ -47,18 +47,18 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                      $logger Logger instance.
+	 * @param ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract Local factory.
+	 * @param ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract Remote factory.
+	 * @param LoggerInterface                             $logger Logger instance.
 	 */
 	public function __construct(
-		ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory,
-		ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory,
+		ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract,
+		ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
-		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-		$this->logger                           = $logger;
+		$this->localPackageMetaValueServiceFactoryContract  = $localPackageMetaValueServiceFactoryContract;
+		$this->remotePackageMetaValueServiceFactoryContract = $remotePackageMetaValueServiceFactoryContract;
+		$this->logger                                       = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -87,17 +87,21 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 					'arg'    => $arg,
 				]
 			);
-			$formatter = new ThemeCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
+			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactoryContract->create();
+			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
+			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
+			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
+			$formatter                     = new ThemeCheckInfoFormatter( $remotePackageMetaValue );
 
 			$checkInfo = new CheckInfoStrategy(
-				$this->localPackageMetaProviderFactory->create(),
+				$localPackageMetaValue,
 				$formatter,
 				$this->logger
 			);
 
 			$result = $checkInfo->checkInfo( $result, $action, $arg );
 		} catch ( Throwable $e ) {
-			$this->logger->error( 'Error occurred while checking theme info: ' . $e->getMessage() );
+			$this->logger->error( 'Error in ThemeCheckInfoHook::checkInfo: ' . $e->getMessage() );
 		}
 		$this->logger->debug( 'Exiting ThemeCheckInfoHook::checkInfo', [ 'result' => $result ] );
 		return $result;

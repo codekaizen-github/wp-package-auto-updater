@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 use stdClass;
 use Throwable;
 
@@ -28,16 +28,16 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	/**
 	 * The local package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceContract
+	 * @var PluginPackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory;
 
 	/**
 	 * The remote package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceContract
+	 * @var PluginPackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory;
 
 	/**
 	 * The logger instance.
@@ -48,18 +48,18 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                       $logger Logger instance.
+	 * @param PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local factory.
+	 * @param PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory Remote factory.
+	 * @param LoggerInterface                              $logger Logger instance.
 	 */
 	public function __construct(
-		PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory,
-		PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory,
+		PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
+		PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
-		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-		$this->logger                           = $logger;
+		$this->localPackageMetaValueServiceFactory  = $localPackageMetaValueServiceFactory;
+		$this->remotePackageMetaValueServiceFactory = $remotePackageMetaValueServiceFactory;
+		$this->logger                               = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -84,16 +84,18 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 					'transient' => $transient,
 				]
 			);
-			$localPackageMetaProvider  = $this->localPackageMetaProviderFactory->create();
-			$remotePackageMetaProvider = $this->remotePackageMetaProviderFactory->create();
-			$formatter                 = new CheckUpdateFormatter(
-				$localPackageMetaProvider,
-				$remotePackageMetaProvider
+			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactory->create();
+			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
+			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
+			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
+			$formatter                     = new CheckUpdateFormatter(
+				$localPackageMetaValue,
+				$remotePackageMetaValue
 			);
 
 			$checkUpdate = new CheckUpdateStrategy(
-				$localPackageMetaProvider,
-				$remotePackageMetaProvider,
+				$localPackageMetaValue,
+				$remotePackageMetaValue,
 				$formatter,
 				$this->logger
 			);

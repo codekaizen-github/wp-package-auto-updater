@@ -13,9 +13,9 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
-// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PackageMetaValueServiceContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -27,9 +27,9 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Undocumented variable
 	 *
-	 * @var PackageMetaValueServiceContract
+	 * @var PackageMetaValueServiceFactoryContract
 	 */
-	protected PackageMetaValueServiceContract $localPackageMetaProviderFactory;
+	protected PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory;
 
 	/**
 	 * Undocumented variable
@@ -55,21 +55,21 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaValueServiceContract $localPackageMetaProviderFactory Local.
-	 * @param MixedAccessorContract           $transientAccessor               Transient accessor.
-	 * @param array<string,mixed>             $httpOptions                    Http options.
-	 * @param LoggerInterface                 $logger                        Logger instance.
+	 * @param PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local.
+	 * @param MixedAccessorContract                  $transientAccessor               Transient accessor.
+	 * @param array<string,mixed>                    $httpOptions                    Http options.
+	 * @param LoggerInterface                        $logger                        Logger instance.
 	 */
 	public function __construct(
-		PackageMetaValueServiceContract $localPackageMetaProviderFactory,
+		PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
 		MixedAccessorContract $transientAccessor,
 		array $httpOptions,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory = $localPackageMetaProviderFactory;
-		$this->transientAccessor               = $transientAccessor;
-		$this->httpOptions                     = $httpOptions;
-		$this->logger                          = $logger;
+		$this->localPackageMetaValueServiceFactory = $localPackageMetaValueServiceFactory;
+		$this->transientAccessor                   = $transientAccessor;
+		$this->httpOptions                         = $httpOptions;
+		$this->logger                              = $logger;
 	}
 
 	/**
@@ -102,10 +102,11 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 					'hookExtra' => $hookExtra,
 				]
 			);
-			$localPackageMetaProvider              = $this->localPackageMetaProviderFactory->create();
+			$localPackageMetaValueService          = $this->localPackageMetaValueServiceFactory->create();
+			$localPackageMetaValue                 = $localPackageMetaValueService->getPackageMeta();
 			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
 				$this->transientAccessor,
-				$localPackageMetaProvider->getFullSlug(),
+				$localPackageMetaValue->getFullSlug(),
 				$this->logger
 			);
 			$checkUpdatePackageMetaProvider        = $checkUpdatePackageMetaProviderFactory->create();

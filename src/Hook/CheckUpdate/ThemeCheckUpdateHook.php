@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
 use stdClass;
 use Throwable;
 
@@ -26,18 +26,18 @@ use Throwable;
 class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 
 	/**
-	 * The local theme package meta provider factory.
+	 * The local package meta provider factory.
 	 *
-	 * @var ThemePackageMetaValueServiceContract
+	 * @var ThemePackageMetaValueServiceFactoryContract
 	 */
-	protected ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory;
 
 	/**
-	 * The remote theme package meta provider factory.
+	 * The remote package meta provider factory.
 	 *
-	 * @var ThemePackageMetaValueServiceContract
+	 * @var ThemePackageMetaValueServiceFactoryContract
 	 */
-	protected ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory;
+	protected ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory;
 
 	/**
 	 * The logger instance.
@@ -48,18 +48,18 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 	/**
 	 * Constructor.
 	 *
-	 * @param ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                      $logger Logger instance.
+	 * @param ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local factory.
+	 * @param ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory Remote factory.
+	 * @param LoggerInterface                             $logger Logger instance.
 	 */
 	public function __construct(
-		ThemePackageMetaValueServiceContract $localPackageMetaProviderFactory,
-		ThemePackageMetaValueServiceContract $remotePackageMetaProviderFactory,
+		ThemePackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
+		ThemePackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
-		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-		$this->logger                           = $logger;
+		$this->localPackageMetaValueServiceFactory  = $localPackageMetaValueServiceFactory;
+		$this->remotePackageMetaValueServiceFactory = $remotePackageMetaValueServiceFactory;
+		$this->logger                               = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -84,14 +84,18 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 					'transient' => $transient,
 				]
 			);
-			$formatter = new CheckUpdateFormatter(
-				$this->localPackageMetaProviderFactory->create(),
-				$this->remotePackageMetaProviderFactory->create(),
+			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactory->create();
+			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
+			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
+			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
+			$formatter                     = new CheckUpdateFormatter(
+				$localPackageMetaValue,
+				$remotePackageMetaValue
 			);
 
 			$checkUpdate = new CheckUpdateStrategy(
-				$this->localPackageMetaProviderFactory->create(),
-				$this->remotePackageMetaProviderFactory->create(),
+				$localPackageMetaValue,
+				$remotePackageMetaValue,
 				$formatter,
 				$this->logger
 			);

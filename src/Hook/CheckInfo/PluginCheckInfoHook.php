@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 use Throwable;
 
 /**
@@ -27,16 +27,16 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	/**
 	 * The local package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceContract
+	 * @var PluginPackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract;
 
 	/**
 	 * The remote package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceContract
+	 * @var PluginPackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory;
+	protected PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract;
 
 	/**
 	 * The logger instance.
@@ -47,18 +47,18 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory Local provider factory.
-	 * @param PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory Remote provider factory.
-	 * @param LoggerInterface                       $logger Logger instance.
+	 * @param PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract Local factory.
+	 * @param PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract Remote factory.
+	 * @param LoggerInterface                              $logger Logger instance.
 	 */
 	public function __construct(
-		PluginPackageMetaValueServiceContract $localPackageMetaProviderFactory,
-		PluginPackageMetaValueServiceContract $remotePackageMetaProviderFactory,
+		PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactoryContract,
+		PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactoryContract,
 		LoggerInterface $logger
 	) {
-		$this->localPackageMetaProviderFactory  = $localPackageMetaProviderFactory;
-		$this->remotePackageMetaProviderFactory = $remotePackageMetaProviderFactory;
-		$this->logger                           = $logger;
+		$this->localPackageMetaValueServiceFactoryContract  = $localPackageMetaValueServiceFactoryContract;
+		$this->remotePackageMetaValueServiceFactoryContract = $remotePackageMetaValueServiceFactoryContract;
+		$this->logger                                       = $logger;
 	}
 	/**
 	 * Initialize the component.
@@ -87,10 +87,14 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 					'arg'    => $arg,
 				]
 			);
-			$formatter = new PluginCheckInfoFormatter( $this->remotePackageMetaProviderFactory->create() );
+			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactoryContract->create();
+			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
+			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
+			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
+			$formatter                     = new PluginCheckInfoFormatter( $remotePackageMetaValue );
 
 			$checkInfo = new CheckInfoStrategy(
-				$this->localPackageMetaProviderFactory->create(),
+				$localPackageMetaValue,
 				$formatter,
 				$this->logger
 			);
