@@ -9,6 +9,8 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use Exception;
@@ -28,8 +30,8 @@ class ThemeCheckUpdateHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory  = Mockery::mock( ThemePackageMetaValueServiceContract::class );
-		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
+		$localFactory  = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
+		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
@@ -57,11 +59,11 @@ class ThemeCheckUpdateHookTest extends TestCase {
 	 */
 	public function testExceptionHandlingInCheckUpdate(): void {
 		// Mock the dependencies.
-		$localFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
+		$localFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( ThemePackageMetaValueContract::class )
+			Mockery::mock( ThemePackageMetaValueServiceContract::class )
 		);
-		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceContract::class );
+		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( ThemePackageMetaValueContract::class )
 		);

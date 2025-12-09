@@ -10,6 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\DownloadUpgrade;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
@@ -30,10 +32,12 @@ class DownloadUpgradeHookTest extends TestCase {
 	 */
 	public function testDownloadUpgradeRunsToCompletion(): void {
 		// Mock the dependencies.
-		$localFactory  = Mockery::mock( PackageMetaValueServiceContract::class );
-		$localProvider = Mockery::mock( PackageMetaValueContract::class );
-		$localProvider->shouldReceive( 'getFullSlug' )->andReturn( 'plugin/full-slug' );
-		$localFactory->shouldReceive( 'create' )->andReturn( $localProvider );
+		$localFactory = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
+		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue   = Mockery::mock( PackageMetaValueContract::class );
+		$localFactory->shouldReceive( 'create' )->andReturn( $localService );
+		$localService->shouldReceive( 'getPackageMeta' )->andReturn( $localValue );
+		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'plugin/full-slug' );
 		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
 		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
 		$httpOptions = [];
@@ -76,7 +80,7 @@ class DownloadUpgradeHookTest extends TestCase {
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory      = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localFactory      = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
 		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
 		$transientAccessor->shouldReceive( 'get' )->andReturn( [] );
 		$httpOptions = [];
@@ -108,7 +112,7 @@ class DownloadUpgradeHookTest extends TestCase {
 		// Mock the dependencies.
 		$error = new Exception( 'Test exception' );
 
-		$localFactory = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localFactory = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andThrow( $error );
 
 		$transientAccessor = Mockery::mock( MixedAccessorContract::class );
