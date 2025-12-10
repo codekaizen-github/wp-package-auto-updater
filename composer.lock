@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "codekaizen/wp-package-meta-provider-contract",
-            "version": "3.0.4",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codekaizen-github/wp-package-meta-provider-contract.git",
-                "reference": "4193b35c22a578f5da17c91c05105ddeac7b82cf"
+                "reference": "28c18b7aa14b25702d8e9607137e1a03b12889ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-contract/zipball/4193b35c22a578f5da17c91c05105ddeac7b82cf",
-                "reference": "4193b35c22a578f5da17c91c05105ddeac7b82cf",
+                "url": "https://api.github.com/repos/codekaizen-github/wp-package-meta-provider-contract/zipball/28c18b7aa14b25702d8e9607137e1a03b12889ce",
+                "reference": "28c18b7aa14b25702d8e9607137e1a03b12889ce",
                 "shasum": ""
             },
             "require": {
@@ -46,9 +46,9 @@
             ],
             "support": {
                 "issues": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/issues",
-                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/tree/3.0.4"
+                "source": "https://github.com/codekaizen-github/wp-package-meta-provider-contract/tree/3.0.5"
             },
-            "time": "2025-12-07T18:11:35+00:00"
+            "time": "2025-12-10T01:26:36+00:00"
         },
         {
             "name": "codekaizen/wp-package-meta-provider-local",
