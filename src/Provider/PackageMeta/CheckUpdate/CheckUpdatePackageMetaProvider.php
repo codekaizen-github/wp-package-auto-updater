@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject\CheckUpdate\CheckUpdateMetaObjectValidator;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;

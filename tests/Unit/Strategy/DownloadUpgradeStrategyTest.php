@@ -22,7 +22,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	/**
 	 * Mock check update package meta provider.
 	 *
-	 * @var \CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract|Mockery\MockInterface
+	 * @var \CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract|Mockery\MockInterface
 	 */
 	private $checkUpdatePackageMetaProvider;
 
@@ -57,7 +57,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		parent::setUp();
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$this->checkUpdatePackageMetaProvider = Mockery::mock(
-			\CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaValueContract::class
+			\CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract::class
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		$this->fileDownloader = Mockery::mock( FileDownloaderClientContract::class );

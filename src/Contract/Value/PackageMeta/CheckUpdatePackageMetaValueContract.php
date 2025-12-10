@@ -7,7 +7,7 @@
  * @package CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\Provider\PackageMeta\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta;
 
 interface CheckUpdatePackageMetaValueContract {
 
