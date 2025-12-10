@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater;
 
-use CodeKaizen\WPPackageAutoUpdater\AutoUpdater\AutoUpdaterThemeORASHubV1;
+use CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub\ThemeORASHubAutoUpdater;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -18,7 +18,7 @@ use WP_Mock\Tools\TestCase;
  * You need to extend WP_Mock\Tools\TestCase, not PHPUnit\Framework\TestCase,
  * in order for the `overload` mock and its assertions to work.
  */
-class AutoUpdaterThemeORASHubV1Test extends TestCase {
+class ThemeORASHubAutoUpdaterTest extends TestCase {
 	/**
 	 * Undocumented function.
 	 *
@@ -39,7 +39,7 @@ class AutoUpdaterThemeORASHubV1Test extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook'
 		);
 		$checkUpdateHook->shouldReceive( 'init' )->once();
-		$sut = new AutoUpdaterThemeORASHubV1( $filePath, $baseURL, $metaKey, $httpOptions, $logger );
+		$sut = new ThemeORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $logger );
 		$sut->init();
 		$this->expectNotToPerformAssertions();
 	}
