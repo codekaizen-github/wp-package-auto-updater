@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\LocalThemePackageMetaProviderFactory;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\RemoteThemePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\LocalThemePackageMetaValueServiceFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\RemoteThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
@@ -85,8 +85,11 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 	 * @return void
 	 */
 	public function init(): void {
-		$localPackageMetaProviderFactory  = new LocalThemePackageMetaProviderFactory( $this->filePath, $this->logger );
-		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaProviderFactory(
+		$localPackageMetaProviderFactory  = new LocalThemePackageMetaValueServiceFactory(
+			$this->filePath,
+			$this->logger
+		);
+		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaValueServiceFactory(
 			$this->baseURL,
 			$this->metaKey,
 			$this->httpOptions,

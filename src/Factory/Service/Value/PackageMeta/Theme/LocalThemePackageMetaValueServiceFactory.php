@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing LocalThemePackageMetaProviderFactory class.
+ * File containing LocalThemePackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
@@ -18,11 +18,11 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Them
 use Psr\Log\LoggerInterface;
 
 /**
- * LocalThemePackageMetaProviderFactory class.
+ * LocalThemePackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
-class LocalThemePackageMetaProviderFactory implements ThemePackageMetaValueServiceFactoryContract {
+class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The file path for the theme package.

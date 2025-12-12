@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing RemoteThemePackageMetaProviderFactory class.
+ * File containing RemoteThemePackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgument;
@@ -20,11 +20,11 @@ use UnexpectedValueException;
 // phpcs:enable Generic.Files.LineLength.TooLong
 
 /**
- * RemoteThemePackageMetaProviderFactory class.
+ * RemoteThemePackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
  */
-class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServiceFactoryContract {
+class RemoteThemePackageMetaValueServiceFactory implements ThemePackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The base URL for the remote provider.
@@ -83,7 +83,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 	 */
 	public function create(): ThemePackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
-			$this->logger->debug( 'Creating new RemoteThemePackageMetaProviderFactory instance.' );
+			$this->logger->debug( 'Creating new RemoteThemePackageMetaValueServiceFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			/**
 			 * Filter
@@ -97,7 +97,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 				$this->logger
 			);
 			$this->logger->debug(
-				'Before applying filter in RemoteThemePackageMetaProviderFactory.',
+				'Before applying filter in RemoteThemePackageMetaValueServiceFactory.',
 				[
 					'argument' => $argument,
 				]
@@ -107,7 +107,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 				$argument
 			);
 			$this->logger->debug(
-				'After applying filter in RemoteThemePackageMetaProviderFactory.',
+				'After applying filter in RemoteThemePackageMetaValueServiceFactory.',
 				[
 					'options' => $options,
 				]
@@ -119,7 +119,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 			 * @var mixed $options
 			 */
 			if ( ! $options instanceof CreateRemotePackageMetaValueFactoryFilterArgumentContract ) {
-				$this->logger->error( 'Invalid options provided to RemoteThemePackageMetaProviderFactory.' );
+				$this->logger->error( 'Invalid options provided to RemoteThemePackageMetaValueServiceFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
 			$factory        = new StandardThemePackageMetaValueServiceFactory(

@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Theme;
 
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\LocalThemePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\LocalThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -40,7 +40,7 @@ class LocalThemePackageMetaProviderFactoryTest extends TestCase {
 		$providerFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( ThemePackageMetaValueServiceContract::class )
 		);
-		$sut    = new LocalThemePackageMetaProviderFactory( $filePath, $logger );
+		$sut    = new LocalThemePackageMetaValueServiceFactory( $filePath, $logger );
 		$return = $sut->create();
 		$this->assertInstanceOf( ThemePackageMetaValueServiceContract::class, $return );
 	}
