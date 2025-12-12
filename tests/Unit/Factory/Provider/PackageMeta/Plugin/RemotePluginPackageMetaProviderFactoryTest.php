@@ -9,7 +9,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use Mockery;
 use Mockery\MockInterface;
@@ -108,7 +108,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$baseUrl     = '';
 		$metaKey     = '';
 		$httpOptions = [];
-		$sut         = new RemotePluginPackageMetaProviderFactory(
+		$sut         = new RemotePluginPackageMetaValueServiceFactory(
 			$baseUrl,
 			$metaKey,
 			$httpOptions,
@@ -129,7 +129,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$baseUrl     = '';
 		$metaKey     = '';
 		$httpOptions = [];
-		$sut         = new RemotePluginPackageMetaProviderFactory(
+		$sut         = new RemotePluginPackageMetaValueServiceFactory(
 			$baseUrl,
 			$metaKey,
 			$httpOptions,
@@ -162,7 +162,12 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$sut    = new RemotePluginPackageMetaProviderFactory( $baseUrl, $metaKey, $httpOptions, $this->getLogger() );
+		$sut    = new RemotePluginPackageMetaValueServiceFactory(
+			$baseUrl,
+			$metaKey,
+			$httpOptions,
+			$this->getLogger()
+		);
 		$filter = WP_Mock::onFilter(
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);
@@ -215,7 +220,7 @@ class RemotePluginPackageMetaProviderFactoryTest extends TestCase {
 		$argument->shouldReceive( 'getHttpOptions' )->andReturn( $httpOptionsUpdated );
 		$argument->shouldReceive( 'getLogger' )->andReturn( $loggerUpdated );
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$sut    = new RemotePluginPackageMetaProviderFactory( $baseUrl, $metaKey, $httpOptions, $logger );
+		$sut    = new RemotePluginPackageMetaValueServiceFactory( $baseUrl, $metaKey, $httpOptions, $logger );
 		$filter = WP_Mock::onFilter(
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);

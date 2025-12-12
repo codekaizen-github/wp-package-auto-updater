@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing LocalPluginPackageMetaProviderFactory class.
+ * File containing LocalPluginPackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin;
 
 use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
@@ -18,11 +18,11 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plug
 use Psr\Log\LoggerInterface;
 
 /**
- * LocalPluginPackageMetaProviderFactory class.
+ * LocalPluginPackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  */
-class LocalPluginPackageMetaProviderFactory implements PluginPackageMetaValueServiceFactoryContract {
+class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The plugin file path.

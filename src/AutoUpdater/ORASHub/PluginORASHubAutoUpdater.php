@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\LocalPluginPackageMetaProviderFactory;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\RemotePluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\LocalPluginPackageMetaValueServiceFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
@@ -85,8 +85,11 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 	 * @return void
 	 */
 	public function init(): void {
-		$localPackageMetaProviderFactory  = new LocalPluginPackageMetaProviderFactory( $this->filePath, $this->logger );
-		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaProviderFactory(
+		$localPackageMetaProviderFactory  = new LocalPluginPackageMetaValueServiceFactory(
+			$this->filePath,
+			$this->logger
+		);
+		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaValueServiceFactory(
 			$this->baseURL,
 			$this->metaKey,
 			$this->httpOptions,

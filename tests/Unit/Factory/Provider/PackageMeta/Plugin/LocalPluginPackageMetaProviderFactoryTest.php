@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Plugin;
 
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\LocalPluginPackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\LocalPluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -40,7 +40,7 @@ class LocalPluginPackageMetaProviderFactoryTest extends TestCase {
 		$providerFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( PluginPackageMetaValueServiceContract::class )
 		);
-		$sut    = new LocalPluginPackageMetaProviderFactory( $filePath, $logger );
+		$sut    = new LocalPluginPackageMetaValueServiceFactory( $filePath, $logger );
 		$return = $sut->create();
 		$this->assertInstanceOf( PluginPackageMetaValueServiceContract::class, $return );
 	}

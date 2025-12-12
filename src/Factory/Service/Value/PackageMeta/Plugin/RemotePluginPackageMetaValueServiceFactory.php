@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing RemotePluginPackageMetaProviderFactory class.
+ * File containing RemotePluginPackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  * @subpackage Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgument;
@@ -20,11 +20,11 @@ use UnexpectedValueException;
 // phpcs:enable Generic.Files.LineLength.TooLong
 
 /**
- * RemotePluginPackageMetaProviderFactory class.
+ * RemotePluginPackageMetaValueServiceFactory class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
  */
-class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueServiceFactoryContract {
+class RemotePluginPackageMetaValueServiceFactory implements PluginPackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The base URL for the remote provider.
@@ -84,7 +84,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 	 */
 	public function create(): PluginPackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
-			$this->logger->debug( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
+			$this->logger->debug( 'Creating new RemotePluginPackageMetaValueServiceFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
 			$argument = new CreateRemotePackageMetaValueFactoryFilterArgument(
 				$this->baseURL,
@@ -93,7 +93,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 				$this->logger
 			);
 			$this->logger->debug(
-				'Before applying filter in RemotePluginPackageMetaProviderFactory.',
+				'Before applying filter in RemotePluginPackageMetaValueServiceFactory.',
 				[
 					'argument' => $argument,
 				]
@@ -108,7 +108,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 				$argument
 			);
 			$this->logger->debug(
-				'After applying filter in RemotePluginPackageMetaProviderFactory.',
+				'After applying filter in RemotePluginPackageMetaValueServiceFactory.',
 				[
 					'options' => $options,
 				]
@@ -120,7 +120,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 			 * @var mixed $options
 			 */
 			if ( ! $options instanceof CreateRemotePackageMetaValueFactoryFilterArgumentContract ) {
-				$this->logger->error( 'Invalid options provided to RemotePluginPackageMetaProviderFactory.' );
+				$this->logger->error( 'Invalid options provided to RemotePluginPackageMetaValueServiceFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
 			$factory        = new StandardPluginPackageMetaValueServiceFactory(
