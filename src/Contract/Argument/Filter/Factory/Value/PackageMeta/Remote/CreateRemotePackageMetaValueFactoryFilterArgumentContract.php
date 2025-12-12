@@ -1,15 +1,15 @@
 <?php
 /**
- * CreateRemotePackageMetaProviderFactoryFilterArgumentContract interface.
+ * CreateRemotePackageMetaValueFactoryFilterArgumentContract interface.
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote
+ * @package CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote;
 
 use Psr\Log\LoggerInterface;
 
-interface CreateRemotePackageMetaProviderFactoryFilterArgumentContract {
+interface CreateRemotePackageMetaValueFactoryFilterArgumentContract {
 	/**
 	 * Undocumented function
 	 *

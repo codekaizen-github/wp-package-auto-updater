@@ -8,15 +8,15 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Argument\Filter\Factory\Provider\PackageMeta\Remote;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgument;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Test CreateRemotePackageMetaProviderFactoryFilterArgument class.
+ * Test CreateRemotePackageMetaValueFactoryFilterArgument class.
  */
-class CreateRemotePackageMetaProviderFactoryFilterArgumentTest extends TestCase {
+class CreateRemotePackageMetaValueFactoryFilterArgumentTest extends TestCase {
 	/**
 	 * Test constructor and properties.
 	 *
@@ -30,7 +30,7 @@ class CreateRemotePackageMetaProviderFactoryFilterArgumentTest extends TestCase 
 		];
 		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
+		$argument = new CreateRemotePackageMetaValueFactoryFilterArgument(
 			$baseURL,
 			$metaKey,
 			$httpOptions,

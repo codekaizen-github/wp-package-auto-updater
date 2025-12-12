@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Provider\PackageMeta\Theme;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\RemoteThemePackageMetaProviderFactory;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use Mockery;
@@ -209,7 +209,7 @@ class RemoteThemePackageMetaProviderFactoryTest extends TestCase {
 			$httpOptionsUpdated,
 			$loggerUpdated
 		);
-		$argument = Mockery::mock( CreateRemotePackageMetaProviderFactoryFilterArgumentContract::class );
+		$argument = Mockery::mock( CreateRemotePackageMetaValueFactoryFilterArgumentContract::class );
 		$argument->shouldReceive( 'getBaseURL' )->andReturn( $baseUrlUpdated );
 		$argument->shouldReceive( 'getMetaKey' )->andReturn( $metaKeyUpdated );
 		$argument->shouldReceive( 'getHttpOptions' )->andReturn( $httpOptionsUpdated );

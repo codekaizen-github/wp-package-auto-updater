@@ -1,14 +1,14 @@
 <?php
 /**
- * File containing CreateRemotePackageMetaProviderFactoryFilterArgument class.
+ * File containing CreateRemotePackageMetaValueFactoryFilterArgument class.
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote
+ * @package CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote;
+namespace CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
 
 use Psr\Log\LoggerInterface;
 
@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Undocumented class
  */
-class CreateRemotePackageMetaProviderFactoryFilterArgument implements CreateRemotePackageMetaProviderFactoryFilterArgumentContract {
+class CreateRemotePackageMetaValueFactoryFilterArgument implements CreateRemotePackageMetaValueFactoryFilterArgumentContract {
 // phpcs:enable Generic.Files.LineLength.TooLong
 
 	/**

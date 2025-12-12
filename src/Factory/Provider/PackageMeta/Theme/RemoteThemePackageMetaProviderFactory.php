@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory;
@@ -88,9 +88,9 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 			/**
 			 * Filter
 			 *
-			 * @param CreateRemotePackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
+			 * @param CreateRemotePackageMetaValueFactoryFilterArgumentContract $options The options for creating the factory.
 			 */
-			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
+			$argument = new CreateRemotePackageMetaValueFactoryFilterArgument(
 				$this->baseURL,
 				$this->metaKey,
 				$this->httpOptions,
@@ -118,7 +118,7 @@ class RemoteThemePackageMetaProviderFactory implements ThemePackageMetaValueServ
 			 *
 			 * @var mixed $options
 			 */
-			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
+			if ( ! $options instanceof CreateRemotePackageMetaValueFactoryFilterArgumentContract ) {
 				$this->logger->error( 'Invalid options provided to RemoteThemePackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}

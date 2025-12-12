@@ -9,8 +9,8 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgument;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Provider\PackageMeta\Remote\CreateRemotePackageMetaProviderFactoryFilterArgumentContract;
+use CodeKaizen\WPPackageAutoUpdater\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgument;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderORASHub\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory;
@@ -86,7 +86,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new RemotePluginPackageMetaProviderFactory instance.' );
 			// phpcs:disable Generic.Files.LineLength.TooLong
-			$argument = new CreateRemotePackageMetaProviderFactoryFilterArgument(
+			$argument = new CreateRemotePackageMetaValueFactoryFilterArgument(
 				$this->baseURL,
 				$this->metaKey,
 				$this->httpOptions,
@@ -101,7 +101,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 			/**
 			 * Filter
 			 *
-			 * @param CreateRemotePackageMetaProviderFactoryFilterArgumentContract $options The options for creating the factory.
+			 * @param CreateRemotePackageMetaValueFactoryFilterArgumentContract $options The options for creating the factory.
 			 */
 			$options = apply_filters(
 				'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options',
@@ -119,7 +119,7 @@ class RemotePluginPackageMetaProviderFactory implements PluginPackageMetaValueSe
 			 *
 			 * @var mixed $options
 			 */
-			if ( ! $options instanceof CreateRemotePackageMetaProviderFactoryFilterArgumentContract ) {
+			if ( ! $options instanceof CreateRemotePackageMetaValueFactoryFilterArgumentContract ) {
 				$this->logger->error( 'Invalid options provided to RemotePluginPackageMetaProviderFactory.' );
 				throw new UnexpectedValueException( 'Invalid options provided' );
 			}
