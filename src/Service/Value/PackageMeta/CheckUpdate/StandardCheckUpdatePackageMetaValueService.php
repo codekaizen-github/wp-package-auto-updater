@@ -1,27 +1,26 @@
 <?php
 /**
- * CheckUpdatePackageMetaProviderFactory
+ * StandardCheckUpdatePackageMetaValueService
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate;
+ * @package CodeKaizen\WPPackageAutoUpdater\Service\Value\PackageMeta\CheckUpdate
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdater\Service\Value\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
-// phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
-use stdClass;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use stdClass;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
 use Throwable;
 
 /**
  * Undocumented class
  */
-class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaProviderFactoryContract {
+class StandardCheckUpdatePackageMetaValueService implements CheckUpdatePackageMetaValueServiceContract {
 	/**
 	 * Undocumented variable
 	 *
@@ -62,13 +61,7 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 * @return CheckUpdatePackageMetaValueContract
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
-	/**
-	 * Undocumented function
-	 *
-	 * @return CheckUpdatePackageMetaValueContract
-	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
-	 */
-	public function create(): CheckUpdatePackageMetaValueContract {
+	public function getPackageMeta(): CheckUpdatePackageMetaValueContract {
 		$this->logger->debug( 'Creating StandardCheckUpdatePackageMetaValue.', [ 'fullSlug' => $this->fullSlug ] );
 		// Fetch the transient.
 		$transient = $this->accessor->get();

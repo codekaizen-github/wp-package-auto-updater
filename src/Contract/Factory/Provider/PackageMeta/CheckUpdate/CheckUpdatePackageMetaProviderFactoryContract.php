@@ -1,6 +1,6 @@
 <?php
 /**
- * CheckUpdatePackageMetaProviderFactory
+ * StandardCheckUpdatePackageMetaValueServiceFactory
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate
  */

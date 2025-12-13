@@ -1,13 +1,13 @@
 <?php
 /**
- * Unit test for CheckUpdatePackageMetaProviderFactory.
+ * Unit test for StandardCheckUpdatePackageMetaValueServiceFactory.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Factory\Provider\PackageMeta\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Factory\Provider\PackageMeta\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaProviderFactory;
 use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 use Mockery;
@@ -18,7 +18,7 @@ use stdClass;
 /**
  * Class CheckUpdatePackageMetaProviderFactoryTest
  *
- * @covers \CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory
+ * @covers \CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaProviderFactory
  */
 class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 	/**
@@ -72,7 +72,7 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 				$logger->shouldReceive( 'info' );
 				$logger->shouldReceive( 'error' );
 				$accessor->shouldReceive( 'get' )->andReturn( $transient );
-				$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug, $logger );
+				$sut = new StandardCheckUpdatePackageMetaValueServiceFactory( $accessor, $slug, $logger );
 				$this->assertInstanceOf( StandardCheckUpdatePackageMetaValue::class, $sut->create() );
 	}
 
@@ -100,7 +100,7 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 			$logger->shouldReceive( 'info' );
 			$logger->shouldReceive( 'error' );
 			$accessor->shouldReceive( 'get' )->andReturn( $transient );
-			$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug, $logger );
+			$sut = new StandardCheckUpdatePackageMetaValueServiceFactory( $accessor, $slug, $logger );
 			$this->expectException( InvalidCheckUpdatePackageMetaException::class );
 			$sut->create();
 	}

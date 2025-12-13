@@ -12,7 +12,8 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaProviderFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
@@ -102,15 +103,17 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 					'hookExtra' => $hookExtra,
 				]
 			);
-			$localPackageMetaValueService          = $this->localPackageMetaValueServiceFactory->create();
-			$localPackageMetaValue                 = $localPackageMetaValueService->getPackageMeta();
-			$checkUpdatePackageMetaProviderFactory = new CheckUpdatePackageMetaProviderFactory(
+			$localPackageMetaValueService                      = $this->localPackageMetaValueServiceFactory->create();
+			$localPackageMetaValue                             = $localPackageMetaValueService->getPackageMeta();
+			$standardCheckUpdatePackageMetaValueServiceFactory = new StandardCheckUpdatePackageMetaValueServiceFactory(
 				$this->transientAccessor,
 				$localPackageMetaValue->getFullSlug(),
 				$this->logger
 			);
-			$checkUpdatePackageMetaProvider        = $checkUpdatePackageMetaProviderFactory->create();
-			$downloadURL                           = $checkUpdatePackageMetaProvider->getDownloadURL();
+			// phpcs:ignore Generic.Files.LineLength.TooLong
+			$checkUpdatePackageMetaValueService = $standardCheckUpdatePackageMetaValueServiceFactory->create();
+			$checkUpdatePackageMetaValue        = $checkUpdatePackageMetaValueService->getPackageMeta();
+			$downloadURL                        = $checkUpdatePackageMetaValue->getDownloadURL();
 			if ( null === $downloadURL ) {
 				return $reply;
 			}
@@ -120,7 +123,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 				$this->logger
 			);
 			$downloadStrategy = new DownloadUpgradeStrategy(
-				$checkUpdatePackageMetaProvider,
+				$checkUpdatePackageMetaValue,
 				$fileDownloader,
 				$this->logger
 			);
