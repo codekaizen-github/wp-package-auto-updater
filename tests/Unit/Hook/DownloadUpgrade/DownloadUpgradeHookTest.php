@@ -8,6 +8,8 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\DownloadUpgrade;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
@@ -45,16 +47,15 @@ class DownloadUpgradeHookTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldNotReceive( 'error' );
-
+		$service = Mockery::mock( CheckUpdatePackageMetaValueServiceContract::class );
+		$value   = Mockery::mock( CheckUpdatePackageMetaValueContract::class );
+		$service->shouldReceive( 'getPackageMeta' )->andReturn( $value );
+		$value->shouldReceive( 'getDownloadURL' )->andReturn( 'https://example.com/download.zip' );
 		// Overload hard dependencies.
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory' )
 			->shouldReceive( 'create' )->andReturn(
-				Mockery::mock(
-					[
-						'getDownloadURL' => 'https://example.com/download.zip',
-					]
-				)
+				$service
 			);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		Mockery::mock(
@@ -63,7 +64,6 @@ class DownloadUpgradeHookTest extends TestCase {
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy' )
 			->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
-
 		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.

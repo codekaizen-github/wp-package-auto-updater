@@ -8,8 +8,6 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Factory\Provider\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
-use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
-use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory;
 use Mockery;
@@ -35,7 +33,12 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 				\CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract::class
 			);
 			$logger   = Mockery::mock( LoggerInterface::class );
-			$service  = Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract' );
+			// phpcs:disable Generic.Files.LineLength.TooLong
+			$service = Mockery::mock(
+				'overload:CodeKaizen\WPPackageAutoUpdater\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueService',
+				CheckUpdatePackageMetaValueServiceContract::class
+			);
+			// phpcs:enable Generic.Files.LineLength.TooLong
 			// $service should receive accessor, slug, and logger in constructor
 			$service->shouldReceive( '__construct' )->with(
 				$accessor,
