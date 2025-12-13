@@ -12,7 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaProviderFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong

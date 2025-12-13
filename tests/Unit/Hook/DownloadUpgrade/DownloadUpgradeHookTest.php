@@ -48,7 +48,7 @@ class DownloadUpgradeHookTest extends TestCase {
 
 		// Overload hard dependencies.
 		// phpcs:disable Generic.Files.LineLength.TooLong
-		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaProviderFactory' )
+		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory' )
 			->shouldReceive( 'create' )->andReturn(
 				Mockery::mock(
 					[

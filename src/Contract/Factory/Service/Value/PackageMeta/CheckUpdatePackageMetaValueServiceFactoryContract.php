@@ -2,11 +2,11 @@
 /**
  * File containing CheckUpdatePackageMetaValueServiceFactoryContract interface.
  *
- *  @package CodeKaizen\WPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta
  * @subpackage Factory
  */
 
-namespace CodeKaizen\WPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
 

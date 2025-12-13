@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate;
 
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
