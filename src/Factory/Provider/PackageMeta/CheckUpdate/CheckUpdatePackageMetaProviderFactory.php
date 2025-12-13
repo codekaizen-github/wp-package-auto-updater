@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpda
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactoryContract;
-use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
 use stdClass;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
@@ -69,7 +69,7 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 	 * @throws InvalidCheckUpdatePackageMetaException Throws when the package meta data is invalid.
 	 */
 	public function create(): CheckUpdatePackageMetaValueContract {
-		$this->logger->debug( 'Creating CheckUpdatePackageMetaProvider.', [ 'fullSlug' => $this->fullSlug ] );
+		$this->logger->debug( 'Creating StandardCheckUpdatePackageMetaValue.', [ 'fullSlug' => $this->fullSlug ] );
 		// Fetch the transient.
 		$transient = $this->accessor->get();
 		if ( ! is_object( $transient ) ) {
@@ -103,9 +103,9 @@ class CheckUpdatePackageMetaProviderFactory implements CheckUpdatePackageMetaPro
 		}
 		// - If found, instantiate and return Contract, passing in data
 		try {
-			return new CheckUpdatePackageMetaProvider( $item );
+			return new StandardCheckUpdatePackageMetaValue( $item );
 		} catch ( Throwable $e ) {
-			$this->logger->error( 'Error creating CheckUpdatePackageMetaProvider.', [ 'exception' => $e ] );
+			$this->logger->error( 'Error creating StandardCheckUpdatePackageMetaValue.', [ 'exception' => $e ] );
 			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new InvalidCheckUpdatePackageMetaException( $e->getMessage(), $e->getCode(), $e );
 		}

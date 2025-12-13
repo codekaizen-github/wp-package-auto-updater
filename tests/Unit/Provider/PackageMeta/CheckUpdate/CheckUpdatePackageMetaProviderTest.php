@@ -1,20 +1,20 @@
 <?php
 /**
- * Unit test for CheckUpdatePackageMetaProvider.
+ * Unit test for StandardCheckUpdatePackageMetaValue.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Provider\PackageMeta\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Provider\PackageMeta\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
  * Class CheckUpdatePackageMetaProviderTest
  *
- * @covers \CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider
+ * @covers \CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue
  */
 class CheckUpdatePackageMetaProviderTest extends TestCase {
 	/**
@@ -44,7 +44,7 @@ class CheckUpdatePackageMetaProviderTest extends TestCase {
 		$this->assertArrayHasKey( 'default', $data->icons );
 		$this->assertSame( 'https://example.com/icon.png', $data->icons['default'] );
 
-		$provider = new CheckUpdatePackageMetaProvider( $data );
+		$provider = new StandardCheckUpdatePackageMetaValue( $data );
 
 		$this->assertSame( 'plugin/full-slug', $provider->getFullSlug() );
 		$this->assertSame( 'plugin', $provider->getShortSlug() );

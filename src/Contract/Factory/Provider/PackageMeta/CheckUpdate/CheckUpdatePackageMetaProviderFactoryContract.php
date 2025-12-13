@@ -11,7 +11,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackag
 
 interface CheckUpdatePackageMetaProviderFactoryContract {
 	/**
-	 * Create a CheckUpdatePackageMetaProvider instance.
+	 * Create a StandardCheckUpdatePackageMetaValue instance.
 	 */
 	public function create(): CheckUpdatePackageMetaValueContract;
 }

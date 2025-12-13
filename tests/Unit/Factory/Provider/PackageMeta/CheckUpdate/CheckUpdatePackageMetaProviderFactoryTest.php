@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Factory\Provider\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProviderFactory;
-use CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\CheckUpdatePackageMetaProvider;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue;
 use CodeKaizen\WPPackageAutoUpdater\Exception\InvalidCheckUpdatePackageMetaException;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -73,7 +73,7 @@ class CheckUpdatePackageMetaProviderFactoryTest extends TestCase {
 				$logger->shouldReceive( 'error' );
 				$accessor->shouldReceive( 'get' )->andReturn( $transient );
 				$sut = new CheckUpdatePackageMetaProviderFactory( $accessor, $slug, $logger );
-				$this->assertInstanceOf( CheckUpdatePackageMetaProvider::class, $sut->create() );
+				$this->assertInstanceOf( StandardCheckUpdatePackageMetaValue::class, $sut->create() );
 	}
 
 	/**
