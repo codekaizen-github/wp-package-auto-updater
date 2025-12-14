@@ -59,7 +59,7 @@ class DownloadUpgradeHookTest extends TestCase {
 			);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor'
 		);
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy' )

@@ -2,17 +2,17 @@
 /**
  * Transient WordPress Provider.
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient
+ * @package CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient;
+namespace CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 
 /**
  * Undocumented class
  */
-class TransientWordPressProvider implements MixedAccessorContract {
+class WordPressTransientProxyMixedAccessor implements MixedAccessorContract {
 	/**
 	 * Undocumented variable
 	 *

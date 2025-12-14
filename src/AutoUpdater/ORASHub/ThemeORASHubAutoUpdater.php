@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Remo
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
-use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
+use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -107,7 +107,7 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 		);
 		$standardDownloadUpgradeHook      = new StandardDownloadUpgradeHook(
 			$localPackageMetaProviderFactory,
-			new TransientWordPressProvider( 'update_themes' ),
+			new WordPressTransientProxyMixedAccessor( 'update_themes' ),
 			$this->httpOptions,
 			$this->logger
 		);

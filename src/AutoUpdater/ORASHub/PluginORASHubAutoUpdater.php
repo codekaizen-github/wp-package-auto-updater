@@ -14,7 +14,7 @@ use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Rem
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
-use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
+use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -107,7 +107,7 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 		);
 		$standardDownloadUpgradeHook      = new StandardDownloadUpgradeHook(
 			$localPackageMetaProviderFactory,
-			new TransientWordPressProvider( 'update_plugins' ),
+			new WordPressTransientProxyMixedAccessor( 'update_plugins' ),
 			$this->httpOptions,
 			$this->logger
 		);
