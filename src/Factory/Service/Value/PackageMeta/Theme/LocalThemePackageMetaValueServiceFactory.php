@@ -9,7 +9,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme;
 
 use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\ThemePackageRootValue;
-use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
+use CodeKaizen\WPPackageAutoUpdater\Value\Slug\ThemeSlugValue;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
@@ -63,7 +63,7 @@ class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueS
 	public function create(): ThemePackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new theme package meta provider.' );
-			$themeSlugParser = new ThemeSlugParser(
+			$themeSlugValue = new ThemeSlugValue(
 				$this->filePath,
 				new ThemePackageRootValue(),
 				$this->logger
@@ -71,7 +71,7 @@ class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueS
 
 			$factory = new StandardThemePackageMetaValueServiceFactory(
 				$this->filePath,
-				$themeSlugParser,
+				$themeSlugValue,
 				$this->logger
 			);
 

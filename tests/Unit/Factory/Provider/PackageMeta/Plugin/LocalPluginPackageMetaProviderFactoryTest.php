@@ -31,7 +31,7 @@ class LocalPluginPackageMetaProviderFactoryTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser' );
+		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Value\Slug\PluginSlugValue' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
 			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plugin\StandardPluginPackageMetaValueServiceFactory'

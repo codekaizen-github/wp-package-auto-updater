@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
-use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
+use CodeKaizen\WPPackageAutoUpdater\Value\Slug\PluginSlugValue;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -32,7 +32,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -48,7 +48,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->expectException( UnexpectedValueException::class );
 		$sut->getShortSlug();
 	}
@@ -67,7 +67,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -86,7 +86,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -105,7 +105,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -124,7 +124,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -143,7 +143,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -162,7 +162,7 @@ class PluginSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForPlugin() . '/plugins' );
-		$sut = new PluginSlugParser( $filePath, $packageRoot );
+		$sut = new PluginSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}

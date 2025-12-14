@@ -31,7 +31,7 @@ class LocalThemePackageMetaProviderFactoryTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser' );
+		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Value\Slug\ThemeSlugValue' );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		$providerFactory = Mockery::mock(
 			'overload:CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Theme\StandardThemePackageMetaValueServiceFactory'

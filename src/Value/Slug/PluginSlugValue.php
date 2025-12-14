@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing PluginSlugParser class.
+ * File containing PluginSlugValue class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
+ *  @package CodeKaizen\WPPackageAutoUpdater\Value\Slug
  * @subpackage Slug
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
+namespace CodeKaizen\WPPackageAutoUpdater\Value\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
@@ -18,11 +18,11 @@ use UnexpectedValueException;
  * Parser for plugin slugs.
  */
 /**
- * PluginSlugParser class.
+ * PluginSlugValue class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
+ *  @package CodeKaizen\WPPackageAutoUpdater\Value\Slug
  */
-class PluginSlugParser implements SlugValueContract {
+class PluginSlugValue implements SlugValueContract {
 
 	/**
 	 * The package root contract.

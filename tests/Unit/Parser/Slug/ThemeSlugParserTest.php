@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
-use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
+use CodeKaizen\WPPackageAutoUpdater\Value\Slug\ThemeSlugValue;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +33,7 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -51,7 +51,7 @@ class ThemeSlugParserTest extends TestCase {
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'error' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot, $logger );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot, $logger );
 		$this->expectException( UnexpectedValueException::class );
 		$sut->getShortSlug();
 	}
@@ -70,7 +70,7 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -89,7 +89,7 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -108,7 +108,7 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
@@ -127,7 +127,7 @@ class ThemeSlugParserTest extends TestCase {
 			->shouldReceive( 'getPackageRoot' )
 			->with()
 			->andReturn( FixturePathHelper::getPathForTheme() . '/themes' );
-		$sut = new ThemeSlugParser( $filePath, $packageRoot );
+		$sut = new ThemeSlugValue( $filePath, $packageRoot );
 		$this->assertEquals( $shortSlugExpected, $sut->getShortSlug() );
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}

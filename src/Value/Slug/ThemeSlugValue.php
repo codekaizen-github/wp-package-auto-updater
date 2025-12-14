@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing ThemeSlugParser class.
+ * File containing ThemeSlugValue class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
+ *  @package CodeKaizen\WPPackageAutoUpdater\Value\Slug
  * @subpackage Slug
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
+namespace CodeKaizen\WPPackageAutoUpdater\Value\Slug;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
@@ -18,11 +18,11 @@ use UnexpectedValueException;
  * Parser for theme slugs.
  */
 /**
- * ThemeSlugParser class.
+ * ThemeSlugValue class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Parser\Slug
+ *  @package CodeKaizen\WPPackageAutoUpdater\Value\Slug
  */
-class ThemeSlugParser implements SlugValueContract {
+class ThemeSlugValue implements SlugValueContract {
 
 	/**
 	 * The package root contract.
