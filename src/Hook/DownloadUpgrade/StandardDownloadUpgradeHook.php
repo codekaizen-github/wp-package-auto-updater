@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing DownloadUpgradeHook class.
+ * File containing StandardDownloadUpgradeHook class.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade
  */
@@ -23,7 +23,7 @@ use Throwable;
 /**
  * Hook for handling package downloads during upgrades.
  */
-class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrategyContract {
+class StandardDownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrategyContract {
 
 	/**
 	 * Undocumented variable
@@ -95,7 +95,7 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		try {
 			$this->logger->debug(
-				'Entering DownloadUpgradeHook::downloadUpgrade',
+				'Entering StandardDownloadUpgradeHook::downloadUpgrade',
 				[
 					'reply'     => $reply,
 					'package'   => $package,
@@ -131,9 +131,9 @@ class DownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrateg
 			$reply = $downloadStrategy->downloadUpgrade( $reply, $package, $upgrader, $hookExtra );
 		} catch ( Throwable $e ) {
 			$reply = false;
-			$this->logger->error( 'Error in DownloadUpgradeHook: ' . $e->getMessage() );
+			$this->logger->error( 'Error in StandardDownloadUpgradeHook: ' . $e->getMessage() );
 		}
-		$this->logger->debug( 'Exiting DownloadUpgradeHook::downloadUpgrade', [ 'reply' => $reply ] );
+		$this->logger->debug( 'Exiting StandardDownloadUpgradeHook::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;
 	}
 }

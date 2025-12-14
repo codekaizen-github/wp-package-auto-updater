@@ -1,6 +1,6 @@
 <?php
 /**
- * Test file for DownloadUpgradeHook.
+ * Test file for StandardDownloadUpgradeHook.
  *
  * @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\DownloadUpgrade
  */
@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\DownloadUpgrade;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Service\Value\PackageMeta\CheckUpdatePackageMetaValueServiceContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
-use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\DownloadUpgradeHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
@@ -23,7 +23,7 @@ use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
 /**
- * Test class for DownloadUpgradeHook.
+ * Test class for StandardDownloadUpgradeHook.
  */
 class DownloadUpgradeHookTest extends TestCase {
 	/**
@@ -64,7 +64,7 @@ class DownloadUpgradeHookTest extends TestCase {
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient' );
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy' )
 			->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
-		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
+		$sut = new StandardDownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.
 		$result = $sut->downloadUpgrade( false, 'any-package', null, [] );
@@ -86,7 +86,7 @@ class DownloadUpgradeHookTest extends TestCase {
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
+		$sut = new StandardDownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 		// Set up expectations.
 		WP_Mock::expectFilterAdded(
 			'upgrader_pre_download',
@@ -121,12 +121,12 @@ class DownloadUpgradeHookTest extends TestCase {
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'error' )
-			->with( 'Error in DownloadUpgradeHook: Test exception' )
+			->with( 'Error in StandardDownloadUpgradeHook: Test exception' )
 			->once();
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 
-		$sut = new DownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
+		$sut = new StandardDownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.
 		$result = $sut->downloadUpgrade( false, 'any-package', null, [] );
