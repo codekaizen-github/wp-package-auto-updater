@@ -1,11 +1,11 @@
 <?php
 /**
- * CheckUpdateMetaObject
+ * CheckUpdateStandardClass
  *
- * @package CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate
+ * @package CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate;
 
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use stdClass;
@@ -13,7 +13,7 @@ use stdClass;
 /**
  * Undocumented class
  */
-class CheckUpdateMetaObject extends stdClass {
+class CheckUpdateStandardClass extends stdClass {
 	/**
 	 * Undocumented variable
 	 *

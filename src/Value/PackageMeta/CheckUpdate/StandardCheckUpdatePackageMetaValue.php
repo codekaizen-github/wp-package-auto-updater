@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Value\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
-use CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject\CheckUpdate\CheckUpdateMetaObjectValidator;
+use CodeKaizen\WPPackageAutoUpdater\Validator\StandardClass\CheckUpdate\CheckUpdateStandardClassValidator;
 use Respect\Validation\Exceptions\ValidationException;
 use Respect\Validation\Validator;
 use stdClass;
@@ -32,7 +32,7 @@ class StandardCheckUpdatePackageMetaValue implements CheckUpdatePackageMetaValue
 	 */
 	public function __construct( stdClass $data ) {
 		try {
-			Validator::create( new CheckUpdateMetaObjectValidator() )->check( $data );
+			Validator::create( new CheckUpdateStandardClassValidator() )->check( $data );
 		} catch ( ValidationException $e ) {
 			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 			throw new UnexpectedValueException( $e->getMessage(), 0, $e );

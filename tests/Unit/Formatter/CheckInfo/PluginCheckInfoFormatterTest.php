@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\PluginCheckInfoMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -49,8 +49,8 @@ class PluginCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut              = ( new PluginCheckInfoFormatter( $provider ) );
-		$actualMetaObject = $sut->formatForCheckInfo();
-		$this->assertInstanceOf( PluginCheckInfoMetaObject::class, $actualMetaObject );
+		$sut                 = ( new PluginCheckInfoFormatter( $provider ) );
+		$actualStandardClass = $sut->formatForCheckInfo();
+		$this->assertInstanceOf( PluginCheckInfoStandardClass::class, $actualStandardClass );
 	}
 }

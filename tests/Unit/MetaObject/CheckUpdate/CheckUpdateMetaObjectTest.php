@@ -2,12 +2,12 @@
 /**
  * Tests
  *
- *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckUpdate
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckUpdate
  */
 
-namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckUpdate\CheckUpdateMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\CheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class CheckUpdateMetaObjectTest extends TestCase {
+class CheckUpdateStandardClassTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -55,7 +55,7 @@ class CheckUpdateMetaObjectTest extends TestCase {
 		$provider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresExpected );
 		$provider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$provider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );
-		$sut = new CheckUpdateMetaObject( $provider );
+		$sut = new CheckUpdateStandardClass( $provider );
 		$this->assertObjectHasProperty( 'slug', $sut );
 		$this->assertEquals( $slugExpected, $sut->slug );
 		$this->assertObjectHasProperty( 'new_version', $sut );

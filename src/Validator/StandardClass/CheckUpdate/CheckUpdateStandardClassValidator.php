@@ -2,10 +2,10 @@
 /**
  * Check Update Meta Object Validator
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject
+ * @package CodeKaizen\WPPackageAutoUpdater\Validator\StandardClass
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Validator\MetaObject\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdater\Validator\StandardClass\CheckUpdate;
 
 use CodeKaizen\WPPackageMetaProviderLocal\Validator\Rule\Version\FlexibleSemanticVersionRule;
 use Respect\Validation\Rules;
@@ -13,14 +13,14 @@ use Respect\Validation\Rules\Core\Simple;
 use Respect\Validation\Validator;
 
 /**
- * Validates CheckUpdateMetaObject instances
+ * Validates CheckUpdateStandardClass instances
  *
  * @since 1.0.0
  */
-class CheckUpdateMetaObjectValidator extends Simple {
+class CheckUpdateStandardClassValidator extends Simple {
 
 	/**
-	 * Validates a CheckUpdateMetaObject instance
+	 * Validates a CheckUpdateStandardClass instance
 	 *
 	 * @param mixed $input The object to validate.
 	 * @return bool True if validation passes, false otherwise.

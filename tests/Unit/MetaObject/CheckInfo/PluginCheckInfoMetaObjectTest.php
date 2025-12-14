@@ -2,12 +2,12 @@
 /**
  * Tests
  *
- *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckInfo
  */
 
-namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo;
+namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\PluginCheckInfoMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class PluginCheckInfoMetaObjectTest extends TestCase {
+class PluginCheckInfoStandardClassTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -50,7 +50,7 @@ class PluginCheckInfoMetaObjectTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut = new PluginCheckInfoMetaObject( $provider );
+		$sut = new PluginCheckInfoStandardClass( $provider );
 		$this->assertObjectHasProperty( 'name', $sut );
 		$this->assertEquals( $nameExpected, $sut->name );
 		$this->assertObjectHasProperty( 'slug', $sut );

@@ -2,12 +2,12 @@
 /**
  * Tests
  *
- *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckInfo
  */
 
-namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\MetaObject\CheckInfo;
+namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class ThemeCheckInfoMetaObjectTest extends TestCase {
+class ThemeCheckInfoStandardClassTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -44,7 +44,7 @@ class ThemeCheckInfoMetaObjectTest extends TestCase {
 		$provider->shouldReceive( 'getViewURL' )->with()->andReturn( $homepageExpected );
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut = new ThemeCheckInfoMetaObject( $provider );
+		$sut = new ThemeCheckInfoStandardClass( $provider );
 		$this->assertObjectHasProperty( 'name', $sut );
 		$this->assertEquals( $nameExpected, $sut->name );
 		$this->assertObjectHasProperty( 'slug', $sut );

@@ -9,7 +9,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
 /**
@@ -39,10 +39,10 @@ class ThemeCheckInfoFormatter implements CheckInfoFormatterContract {
 	/**
 	 * Format data for check info.
 	 *
-	 * @return ThemeCheckInfoMetaObject The formatted ThemeCheckInfoMetaObject containing theme information.
+	 * @return ThemeCheckInfoStandardClass The formatted ThemeCheckInfoStandardClass containing theme information.
 	 */
-	public function formatForCheckInfo(): ThemeCheckInfoMetaObject {
-		$stdObj = new ThemeCheckInfoMetaObject( $this->provider );
+	public function formatForCheckInfo(): ThemeCheckInfoStandardClass {
+		$stdObj = new ThemeCheckInfoStandardClass( $this->provider );
 		return $stdObj;
 	}
 }
