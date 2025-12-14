@@ -1,28 +1,28 @@
 <?php
 /**
- * Unit test for PluginPackageRoot.
+ * Unit test for PluginPackageRootValue.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Tests\Unit\PackageRoot
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\PackageRoot;
 
-use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\PluginPackageRootValue;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PluginPackageRootTest
  *
- * @covers \CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot
+ * @covers \CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\PluginPackageRootValue
  */
 class PluginPackageRootTest extends TestCase {
 	/**
-	 * Test instantiation of PluginPackageRoot.
+	 * Test instantiation of PluginPackageRootValue.
 	 *
 	 * @return void
 	 */
 	public function testCanBeInstantiated(): void {
-		$root = new PluginPackageRoot();
-		$this->assertInstanceOf( PluginPackageRoot::class, $root );
+		$root = new PluginPackageRootValue();
+		$this->assertInstanceOf( PluginPackageRootValue::class, $root );
 	}
 }

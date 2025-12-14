@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin;
 
-use CodeKaizen\WPPackageAutoUpdater\PackageRoot\PluginPackageRoot;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\PluginPackageRootValue;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
@@ -64,7 +64,7 @@ class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValu
 	public function create(): PluginPackageMetaValueServiceContract {
 		if ( null === $this->provider ) {
 			$this->logger->debug( 'Creating new plugin package meta provider.' );
-			$slugParser     = new PluginSlugParser( $this->filePath, new PluginPackageRoot(), $this->logger );
+			$slugParser     = new PluginSlugParser( $this->filePath, new PluginPackageRootValue(), $this->logger );
 			$factory        = new StandardPluginPackageMetaValueServiceFactory(
 				$this->filePath,
 				$slugParser,
