@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\StandardCheckUpdateFormatter;
-use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\CheckUpdateStandardClass;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -75,6 +75,6 @@ class CheckUpdateFormatterTest extends TestCase {
 		$this->assertArrayHasKey( $fullSlugExpected, $actualResponse );
 		$this->assertIsObject( $actualResponse[ $fullSlugExpected ] );
 		$actualStandardClass = $actualResponse[ $fullSlugExpected ];
-		$this->assertInstanceOf( CheckUpdateStandardClass::class, $actualStandardClass );
+		$this->assertInstanceOf( StandardCheckUpdateStandardClass::class, $actualStandardClass );
 	}
 }

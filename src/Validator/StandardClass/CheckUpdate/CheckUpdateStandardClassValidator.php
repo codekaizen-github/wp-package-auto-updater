@@ -13,14 +13,14 @@ use Respect\Validation\Rules\Core\Simple;
 use Respect\Validation\Validator;
 
 /**
- * Validates CheckUpdateStandardClass instances
+ * Validates StandardCheckUpdateStandardClass instances
  *
  * @since 1.0.0
  */
 class CheckUpdateStandardClassValidator extends Simple {
 
 	/**
-	 * Validates a CheckUpdateStandardClass instance
+	 * Validates a StandardCheckUpdateStandardClass instance
 	 *
 	 * @param mixed $input The object to validate.
 	 * @return bool True if validation passes, false otherwise.

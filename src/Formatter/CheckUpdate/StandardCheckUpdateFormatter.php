@@ -9,7 +9,7 @@
 namespace CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\CheckUpdateStandardClass;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
 /**
@@ -55,7 +55,7 @@ class StandardCheckUpdateFormatter implements CheckUpdateFormatterContract {
 	public function formatForCheckUpdate(
 		array $response,
 	): array {
-		$metaObject = new CheckUpdateStandardClass( $this->remotePackageMetaProvider );
+		$metaObject = new StandardCheckUpdateStandardClass( $this->remotePackageMetaProvider );
 		$response[ $this->localPackageMetaProvider->getFullSlug() ] = $metaObject;
 		return $response;
 	}

@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\StandardClass\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\CheckUpdateStandardClass;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +55,7 @@ class CheckUpdateStandardClassTest extends TestCase {
 		$provider->shouldReceive( 'getRequiresWordPressVersion' )->with()->andReturn( $requiresExpected );
 		$provider->shouldReceive( 'getTested' )->with()->andReturn( $testedExpected );
 		$provider->shouldReceive( 'getRequiresPHPVersion' )->with()->andReturn( $requiresPhpExpected );
-		$sut = new CheckUpdateStandardClass( $provider );
+		$sut = new StandardCheckUpdateStandardClass( $provider );
 		$this->assertObjectHasProperty( 'slug', $sut );
 		$this->assertEquals( $slugExpected, $sut->slug );
 		$this->assertObjectHasProperty( 'new_version', $sut );

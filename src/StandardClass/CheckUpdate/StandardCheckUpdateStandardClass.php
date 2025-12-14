@@ -1,6 +1,6 @@
 <?php
 /**
- * CheckUpdateStandardClass
+ * StandardCheckUpdateStandardClass
  *
  * @package CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate
  */
@@ -13,7 +13,7 @@ use stdClass;
 /**
  * Undocumented class
  */
-class CheckUpdateStandardClass extends stdClass {
+class StandardCheckUpdateStandardClass extends stdClass {
 	/**
 	 * Undocumented variable
 	 *
