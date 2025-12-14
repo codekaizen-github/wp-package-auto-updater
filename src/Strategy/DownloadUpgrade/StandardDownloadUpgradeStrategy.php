@@ -98,7 +98,10 @@ class StandardDownloadUpgradeStrategy implements DownloadUpgradeStrategyContract
 			}
 		} catch ( Throwable $e ) {
 			$reply = false;
-			$this->logger->error( 'Error in StandardDownloadUpgradeStrategy: ' . $e->getMessage(), [ 'exception' => $e ] );
+			$this->logger->error(
+				'Error in StandardDownloadUpgradeStrategy: ' . $e->getMessage(),
+				[ 'exception' => $e ]
+			);
 		}
 		$this->logger->debug( 'Exiting StandardDownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;

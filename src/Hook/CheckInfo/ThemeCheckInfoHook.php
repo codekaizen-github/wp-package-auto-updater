@@ -11,7 +11,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter;
+use CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\ThemeCheckInfoStandardClassFactory;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
@@ -91,7 +91,7 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$formatter                     = new ThemeCheckInfoFormatter( $remotePackageMetaValue );
+			$formatter                     = new ThemeCheckInfoStandardClassFactory( $remotePackageMetaValue );
 
 			$checkInfo = new StandardCheckInfoStrategy(
 				$localPackageMetaValue,

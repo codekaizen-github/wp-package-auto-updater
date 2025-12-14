@@ -72,9 +72,11 @@ class PluginCheckInfoHookTest extends TestCase {
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 		$sut = new PluginCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		// phpcs:disable Generic.Files.LineLength.TooLong
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\PluginCheckInfoStandardClassFactory'
 		);
+		// phpcs:enable Generic.Files.LineLength.TooLong
 		$strategy = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy'
 		);

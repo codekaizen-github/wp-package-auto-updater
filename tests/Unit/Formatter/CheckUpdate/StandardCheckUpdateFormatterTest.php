@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\StandardCheckUpdateFormatter;
+use CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate\StandardCheckUpdateStandardClassFactory;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Undocumented class
  */
-class CheckUpdateFormatterTest extends TestCase {
+class StandardCheckUpdateFormatterTest extends TestCase {
 	/**
 	 * Undocumented function
 	 *
@@ -69,7 +69,10 @@ class CheckUpdateFormatterTest extends TestCase {
 		$remotePackageMetaProvider->shouldReceive( 'getRequiress' )->with()->andReturn(
 			$requiressExpected
 		);
-		$sut            = new StandardCheckUpdateFormatter( $localPackageMetaProvider, $remotePackageMetaProvider );
+		$sut            = new StandardCheckUpdateStandardClassFactory(
+			$localPackageMetaProvider,
+			$remotePackageMetaProvider
+		);
 		$actualResponse = $sut
 			->formatForCheckUpdate( [] );
 		$this->assertArrayHasKey( $fullSlugExpected, $actualResponse );

@@ -62,7 +62,9 @@ class DownloadUpgradeHookTest extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor'
 		);
 		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient' );
-		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade\StandardDownloadUpgradeStrategy' )
+		Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade\StandardDownloadUpgradeStrategy'
+		)
 			->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
 		$sut = new StandardDownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 

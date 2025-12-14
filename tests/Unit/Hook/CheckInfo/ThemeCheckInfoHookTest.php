@@ -72,9 +72,11 @@ class ThemeCheckInfoHookTest extends TestCase {
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 		$sut = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
+		// phpcs:disable Generic.Files.LineLength.TooLong
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\ThemeCheckInfoStandardClassFactory'
 		);
+		// phpcs:enable Generic.Files.LineLength.TooLong
 		$strategy = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy'
 		);

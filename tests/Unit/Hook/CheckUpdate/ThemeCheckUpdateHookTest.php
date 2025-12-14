@@ -73,7 +73,7 @@ class ThemeCheckUpdateHookTest extends TestCase {
 		$logger->shouldReceive( 'error' );
 		$sut = new ThemeCheckUpdateHook( $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\ThemeCheckUpdateFormatter'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate\ThemeCheckUpdateFormatter'
 		);
 		$strategy = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy'
