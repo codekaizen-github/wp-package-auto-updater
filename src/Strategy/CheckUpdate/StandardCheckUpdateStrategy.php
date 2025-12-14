@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing CheckUpdateStrategy class.
+ * File containing StandardCheckUpdateStrategy class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate
  * @subpackage Strategy
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
@@ -19,11 +19,11 @@ use stdClass;
  * Strategy for checking package updates.
  */
 /**
- * CheckUpdateStrategy class.
+ * StandardCheckUpdateStrategy class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  */
-class CheckUpdateStrategy implements CheckUpdateStrategyContract {
+class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 
 	/**
 	 * The local package meta provider.
@@ -155,7 +155,7 @@ class CheckUpdateStrategy implements CheckUpdateStrategyContract {
 			);
 			return $transient;
 		}
-		$this->logger->debug( 'Exiting CheckUpdateStrategy::checkUpdate', [ 'transient' => $transient ] );
+		$this->logger->debug( 'Exiting StandardCheckUpdateStrategy::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

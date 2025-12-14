@@ -51,7 +51,7 @@ class PluginCheckInfoHookTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 	/**
-	 * Mock a CheckInfoStrategy and have it throw an exception on the checkInfo call.
+	 * Mock a StandardCheckInfoStrategy and have it throw an exception on the checkInfo call.
 	 * Test to ensure that the sut gracefully handles the exception and logs an error.
 	 *
 	 * @runInSeparateProcess
@@ -76,7 +76,7 @@ class PluginCheckInfoHookTest extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter'
 		);
 		$strategy = Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy'
 		);
 		$strategy->shouldReceive( 'checkInfo' )->andThrow( new Exception( 'Test exception' ) );
 		$logger->shouldReceive( 'error' );

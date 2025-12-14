@@ -12,7 +12,7 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
+use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 use Throwable;
@@ -93,7 +93,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
 			$formatter                     = new PluginCheckInfoFormatter( $remotePackageMetaValue );
 
-			$checkInfo = new CheckInfoStrategy(
+			$checkInfo = new StandardCheckInfoStrategy(
 				$localPackageMetaValue,
 				$formatter,
 				$this->logger

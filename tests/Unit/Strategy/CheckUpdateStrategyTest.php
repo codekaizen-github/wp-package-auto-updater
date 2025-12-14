@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
+use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
 use Mockery;
@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 use stdClass;
 
 /**
- * Tests for the CheckUpdateStrategy class.
+ * Tests for the StandardCheckUpdateStrategy class.
  */
 class CheckUpdateStrategyTest extends TestCase {
 	/**
@@ -51,7 +51,7 @@ class CheckUpdateStrategyTest extends TestCase {
 	/**
 	 * System under test.
 	 *
-	 * @var CheckUpdateStrategy
+	 * @var StandardCheckUpdateStrategy
 	 */
 	private $sut;
 
@@ -72,7 +72,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->logger->allows( 'warning' )->byDefault();
 		$this->logger->allows( 'error' )->byDefault();
 
-		$this->sut = new CheckUpdateStrategy(
+		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
 			$this->formatter,
@@ -365,7 +365,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up warning log before SUT construction.
 			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
-		$this->sut = new CheckUpdateStrategy(
+		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
 			$this->formatter,
@@ -398,7 +398,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up warning log before SUT construction.
 			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
-		$this->sut = new CheckUpdateStrategy(
+		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
 			$this->formatter,
@@ -433,7 +433,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up error log before SUT construction.
 			$this->logger->shouldReceive( 'error' )->withAnyArgs()->once();
-		$this->sut = new CheckUpdateStrategy(
+		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
 			$this->formatter,

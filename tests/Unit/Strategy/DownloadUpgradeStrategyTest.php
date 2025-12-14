@@ -1,6 +1,6 @@
 <?php
 /**
- * Test file for DownloadUpgradeStrategy.
+ * Test file for StandardDownloadUpgradeStrategy.
  *
  * @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy
  */
@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgradeStrategy;
+use CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade\StandardDownloadUpgradeStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
 use Mockery;
@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /**
- * Test class for DownloadUpgradeStrategy.
+ * Test class for StandardDownloadUpgradeStrategy.
  */
 class DownloadUpgradeStrategyTest extends TestCase {
 	/**
@@ -29,7 +29,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 	/**
 	 * The system under test.
 	 *
-	 * @var DownloadUpgradeStrategy
+	 * @var StandardDownloadUpgradeStrategy
 	 */
 	private $sut;
 
@@ -66,7 +66,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 		$this->logger->shouldReceive( 'debug' )->byDefault();
 		$this->logger->shouldReceive( 'error' )->byDefault();
 
-		$this->sut = new DownloadUpgradeStrategy(
+		$this->sut = new StandardDownloadUpgradeStrategy(
 			$this->checkUpdatePackageMetaProvider,
 			$this->fileDownloader,
 			$this->logger
@@ -169,7 +169,7 @@ class DownloadUpgradeStrategyTest extends TestCase {
 			->andThrow( $error );
 
 		$this->logger->shouldReceive( 'error' )
-			->with( 'Error in DownloadUpgradeStrategy: Download failed' );
+			->with( 'Error in StandardDownloadUpgradeStrategy: Download failed' );
 
 		// Act.
 		$result = $this->sut->downloadUpgrade( false, $downloadUrl, null, [] );

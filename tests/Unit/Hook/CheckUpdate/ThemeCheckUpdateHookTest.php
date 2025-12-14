@@ -51,7 +51,7 @@ class ThemeCheckUpdateHookTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 	/**
-	 * Mock a CheckUpdateStrategy and have it throw an exception on the checkUpdate call.
+	 * Mock a StandardCheckUpdateStrategy and have it throw an exception on the checkUpdate call.
 	 * Test to ensure that the sut gracefully handles the exception and logs an error.
 	 *
 	 * @runInSeparateProcess
@@ -76,7 +76,7 @@ class ThemeCheckUpdateHookTest extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\ThemeCheckUpdateFormatter'
 		);
 		$strategy = Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy'
 		);
 		$strategy->shouldReceive( 'checkUpdate' )->andThrow( new Exception( 'Test exception' ) );
 		$logger->shouldReceive( 'error' );

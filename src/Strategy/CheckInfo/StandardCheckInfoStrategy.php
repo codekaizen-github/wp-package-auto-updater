@@ -1,12 +1,12 @@
 <?php
 /**
- * File containing CheckInfoStrategy class.
+ * File containing StandardCheckInfoStrategy class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
+ *  @package CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo
  * @subpackage Strategy
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
@@ -17,11 +17,11 @@ use Psr\Log\LoggerInterface;
  * Strategy for checking package information.
  */
 /**
- * CheckInfoStrategy class.
+ * StandardCheckInfoStrategy class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Strategy
  */
-class CheckInfoStrategy implements CheckInfoStrategyContract {
+class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 
 	/**
 	 * The local package meta provider.
@@ -81,7 +81,7 @@ class CheckInfoStrategy implements CheckInfoStrategyContract {
 	 */
 	public function checkInfo( bool|object $false, string $action, object $arg ): bool|object {
 		$this->logger->debug(
-			'Entering CheckInfoStrategy::checkInfo',
+			'Entering StandardCheckInfoStrategy::checkInfo',
 			[
 				'false'  => $false,
 				'action' => $action,

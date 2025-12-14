@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\StandardCheckUpdateFormatter;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
+use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
 use stdClass;
@@ -93,7 +93,7 @@ class ThemeCheckUpdateHook implements InitializerContract, CheckUpdateStrategyCo
 				$remotePackageMetaValue
 			);
 
-			$checkUpdate = new CheckUpdateStrategy(
+			$checkUpdate = new StandardCheckUpdateStrategy(
 				$localPackageMetaValue,
 				$remotePackageMetaValue,
 				$formatter,

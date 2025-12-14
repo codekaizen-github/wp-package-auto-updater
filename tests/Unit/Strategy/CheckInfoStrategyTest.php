@@ -8,7 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfoStrategy;
+use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -32,7 +32,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
+		$sut       = new StandardCheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = null;
 		$actual    = $sut->checkInfo( false, '', $arg );
@@ -51,7 +51,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
+		$sut       = new StandardCheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = 'other-plugin';
 		$actual    = $sut->checkInfo( false, '', $arg );
@@ -70,7 +70,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$formatter->shouldReceive( 'formatForCheckInfo' )->with()->andReturn( new $expected() );
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
-		$sut       = new CheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
+		$sut       = new StandardCheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
 		$arg       = new stdClass();
 		$arg->slug = 'test-plugin';
 		$actual    = $sut->checkInfo( false, '', $arg );

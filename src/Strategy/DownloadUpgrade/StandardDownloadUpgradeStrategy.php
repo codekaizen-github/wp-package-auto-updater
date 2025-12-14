@@ -1,11 +1,11 @@
 <?php
 /**
- * File containing DownloadUpgradeStrategy class.
+ * File containing StandardDownloadUpgradeStrategy class.
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Strategy
+ * @package CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Client\Downloader\FileDownloaderClientContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageMeta\CheckUpdatePackageMetaValueContract;
@@ -16,7 +16,7 @@ use Throwable;
 /**
  * Strategy for handling package downloads during upgrades.
  */
-class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
+class StandardDownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 
 	/**
 	 * Remote package meta provider.
@@ -68,7 +68,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 	 */
 	public function downloadUpgrade( $reply, string $package, $upgrader, array $hookExtra ): bool|string {
 		$this->logger->debug(
-			'Entering DownloadUpgradeStrategy::downloadUpgrade',
+			'Entering StandardDownloadUpgradeStrategy::downloadUpgrade',
 			[
 				'reply'     => $reply,
 				'package'   => $package,
@@ -79,7 +79,7 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 		// If reply is already set (not false), return it immediately.
 		if ( $reply ) {
 			$this->logger->debug(
-				'Reply already set, returning early from DownloadUpgradeStrategy::downloadUpgrade',
+				'Reply already set, returning early from StandardDownloadUpgradeStrategy::downloadUpgrade',
 				[ 'reply' => $reply ]
 			);
 			return $reply;
@@ -98,9 +98,9 @@ class DownloadUpgradeStrategy implements DownloadUpgradeStrategyContract {
 			}
 		} catch ( Throwable $e ) {
 			$reply = false;
-			$this->logger->error( 'Error in DownloadUpgradeStrategy: ' . $e->getMessage(), [ 'exception' => $e ] );
+			$this->logger->error( 'Error in StandardDownloadUpgradeStrategy: ' . $e->getMessage(), [ 'exception' => $e ] );
 		}
-		$this->logger->debug( 'Exiting DownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
+		$this->logger->debug( 'Exiting StandardDownloadUpgradeStrategy::downloadUpgrade', [ 'reply' => $reply ] );
 		return $reply;
 	}
 }
