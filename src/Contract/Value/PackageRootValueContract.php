@@ -1,14 +1,14 @@
 <?php
 /**
- * File containing PackageRootContract Interface class.
+ * File containing PackageRootValueContract Interface class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Value
  * @subpackage PackageRoot
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Value;
 
-interface PackageRootContract {
+interface PackageRootValueContract {
 
 	/**
 	 * Get the package root path.

@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Parser\Slug;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 use CodeKaizen\WPPackageMetaProviderLocal\Contract\Value\SlugValueContract;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -27,9 +27,9 @@ class ThemeSlugParser implements SlugValueContract {
 	/**
 	 * The package root contract.
 	 *
-	 * @var PackageRootContract
+	 * @var PackageRootValueContract
 	 */
-	protected PackageRootContract $packageRoot;
+	protected PackageRootValueContract $packageRoot;
 
 	/**
 	 * The file path.
@@ -56,21 +56,21 @@ class ThemeSlugParser implements SlugValueContract {
 	 * Constructor.
 	 *
 	 * @param string              $filePath    The file path.
-	 * @param PackageRootContract $packageRoot The package root contract.
+	 * @param PackageRootValueContract $packageRoot The package root contract.
 	 * @param LoggerInterface     $logger      The logger instance.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param string              $filePath Description for filePath.
-	 * @param PackageRootContract $packageRoot Description for packageRoot.
-	 * @param LoggerInterface     $logger Description for logger.
+	 * @param string                   $filePath Description for filePath.
+	 * @param PackageRootValueContract $packageRoot Description for packageRoot.
+	 * @param LoggerInterface          $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
 		string $filePath,
-		PackageRootContract $packageRoot,
+		PackageRootValueContract $packageRoot,
 		LoggerInterface $logger = new NullLogger()
 	) {
 		$this->filePath    = $filePath;

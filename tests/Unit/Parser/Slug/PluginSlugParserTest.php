@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\PluginSlugParser;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
@@ -27,7 +27,7 @@ class PluginSlugParserTest extends TestCase {
 		$shortSlugExpected = 'my-test-plugin';
 		$fullSlugExpected  = 'my-test-plugin/my-test-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() . '/plugins/my-test-plugin/my-test-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -43,7 +43,7 @@ class PluginSlugParserTest extends TestCase {
 	 */
 	public function testNormalPackageRootFolderAndNormalPackageFolderAndMissingPackageFileIsInvalid(): void {
 		$filePath    = FixturePathHelper::getPathForPlugin() . '/plugins/my-test-plugin/i-do-not-exist.php';
-		$packageRoot = Mockery::mock( PackageRootContract::class );
+		$packageRoot = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -62,7 +62,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-plugin-symlink/my-test-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins/my-test-plugin-symlink/my-test-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -81,7 +81,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-plugin/my-test-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins-symlink/my-test-plugin/my-test-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -100,7 +100,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-plugin-symlink/my-test-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins-symlink/my-test-plugin-symlink/my-test-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -119,7 +119,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'other-test-plugin/different-name-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins/other-test-plugin/different-name-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -138,7 +138,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'simple-plugin.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins/simple-plugin.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -157,7 +157,7 @@ class PluginSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'simple-plugin-symlink.php';
 		$filePath          = FixturePathHelper::getPathForPlugin() .
 			'/plugins/simple-plugin-symlink.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()

@@ -8,14 +8,14 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\PackageRoot;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 
 /**
  * PluginPackageRoot class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\PackageRoot
  */
-class PluginPackageRoot implements PackageRootContract {
+class PluginPackageRoot implements PackageRootValueContract {
 
 	/**
 	 * Get the package root path.

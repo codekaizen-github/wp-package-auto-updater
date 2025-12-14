@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Parser\Slug;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\PackageRoot\PackageRootContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Value\PackageRootValueContract;
 use CodeKaizen\WPPackageAutoUpdater\Parser\Slug\ThemeSlugParser;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
@@ -28,7 +28,7 @@ class ThemeSlugParserTest extends TestCase {
 		$shortSlugExpected = 'my-test-theme';
 		$fullSlugExpected  = 'my-test-theme/style.css';
 		$filePath          = FixturePathHelper::getPathForTheme() . '/themes/my-test-theme/functions.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -44,7 +44,7 @@ class ThemeSlugParserTest extends TestCase {
 	 */
 	public function testNormalPackageRootFolderAndNormalPackageFolderAndMissingPackageFileIsInvalid(): void {
 		$filePath    = FixturePathHelper::getPathForTheme() . '/themes/fake-theme/functions.php';
-		$packageRoot = Mockery::mock( PackageRootContract::class );
+		$packageRoot = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -65,7 +65,7 @@ class ThemeSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-theme-symlink/style.css';
 		$filePath          = FixturePathHelper::getPathForTheme() .
 			'/themes/my-test-theme-symlink/functions.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -84,7 +84,7 @@ class ThemeSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-theme/style.css';
 		$filePath          = FixturePathHelper::getPathForTheme() .
 			'/themes-symlink/my-test-theme/functions.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -103,7 +103,7 @@ class ThemeSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'my-test-theme-symlink/style.css';
 		$filePath          = FixturePathHelper::getPathForTheme() .
 			'/themes-symlink/my-test-theme-symlink/functions.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
@@ -122,7 +122,7 @@ class ThemeSlugParserTest extends TestCase {
 		$fullSlugExpected  = 'other-test-theme/style.css';
 		$filePath          = FixturePathHelper::getPathForTheme() .
 			'/themes/other-test-theme/module.php';
-		$packageRoot       = Mockery::mock( PackageRootContract::class );
+		$packageRoot       = Mockery::mock( PackageRootValueContract::class );
 		$packageRoot
 			->shouldReceive( 'getPackageRoot' )
 			->with()
