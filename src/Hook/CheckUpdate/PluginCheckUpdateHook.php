@@ -11,7 +11,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate;
 use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\CheckUpdateFormatter;
+use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckUpdate\StandardCheckUpdateFormatter;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
@@ -88,7 +88,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$formatter                     = new CheckUpdateFormatter(
+			$formatter                     = new StandardCheckUpdateFormatter(
 				$localPackageMetaValue,
 				$remotePackageMetaValue
 			);
