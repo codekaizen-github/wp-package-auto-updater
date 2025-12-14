@@ -4,8 +4,6 @@ services:
             context: ..
             dockerfile: Dockerfile
             target: dev
-        environment:
-            XDEBUG_SESSION: "1"
         volumes:
             - ${PWD}:/workspace
         command: tail -f /dev/null
