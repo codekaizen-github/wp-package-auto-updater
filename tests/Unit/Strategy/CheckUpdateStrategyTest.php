@@ -20,6 +20,7 @@ use stdClass;
  * Tests for the StandardCheckUpdateStrategy class.
  */
 class CheckUpdateStrategyTest extends TestCase {
+
 	/**
 	 * Local package meta provider mock.
 	 *
@@ -100,25 +101,26 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '1.0.0' ];
 		$transient->response = [];
+		$transient->noUpdate = [];
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.1.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.1.0' );
 
 		// Mock formatter to update response property.
-		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.1.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedResponse );
+		$objectData = (object) [ 'new_version' => '1.1.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
-
-		// Verify result.
-		$this->assertSame( $updatedResponse, $result->response );
+		$this->assertObjectHasProperty( 'noUpdate', $result );
+		$this->assertIsArray( $result->noUpdate );
+		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->noUpdate );
 		$this->assertObjectHasProperty( 'response', $result );
+		$this->assertIsArray( $result->response );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
+		$this->assertSame( $result->response['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -130,26 +132,29 @@ class CheckUpdateStrategyTest extends TestCase {
 		// Set up transient object.
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '2.0.0' ];
+		$transient->response = [];
 		$transient->noUpdate = [];
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '2.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.9.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.9.0' );
 
-		// Mock formatter to update noUpdate property.
-		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.9.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedNoUpdate );
+		// Mock formatter to update response property.
+		$objectData = (object) [ 'new_version' => '1.9.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
 		// Verify result.
-		$this->assertSame( $updatedNoUpdate, $result->noUpdate );
 		$this->assertObjectHasProperty( 'noUpdate', $result );
+		$this->assertIsArray( $result->noUpdate );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectHasProperty( 'response', $result );
+		$this->assertIsArray( $result->response );
+		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
+		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -162,25 +167,27 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '1.0.0' ];
 		$transient->noUpdate = [];
+		$transient->response = [];
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
-		// Mock formatter to update noUpdate property.
-		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedNoUpdate );
+		// Mock formatter to update response property.
+		$objectData = (object) [ 'new_version' => '1.0.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
 		// Verify result.
-		$this->assertSame( $updatedNoUpdate, $result->noUpdate );
 		$this->assertObjectHasProperty( 'noUpdate', $result );
+		$this->assertIsArray( $result->noUpdate );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectHasProperty( 'response', $result );
+		$this->assertIsArray( $result->response );
+		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
 	}
 
 	/**
@@ -194,8 +201,8 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient->checked = [];
 
 		// Set up logger to expect debug message.
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' )->once();
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -214,8 +221,8 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient = new stdClass();
 
 		// Set up logger to expect debug message.
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' )->once();
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -236,23 +243,22 @@ class CheckUpdateStrategyTest extends TestCase {
 		// No response property set.
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '2.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
 
-		// Mock formatter to create response property.
-		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '2.0.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedResponse );
+		// Mock formatter to update response property.
+		$objectData = (object) [ 'new_version' => '2.0.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
-		// Verify result has response property created.
+		// Call the method under test.
 		$this->assertObjectHasProperty( 'response', $result );
-		$this->assertSame( $updatedResponse, $result->response );
+		$this->assertIsArray( $result->response );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
+		$this->assertSame( $result->response['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -267,23 +273,24 @@ class CheckUpdateStrategyTest extends TestCase {
 		// No noUpdate property set.
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '2.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
 		// Mock formatter to create noUpdate property.
-		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedNoUpdate );
+		// Mock formatter to update response property.
+		$objectData = (object) [ 'new_version' => '1.0.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
 		// Verify result has noUpdate property created.
 		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertSame( $updatedNoUpdate, $result->noUpdate );
+		$this->assertIsArray( $result->noUpdate );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -298,23 +305,23 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient->response = 'not-an-array';
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '2.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
 
 		// Mock formatter to update response property.
-		$updatedResponse = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '2.0.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedResponse );
+		$objectData = (object) [ 'new_version' => '2.0.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
 		// Verify result response is now an array.
+		$this->assertObjectNotHasProperty( 'noUpdate', $result );
+		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
-		$this->assertSame( $updatedResponse, $result->response );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
+		$this->assertSame( $result->response['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -329,23 +336,23 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient->noUpdate = 'not-an-array';
 
 		// Set up expected versions.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '2.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
-		// Mock formatter to update noUpdate property.
-		$updatedNoUpdate = [ 'some-plugin/plugin.php' => (object) [ 'new_version' => '1.0.0' ] ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )
-			->once()
-			->with( [] )
-			->andReturn( $updatedNoUpdate );
+		// Mock formatter to update response property.
+		$objectData = (object) [ 'new_version' => '1.0.0' ];
+		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
 
-		// Verify result noUpdate is now an array.
+		$this->assertObjectHasProperty( 'noUpdate', $result );
 		$this->assertIsArray( $result->noUpdate );
-		$this->assertSame( $updatedNoUpdate, $result->noUpdate );
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectNotHasProperty( 'response', $result );
+		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -359,12 +366,12 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient->checked = [ 'some-plugin/plugin.php' => '1.0.0' ];
 
 		// Set up versions with null local version.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( null );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( null );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
 		// Set up warning log before SUT construction.
-			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
+		$this->logger->shouldReceive( 'warning' )->withAnyArgs();
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
@@ -392,12 +399,12 @@ class CheckUpdateStrategyTest extends TestCase {
 		$transient->checked = [ 'some-plugin/plugin.php' => '1.0.0' ];
 
 		// Set up versions with null remote version.
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( null );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( null );
 
 		// Set up warning log before SUT construction.
-			$this->logger->shouldReceive( 'warning' )->withAnyArgs()->once();
+		$this->logger->shouldReceive( 'warning' )->withAnyArgs();
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
@@ -426,13 +433,13 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Set up exception scenario.
 		$exceptionMessage = 'Failed to get remote version';
-		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->once()->andReturn( 'some-plugin/plugin.php' );
-		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->once()->andReturn( '1.0.0' );
-		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->once()
+		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
+		$this->localPackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
+		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )
 			->andThrow( new Exception( $exceptionMessage ) );
 
 		// Set up error log before SUT construction.
-			$this->logger->shouldReceive( 'error' )->withAnyArgs()->once();
+		$this->logger->shouldReceive( 'error' )->withAnyArgs();
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,

@@ -130,9 +130,8 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 				if ( ! is_array( $transient->response ) ) {
 					$transient->response = [];
 				}
-				$transient->response = $this->formatter->formatForCheckUpdate(
-					$transient->response,
-				);
+				$transient->response[ $this->localPackageMetaProvider->getFullSlug() ] =
+					$this->formatter->formatForCheckUpdate();
 			} else {
 				// Define the noUpdate property if it doesn't exist.
 				if ( ! property_exists( $transient, 'noUpdate' ) ) {
@@ -142,9 +141,8 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 				if ( ! is_array( $transient->noUpdate ) ) {
 					$transient->noUpdate = [];
 				}
-				$transient->noUpdate = $this->formatter->formatForCheckUpdate(
-					$transient->noUpdate,
-				);
+				$transient->noUpdate[ $this->localPackageMetaProvider->getFullSlug() ] =
+					$this->formatter->formatForCheckUpdate();
 			}
 		} catch ( Exception $e ) {
 			$this->logger->error(

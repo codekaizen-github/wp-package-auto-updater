@@ -48,15 +48,10 @@ class StandardCheckUpdateArrayFactory implements CheckUpdateFormatterContract {
 	/**
 	 * Format For Check Update.
 	 *
-	 * @param array<string, mixed> $response The original response array.
-	 *
-	 * @return array<string, mixed> The formatted response with update information.
+	 * @return object The formatted response with update information.
 	 */
-	public function formatForCheckUpdate(
-		array $response,
-	): array {
+	public function formatForCheckUpdate(): object {
 		$metaObject = new StandardCheckUpdateStandardClass( $this->remotePackageMetaProvider );
-		$response[ $this->localPackageMetaProvider->getFullSlug() ] = $metaObject;
-		return $response;
+		return $metaObject;
 	}
 }

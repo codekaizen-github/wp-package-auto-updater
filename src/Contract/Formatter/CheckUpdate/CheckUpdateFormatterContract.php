@@ -11,13 +11,9 @@ namespace CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate;
 interface CheckUpdateFormatterContract {
 
 	/**
-	 * Format For Check Update.
+	 * Format data for check update.
 	 *
-	 * @param array<string, mixed> $response The original response array.
-	 *
-	 * @return array<string, mixed> The formatted response with update information.
+	 * @return object The formatted object containing package information.
 	 */
-	public function formatForCheckUpdate(
-		array $response,
-	): array;
+	public function formatForCheckUpdate(): object;
 }
