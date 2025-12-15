@@ -1,23 +1,23 @@
 <?php
 /**
- * File containing StandardCheckUpdateStandardClassFactory class.
+ * File containing StandardCheckUpdateArrayFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Array\CheckUpdate
  * @subpackage CheckUpdate
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Array\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
 /**
- * StandardCheckUpdateStandardClassFactory class.
+ * StandardCheckUpdateArrayFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Array\CheckUpdate
  */
-class StandardCheckUpdateStandardClassFactory implements CheckUpdateFormatterContract {
+class StandardCheckUpdateArrayFactory implements CheckUpdateFormatterContract {
 	/**
 	 * The local plugin package meta provider.
 	 *
