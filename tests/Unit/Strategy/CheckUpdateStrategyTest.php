@@ -110,7 +110,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '1.1.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -142,7 +142,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '1.9.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -176,7 +176,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -249,7 +249,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '2.0.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -280,7 +280,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		// Mock formatter to create noUpdate property.
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 
 		// Call the method under test.
@@ -311,7 +311,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '2.0.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -342,7 +342,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		// Mock formatter to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'formatForCheckUpdate' )->andReturn( $objectData );
+		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
 
 
 		// Call the method under test.

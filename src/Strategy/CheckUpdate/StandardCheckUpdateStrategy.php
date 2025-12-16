@@ -131,7 +131,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 					$transient->response = [];
 				}
 				$transient->response[ $this->localPackageMetaProvider->getFullSlug() ] =
-					$this->formatter->formatForCheckUpdate();
+					$this->formatter->create();
 			} else {
 				// Define the noUpdate property if it doesn't exist.
 				if ( ! property_exists( $transient, 'noUpdate' ) ) {
@@ -142,7 +142,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 					$transient->noUpdate = [];
 				}
 				$transient->noUpdate[ $this->localPackageMetaProvider->getFullSlug() ] =
-					$this->formatter->formatForCheckUpdate();
+					$this->formatter->create();
 			}
 		} catch ( Exception $e ) {
 			$this->logger->error(

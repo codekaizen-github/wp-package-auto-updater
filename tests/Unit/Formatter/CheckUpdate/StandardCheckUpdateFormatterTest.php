@@ -75,7 +75,7 @@ class StandardCheckUpdateFormatterTest extends TestCase {
 			$remotePackageMetaProvider
 		);
 		$actualResponse = $sut
-		->formatForCheckUpdate();
+		->create();
 		$this->assertInstanceOf( StandardCheckUpdateStandardClass::class, $actualResponse );
 	}
 }

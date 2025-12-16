@@ -50,7 +50,7 @@ class StandardCheckUpdateStandardClassFactory implements CheckUpdateFormatterCon
 	 *
 	 * @return object The formatted response with update information.
 	 */
-	public function formatForCheckUpdate(): object {
+	public function create(): object {
 		$metaObject = new StandardCheckUpdateStandardClass( $this->remotePackageMetaProvider );
 		return $metaObject;
 	}
