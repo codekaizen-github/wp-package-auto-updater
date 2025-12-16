@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate\StandardCheckUpdateStandardClassFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\StandardCheckUpdateObjectFactory;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
@@ -70,7 +70,7 @@ class StandardCheckUpdateFormatterTest extends TestCase {
 		$remotePackageMetaProvider->shouldReceive( 'getRequires' )->with()->andReturn(
 			$requiresExpected
 		);
-		$sut            = new StandardCheckUpdateStandardClassFactory(
+		$sut            = new StandardCheckUpdateObjectFactory(
 			$localPackageMetaProvider,
 			$remotePackageMetaProvider
 		);

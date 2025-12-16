@@ -11,7 +11,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use Psr\Log\LoggerInterface;
-use CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\PluginCheckInfoStandardClassFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\PluginCheckInfoObjectFactory;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
@@ -91,7 +91,7 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$standardClassFactory          = new PluginCheckInfoStandardClassFactory( $remotePackageMetaValue );
+			$standardClassFactory          = new PluginCheckInfoObjectFactory( $remotePackageMetaValue );
 
 			$checkInfo = new StandardCheckInfoStrategy(
 				$localPackageMetaValue,

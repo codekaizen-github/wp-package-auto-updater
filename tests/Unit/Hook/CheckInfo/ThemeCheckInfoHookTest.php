@@ -74,7 +74,7 @@ class ThemeCheckInfoHookTest extends TestCase {
 		$sut = new ThemeCheckInfoHook( $localFactory, $remoteFactory, $logger );
 		// phpcs:disable Generic.Files.LineLength.TooLong
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\ThemeCheckInfoStandardClassFactory'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\ThemeCheckInfoObjectFactory'
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		$strategy = Mockery::mock(

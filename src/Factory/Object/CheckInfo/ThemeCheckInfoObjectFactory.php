@@ -1,23 +1,23 @@
 <?php
 /**
- * File containing ThemeCheckInfoStandardClassFactory class.
+ * File containing ThemeCheckInfoObjectFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo
  * @subpackage CheckInfo
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
 /**
- * ThemeCheckInfoStandardClassFactory class.
+ * ThemeCheckInfoObjectFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo
  */
-class ThemeCheckInfoStandardClassFactory implements ObjectFactoryContract {
+class ThemeCheckInfoObjectFactory implements ObjectFactoryContract {
 
 	/**
 	 * The theme package meta provider.

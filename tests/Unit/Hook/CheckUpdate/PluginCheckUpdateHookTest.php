@@ -73,7 +73,7 @@ class PluginCheckUpdateHookTest extends TestCase {
 		$logger->shouldReceive( 'error' );
 		$sut = new PluginCheckUpdateHook( $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate\PluginCheckUpdateFormatter'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\PluginCheckUpdateFormatter'
 		);
 		$strategy = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy'

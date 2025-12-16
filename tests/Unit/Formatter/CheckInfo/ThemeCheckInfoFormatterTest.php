@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo\ThemeCheckInfoStandardClassFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\ThemeCheckInfoObjectFactory;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
@@ -45,7 +45,7 @@ class ThemeCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getViewURL' )->with()->andReturn( $homepageExpected );
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut                 = ( new ThemeCheckInfoStandardClassFactory( $provider ) );
+		$sut                 = ( new ThemeCheckInfoObjectFactory( $provider ) );
 		$actualStandardClass = $sut->create();
 		$this->assertInstanceOf( ThemeCheckInfoStandardClass::class, $actualStandardClass );
 	}

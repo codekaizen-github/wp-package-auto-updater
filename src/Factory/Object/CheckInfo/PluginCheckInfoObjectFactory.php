@@ -1,23 +1,23 @@
 <?php
 /**
- * File containing PluginCheckInfoStandardClassFactory class.
+ * File containing PluginCheckInfoObjectFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo
  * @subpackage CheckInfo
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 
 /**
- * PluginCheckInfoStandardClassFactory class.
+ * PluginCheckInfoObjectFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo
  */
-class PluginCheckInfoStandardClassFactory implements ObjectFactoryContract {
+class PluginCheckInfoObjectFactory implements ObjectFactoryContract {
 
 	/**
 	 * The plugin package meta provider.
