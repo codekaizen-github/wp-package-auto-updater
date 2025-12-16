@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo\StandardCheckInfoStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
@@ -27,7 +27,7 @@ class CheckInfoStrategyTest extends TestCase {
 	public function testSlugNotSetValid(): void {
 		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
-		$standardClassFactory = Mockery::mock( CheckInfoFormatterContract::class );
+		$standardClassFactory = Mockery::mock( ObjectFactoryContract::class );
 		$logger               = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
@@ -46,7 +46,7 @@ class CheckInfoStrategyTest extends TestCase {
 	public function testSlugsDoNotMatchValid(): void {
 		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
-		$standardClassFactory = Mockery::mock( CheckInfoFormatterContract::class );
+		$standardClassFactory = Mockery::mock( ObjectFactoryContract::class );
 		$logger               = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
@@ -65,7 +65,7 @@ class CheckInfoStrategyTest extends TestCase {
 	public function testPackageCheckInfoValid(): void {
 		$localPackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
-		$standardClassFactory = Mockery::mock( CheckInfoFormatterContract::class );
+		$standardClassFactory = Mockery::mock( ObjectFactoryContract::class );
 		$expected             = new stdClass();
 		$standardClassFactory->shouldReceive( 'create' )->with()->andReturn( new $expected() );
 		$logger = Mockery::mock( LoggerInterface::class );

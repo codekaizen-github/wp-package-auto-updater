@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckUpdate\StandardCheckUpdateStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
@@ -17,7 +17,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageM
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckUpdate
  */
-class StandardCheckUpdateStandardClassFactory implements CheckUpdateFormatterContract {
+class StandardCheckUpdateStandardClassFactory implements ObjectFactoryContract {
 	/**
 	 * The local plugin package meta provider.
 	 *

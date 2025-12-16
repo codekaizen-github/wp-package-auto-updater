@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Psr\Log\LoggerInterface;
@@ -42,9 +42,9 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	/**
 	 * The standardClassFactory.
 	 *
-	 * @var CheckUpdateFormatterContract
+	 * @var ObjectFactoryContract
 	 */
-	protected CheckUpdateFormatterContract $standardClassFactory;
+	protected ObjectFactoryContract $standardClassFactory;
 
 	/**
 	 * The logger.
@@ -58,23 +58,23 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	 *
 	 * @param PackageMetaValueContract          $localPackageMetaProvider  The local package meta provider.
 	 * @param PackageMetaValueContract          $remotePackageMetaProvider The remote package meta provider.
-	 * @param CheckUpdateFormatterContract $standardClassFactory                The standardClassFactory.
+	 * @param ObjectFactoryContract $standardClassFactory                The standardClassFactory.
 	 * @param LoggerInterface              $logger                   The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaValueContract     $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param PackageMetaValueContract     $remotePackageMetaProvider Description for remotePackageMetaProvider.
-	 * @param CheckUpdateFormatterContract $standardClassFactory Description for standardClassFactory.
-	 * @param LoggerInterface              $logger Description for logger.
+	 * @param PackageMetaValueContract $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param PackageMetaValueContract $remotePackageMetaProvider Description for remotePackageMetaProvider.
+	 * @param ObjectFactoryContract    $standardClassFactory Description for standardClassFactory.
+	 * @param LoggerInterface          $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
 		PackageMetaValueContract $localPackageMetaProvider,
 		PackageMetaValueContract $remotePackageMetaProvider,
-		CheckUpdateFormatterContract $standardClassFactory,
+		ObjectFactoryContract $standardClassFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProvider  = $localPackageMetaProvider;

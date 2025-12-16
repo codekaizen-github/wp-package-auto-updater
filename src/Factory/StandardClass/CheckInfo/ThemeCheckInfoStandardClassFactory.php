@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 
@@ -17,7 +17,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageM
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Factory\StandardClass\CheckInfo
  */
-class ThemeCheckInfoStandardClassFactory implements CheckInfoFormatterContract {
+class ThemeCheckInfoStandardClassFactory implements ObjectFactoryContract {
 
 	/**
 	 * The theme package meta provider.

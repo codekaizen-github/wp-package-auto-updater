@@ -7,7 +7,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Strategy;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckUpdate\CheckUpdateFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
@@ -38,7 +38,7 @@ class CheckUpdateStrategyTest extends TestCase {
 	/**
 	 * Formatter mock.
 	 *
-	 * @var CheckUpdateFormatterContract|Mockery\MockInterface
+	 * @var ObjectFactoryContract|Mockery\MockInterface
 	 */
 	private $standardClassFactory;
 
@@ -66,7 +66,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		$this->localPackageMetaProvider  = Mockery::mock( PackageMetaValueContract::class );
 		$this->remotePackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
-		$this->standardClassFactory      = Mockery::mock( CheckUpdateFormatterContract::class );
+		$this->standardClassFactory      = Mockery::mock( ObjectFactoryContract::class );
 		$this->logger                    = Mockery::mock( LoggerInterface::class );
 
 		$this->logger->allows( 'debug' )->byDefault();

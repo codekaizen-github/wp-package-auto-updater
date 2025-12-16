@@ -8,7 +8,7 @@
 
 namespace CodeKaizen\WPPackageAutoUpdater\Strategy\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\Contract\Formatter\CheckInfo\CheckInfoFormatterContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckInfoStrategyContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Psr\Log\LoggerInterface;
@@ -33,9 +33,9 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 	/**
 	 * The standardClassFactory.
 	 *
-	 * @var CheckInfoFormatterContract
+	 * @var ObjectFactoryContract
 	 */
-	protected CheckInfoFormatterContract $standardClassFactory;
+	protected ObjectFactoryContract $standardClassFactory;
 
 	/**
 	 * The logger.
@@ -48,21 +48,21 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 	 * Constructor.
 	 *
 	 * @param PackageMetaValueContract        $localPackageMetaProvider The local package meta provider.
-	 * @param CheckInfoFormatterContract $standardClassFactory               The standardClassFactory.
+	 * @param ObjectFactoryContract $standardClassFactory               The standardClassFactory.
 	 * @param LoggerInterface            $logger                  The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaValueContract   $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param CheckInfoFormatterContract $standardClassFactory Description for standardClassFactory.
-	 * @param LoggerInterface            $logger Description for logger.
+	 * @param PackageMetaValueContract $localPackageMetaProvider Description for localPackageMetaProvider.
+	 * @param ObjectFactoryContract    $standardClassFactory Description for standardClassFactory.
+	 * @param LoggerInterface          $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
 		PackageMetaValueContract $localPackageMetaProvider,
-		CheckInfoFormatterContract $standardClassFactory,
+		ObjectFactoryContract $standardClassFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProvider = $localPackageMetaProvider;
