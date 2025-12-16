@@ -40,11 +40,11 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	protected PackageMetaValueContract $remotePackageMetaProvider;
 
 	/**
-	 * The formatter.
+	 * The standardClassFactory.
 	 *
 	 * @var CheckUpdateFormatterContract
 	 */
-	protected CheckUpdateFormatterContract $formatter;
+	protected CheckUpdateFormatterContract $standardClassFactory;
 
 	/**
 	 * The logger.
@@ -58,7 +58,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	 *
 	 * @param PackageMetaValueContract          $localPackageMetaProvider  The local package meta provider.
 	 * @param PackageMetaValueContract          $remotePackageMetaProvider The remote package meta provider.
-	 * @param CheckUpdateFormatterContract $formatter                The formatter.
+	 * @param CheckUpdateFormatterContract $standardClassFactory                The standardClassFactory.
 	 * @param LoggerInterface              $logger                   The logger.
 	 */
 	/**
@@ -66,7 +66,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	 *
 	 * @param PackageMetaValueContract     $localPackageMetaProvider Description for localPackageMetaProvider.
 	 * @param PackageMetaValueContract     $remotePackageMetaProvider Description for remotePackageMetaProvider.
-	 * @param CheckUpdateFormatterContract $formatter Description for formatter.
+	 * @param CheckUpdateFormatterContract $standardClassFactory Description for standardClassFactory.
 	 * @param LoggerInterface              $logger Description for logger.
 	 *
 	 * @return mixed
@@ -74,12 +74,12 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 	public function __construct(
 		PackageMetaValueContract $localPackageMetaProvider,
 		PackageMetaValueContract $remotePackageMetaProvider,
-		CheckUpdateFormatterContract $formatter,
+		CheckUpdateFormatterContract $standardClassFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProvider  = $localPackageMetaProvider;
 		$this->remotePackageMetaProvider = $remotePackageMetaProvider;
-		$this->formatter                 = $formatter;
+		$this->standardClassFactory      = $standardClassFactory;
 		$this->logger                    = $logger;
 	}
 
@@ -131,7 +131,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 					$transient->response = [];
 				}
 				$transient->response[ $this->localPackageMetaProvider->getFullSlug() ] =
-					$this->formatter->create();
+					$this->standardClassFactory->create();
 			} else {
 				// Define the noUpdate property if it doesn't exist.
 				if ( ! property_exists( $transient, 'noUpdate' ) ) {
@@ -142,7 +142,7 @@ class StandardCheckUpdateStrategy implements CheckUpdateStrategyContract {
 					$transient->noUpdate = [];
 				}
 				$transient->noUpdate[ $this->localPackageMetaProvider->getFullSlug() ] =
-					$this->formatter->create();
+					$this->standardClassFactory->create();
 			}
 		} catch ( Exception $e ) {
 			$this->logger->error(

@@ -91,11 +91,11 @@ class ThemeCheckInfoHook implements InitializerContract, CheckInfoStrategyContra
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$formatter                     = new ThemeCheckInfoStandardClassFactory( $remotePackageMetaValue );
+			$standardClassFactory          = new ThemeCheckInfoStandardClassFactory( $remotePackageMetaValue );
 
 			$checkInfo = new StandardCheckInfoStrategy(
 				$localPackageMetaValue,
-				$formatter,
+				$standardClassFactory,
 				$this->logger
 			);
 

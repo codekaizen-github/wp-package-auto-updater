@@ -31,11 +31,11 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 	protected PackageMetaValueContract $localPackageMetaProvider;
 
 	/**
-	 * The formatter.
+	 * The standardClassFactory.
 	 *
 	 * @var CheckInfoFormatterContract
 	 */
-	protected CheckInfoFormatterContract $formatter;
+	protected CheckInfoFormatterContract $standardClassFactory;
 
 	/**
 	 * The logger.
@@ -48,25 +48,25 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 	 * Constructor.
 	 *
 	 * @param PackageMetaValueContract        $localPackageMetaProvider The local package meta provider.
-	 * @param CheckInfoFormatterContract $formatter               The formatter.
+	 * @param CheckInfoFormatterContract $standardClassFactory               The standardClassFactory.
 	 * @param LoggerInterface            $logger                  The logger.
 	 */
 	/**
 	 * Constructor.
 	 *
 	 * @param PackageMetaValueContract   $localPackageMetaProvider Description for localPackageMetaProvider.
-	 * @param CheckInfoFormatterContract $formatter Description for formatter.
+	 * @param CheckInfoFormatterContract $standardClassFactory Description for standardClassFactory.
 	 * @param LoggerInterface            $logger Description for logger.
 	 *
 	 * @return mixed
 	 */
 	public function __construct(
 		PackageMetaValueContract $localPackageMetaProvider,
-		CheckInfoFormatterContract $formatter,
+		CheckInfoFormatterContract $standardClassFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaProvider = $localPackageMetaProvider;
-		$this->formatter                = $formatter;
+		$this->standardClassFactory     = $standardClassFactory;
 		$this->logger                   = $logger;
 	}
 	/**
@@ -104,7 +104,7 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 		$this->logger->debug( 'Providing package info for: ' . $arg->slug );
 
 		// Get metadata from remote source.
-		$meta = $this->formatter->create();
+		$meta = $this->standardClassFactory->create();
 
 		$this->logger->debug(
 			'Returning package info with properties: ' . implode(

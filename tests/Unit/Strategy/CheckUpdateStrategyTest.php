@@ -40,7 +40,7 @@ class CheckUpdateStrategyTest extends TestCase {
 	 *
 	 * @var CheckUpdateFormatterContract|Mockery\MockInterface
 	 */
-	private $formatter;
+	private $standardClassFactory;
 
 	/**
 	 * Logger mock.
@@ -66,7 +66,7 @@ class CheckUpdateStrategyTest extends TestCase {
 
 		$this->localPackageMetaProvider  = Mockery::mock( PackageMetaValueContract::class );
 		$this->remotePackageMetaProvider = Mockery::mock( PackageMetaValueContract::class );
-		$this->formatter                 = Mockery::mock( CheckUpdateFormatterContract::class );
+		$this->standardClassFactory      = Mockery::mock( CheckUpdateFormatterContract::class );
 		$this->logger                    = Mockery::mock( LoggerInterface::class );
 
 		$this->logger->allows( 'debug' )->byDefault();
@@ -76,7 +76,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
-			$this->formatter,
+			$this->standardClassFactory,
 			$this->logger
 		);
 	}
@@ -108,9 +108,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.1.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '1.1.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -140,9 +140,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.9.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '1.9.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -174,9 +174,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -247,9 +247,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '2.0.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -277,10 +277,10 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
-		// Mock formatter to create noUpdate property.
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to create noUpdate property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 
 		// Call the method under test.
@@ -309,9 +309,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '2.0.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '2.0.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 		// Call the method under test.
 		$result = $this->sut->checkUpdate( $transient );
@@ -340,9 +340,9 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->localPackageMetaProvider->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$this->remotePackageMetaProvider->shouldReceive( 'getVersion' )->andReturn( '1.0.0' );
 
-		// Mock formatter to update response property.
+		// Mock standardClassFactory to update response property.
 		$objectData = (object) [ 'new_version' => '1.0.0' ];
-		$this->formatter->shouldReceive( 'create' )->andReturn( $objectData );
+		$this->standardClassFactory->shouldReceive( 'create' )->andReturn( $objectData );
 
 
 		// Call the method under test.
@@ -375,7 +375,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
-			$this->formatter,
+			$this->standardClassFactory,
 			$this->logger
 		);
 		// Set up warning log.
@@ -408,7 +408,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
-			$this->formatter,
+			$this->standardClassFactory,
 			$this->logger
 		);
 		// Set up warning log.
@@ -443,7 +443,7 @@ class CheckUpdateStrategyTest extends TestCase {
 		$this->sut = new StandardCheckUpdateStrategy(
 			$this->localPackageMetaProvider,
 			$this->remotePackageMetaProvider,
-			$this->formatter,
+			$this->standardClassFactory,
 			$this->logger
 		);
 		// Set up error log.

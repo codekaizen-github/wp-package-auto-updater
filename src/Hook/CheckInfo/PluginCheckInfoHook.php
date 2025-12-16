@@ -91,11 +91,11 @@ class PluginCheckInfoHook implements InitializerContract, CheckInfoStrategyContr
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactoryContract->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$formatter                     = new PluginCheckInfoStandardClassFactory( $remotePackageMetaValue );
+			$standardClassFactory          = new PluginCheckInfoStandardClassFactory( $remotePackageMetaValue );
 
 			$checkInfo = new StandardCheckInfoStrategy(
 				$localPackageMetaValue,
-				$formatter,
+				$standardClassFactory,
 				$this->logger
 			);
 

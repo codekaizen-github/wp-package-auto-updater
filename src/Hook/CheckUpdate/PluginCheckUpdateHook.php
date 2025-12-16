@@ -88,7 +88,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
 			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$formatter                     = new StandardCheckUpdateStandardClassFactory(
+			$standardClassFactory          = new StandardCheckUpdateStandardClassFactory(
 				$localPackageMetaValue,
 				$remotePackageMetaValue
 			);
@@ -96,7 +96,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 			$checkUpdate = new StandardCheckUpdateStrategy(
 				$localPackageMetaValue,
 				$remotePackageMetaValue,
-				$formatter,
+				$standardClassFactory,
 				$this->logger
 			);
 
