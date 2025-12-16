@@ -41,7 +41,7 @@ class PluginCheckInfoStandardClassFactory implements CheckInfoFormatterContract 
 	 *
 	 * @return PluginCheckInfoStandardClass The formatted PluginCheckInfoStandardClass containing plugin information.
 	 */
-	public function formatForCheckInfo(): PluginCheckInfoStandardClass {
+	public function create(): PluginCheckInfoStandardClass {
 		$stdObj = new PluginCheckInfoStandardClass( $this->provider );
 		return $stdObj;
 	}

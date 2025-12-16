@@ -41,7 +41,7 @@ class ThemeCheckInfoStandardClassFactory implements CheckInfoFormatterContract {
 	 *
 	 * @return ThemeCheckInfoStandardClass The formatted ThemeCheckInfoStandardClass containing theme information.
 	 */
-	public function formatForCheckInfo(): ThemeCheckInfoStandardClass {
+	public function create(): ThemeCheckInfoStandardClass {
 		$stdObj = new ThemeCheckInfoStandardClass( $this->provider );
 		return $stdObj;
 	}

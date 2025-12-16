@@ -46,7 +46,7 @@ class ThemeCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$sut                 = ( new ThemeCheckInfoStandardClassFactory( $provider ) );
-		$actualStandardClass = $sut->formatForCheckInfo();
+		$actualStandardClass = $sut->create();
 		$this->assertInstanceOf( ThemeCheckInfoStandardClass::class, $actualStandardClass );
 	}
 }

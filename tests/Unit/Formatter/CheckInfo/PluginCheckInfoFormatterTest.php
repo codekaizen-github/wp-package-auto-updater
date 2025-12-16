@@ -50,7 +50,7 @@ class PluginCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
 		$sut                 = ( new PluginCheckInfoStandardClassFactory( $provider ) );
-		$actualStandardClass = $sut->formatForCheckInfo();
+		$actualStandardClass = $sut->create();
 		$this->assertInstanceOf( PluginCheckInfoStandardClass::class, $actualStandardClass );
 	}
 }

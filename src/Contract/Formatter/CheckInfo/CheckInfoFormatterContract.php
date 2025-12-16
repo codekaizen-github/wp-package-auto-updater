@@ -15,5 +15,5 @@ interface CheckInfoFormatterContract {
 	 *
 	 * @return object The formatted object containing package information.
 	 */
-	public function formatForCheckInfo(): object;
+	public function create(): object;
 }

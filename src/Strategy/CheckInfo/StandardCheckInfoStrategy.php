@@ -104,7 +104,7 @@ class StandardCheckInfoStrategy implements CheckInfoStrategyContract {
 		$this->logger->debug( 'Providing package info for: ' . $arg->slug );
 
 		// Get metadata from remote source.
-		$meta = $this->formatter->formatForCheckInfo();
+		$meta = $this->formatter->create();
 
 		$this->logger->debug(
 			'Returning package info with properties: ' . implode(

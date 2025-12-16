@@ -67,7 +67,7 @@ class CheckInfoStrategyTest extends TestCase {
 		$localPackageMetaProvider->shouldReceive( 'getShortSlug' )->with()->andReturn( 'test-plugin' );
 		$formatter = Mockery::mock( CheckInfoFormatterContract::class );
 		$expected  = new stdClass();
-		$formatter->shouldReceive( 'formatForCheckInfo' )->with()->andReturn( new $expected() );
+		$formatter->shouldReceive( 'create' )->with()->andReturn( new $expected() );
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$sut       = new StandardCheckInfoStrategy( $localPackageMetaProvider, $formatter, $logger );
