@@ -33,7 +33,9 @@ class PluginORASHubAutoUpdaterTest extends TestCase {
 		$metaKey       = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata';
 		$httpOptions   = [];
 		$logger        = Mockery::mock( LoggerInterface::class );
-		$checkInfoHook = Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\PluginCheckInfoHook' );
+		$checkInfoHook = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\StandardCheckInfoHook'
+		);
 		$checkInfoHook->shouldReceive( 'init' )->once();
 		$checkUpdateHook = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook'

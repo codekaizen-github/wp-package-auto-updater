@@ -10,7 +10,8 @@ namespace CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 
 /**
  * PluginCheckInfoObjectFactory class.
@@ -22,18 +23,18 @@ class PluginCheckInfoObjectFactory implements ObjectFactoryContract {
 	/**
 	 * The plugin package meta provider.
 	 *
-	 * @var PluginPackageMetaValueContract
+	 * @var PluginPackageMetaValueServiceFactoryContract
 	 */
-	private PluginPackageMetaValueContract $provider;
+	private PluginPackageMetaValueServiceFactoryContract $provider;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaValueContract $provider Description for provider.
+	 * @param PluginPackageMetaValueServiceFactoryContract $provider Description for provider.
 	 *
 	 * @return mixed
 	 */
-	public function __construct( PluginPackageMetaValueContract $provider ) {
+	public function __construct( PluginPackageMetaValueServiceFactoryContract $provider ) {
 		$this->provider = $provider;
 	}
 	/**
@@ -42,7 +43,9 @@ class PluginCheckInfoObjectFactory implements ObjectFactoryContract {
 	 * @return PluginCheckInfoStandardClass The formatted PluginCheckInfoStandardClass containing plugin information.
 	 */
 	public function create(): PluginCheckInfoStandardClass {
-		$stdObj = new PluginCheckInfoStandardClass( $this->provider );
+		$service     = $this->provider->create();
+		$packageMeta = $service->getPackageMeta();
+		$stdObj      = new PluginCheckInfoStandardClass( $packageMeta );
 		return $stdObj;
 	}
 }

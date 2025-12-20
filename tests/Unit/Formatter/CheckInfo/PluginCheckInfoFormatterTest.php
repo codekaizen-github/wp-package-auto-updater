@@ -9,6 +9,9 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
 use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\PluginCheckInfoObjectFactory;
 use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +52,11 @@ class PluginCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut                 = ( new PluginCheckInfoObjectFactory( $provider ) );
+		$service = Mockery::mock( PluginPackageMetaValueServiceContract::class );
+		$service->shouldReceive( 'getPackageMeta' )->with()->andReturn( $provider );
+		$serviceFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
+		$serviceFactory->shouldReceive( 'create' )->with()->andReturn( $service );
+		$sut                 = ( new PluginCheckInfoObjectFactory( $serviceFactory ) );
 		$actualStandardClass = $sut->create();
 		$this->assertInstanceOf( PluginCheckInfoStandardClass::class, $actualStandardClass );
 	}

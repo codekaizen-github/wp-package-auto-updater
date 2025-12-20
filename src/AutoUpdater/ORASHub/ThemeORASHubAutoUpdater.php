@@ -11,10 +11,11 @@ namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\LocalThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\RemoteThemePackageMetaValueServiceFactory;
-use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
 use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\ThemeCheckInfoObjectFactory;
+use CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\StandardCheckInfoHook;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -100,9 +101,10 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 			$remotePackageMetaProviderFactory,
 			$this->logger
 		);
-		$checkInfoHook                    = new ThemeCheckInfoHook(
+		$checkInfoHook                    = new StandardCheckInfoHook(
+			'themes_api',
+			new ThemeCheckInfoObjectFactory( $remotePackageMetaProviderFactory ),
 			$localPackageMetaProviderFactory,
-			$remotePackageMetaProviderFactory,
 			$this->logger
 		);
 		$standardDownloadUpgradeHook      = new StandardDownloadUpgradeHook(

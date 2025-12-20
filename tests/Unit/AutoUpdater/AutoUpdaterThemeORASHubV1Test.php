@@ -28,12 +28,14 @@ class ThemeORASHubAutoUpdaterTest extends TestCase {
 	 * @return void
 	 */
 	public function testInitHooks(): void {
-		$filePath      = FixturePathHelper::getPathForTheme() . '/plugins/my-test-plugin/my-test-plugin.php';
+		$filePath      = FixturePathHelper::getPathForTheme() . '/themes/my-test-theme/my-test-theme.php';
 		$baseURL       = 'https://codekaizen.net';
 		$metaKey       = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata';
 		$httpOptions   = [];
 		$logger        = Mockery::mock( LoggerInterface::class );
-		$checkInfoHook = Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\ThemeCheckInfoHook' );
+		$checkInfoHook = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\StandardCheckInfoHook'
+		);
 		$checkInfoHook->shouldReceive( 'init' )->once();
 		$checkUpdateHook = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook'
