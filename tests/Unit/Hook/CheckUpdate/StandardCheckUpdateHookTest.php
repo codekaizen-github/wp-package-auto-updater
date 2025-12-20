@@ -28,8 +28,9 @@ class StandardCheckUpdateHookTest extends TestCase {
 	/**
 	 * Test that init() adds the filter.
 	 */
-	public function testInitAddsFilter(): void {
+	public function testInitAddsFilterPluginsAPI(): void {
 		// Mock the dependencies.
+		$hookName      = 'pre_set_site_transient_update_plugins';
 		$localFactory  = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
@@ -37,10 +38,36 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 
-		$sut = new StandardCheckUpdateHook( $localFactory, $remoteFactory, $logger );
+		$sut = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
 		// Set up expectations.
 		WP_Mock::expectFilterAdded(
-			'pre_set_site_transient_update_plugins',
+			$hookName,
+			[ $sut , 'checkUpdate' ]
+		);
+
+		// Create the instance and call init.
+		$sut->init();
+
+		// This is important for WP_Mock assertions to work.
+		$this->assertConditionsMet();
+	}
+	/**
+	 * Test that init() adds the filter for themes.
+	 */
+	public function testInitAddsFilterThemesAPI(): void {
+		// Mock the dependencies.
+		$hookName      = 'pre_set_site_transient_update_themes';
+		$localFactory  = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
+		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
+		$logger        = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
+
+		$sut = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		// Set up expectations.
+		WP_Mock::expectFilterAdded(
+			$hookName,
 			[ $sut , 'checkUpdate' ]
 		);
 
@@ -59,6 +86,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 */
 	public function testExceptionHandlingInCheckUpdate(): void {
 		// Mock the dependencies.
+		$hookName     = 'pre_set_site_transient_update_plugins';
 		$localFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			Mockery::mock( PluginPackageMetaValueServiceContract::class )
@@ -71,7 +99,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		$sut = new StandardCheckUpdateHook( $localFactory, $remoteFactory, $logger );
+		$sut = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\PluginCheckUpdateFormatter'
 		);

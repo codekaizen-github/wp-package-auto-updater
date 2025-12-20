@@ -12,7 +12,6 @@ use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\StandardCheckUpdateObjectFactory;
-use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 use stdClass;
@@ -24,6 +23,13 @@ use Throwable;
  *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  */
 class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var string
+	 */
+	protected string $hookName;
 
 	/**
 	 * The local package meta provider factory.
@@ -48,15 +54,18 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 	/**
 	 * Constructor.
 	 *
+	 * @param string                                 $hookName Hook.
 	 * @param PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local factory.
 	 * @param PackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory Remote factory.
 	 * @param LoggerInterface                        $logger Logger instance.
 	 */
 	public function __construct(
+		string $hookName,
 		PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
 		PackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory,
 		LoggerInterface $logger
 	) {
+		$this->hookName                             = $hookName;
 		$this->localPackageMetaValueServiceFactory  = $localPackageMetaValueServiceFactory;
 		$this->remotePackageMetaValueServiceFactory = $remotePackageMetaValueServiceFactory;
 		$this->logger                               = $logger;
@@ -67,7 +76,7 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 	 * @return void
 	 */
 	public function init(): void {
-		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'checkUpdate' ) );
+		add_filter( $this->hookName, array( $this, 'checkUpdate' ) );
 	}
 	/**
 	 * Check for updates.
@@ -78,12 +87,7 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 	 */
 	public function checkUpdate( stdClass $transient ): stdClass {
 		try {
-			$this->logger->debug(
-				'Entering StandardCheckUpdateHook::checkUpdate',
-				[
-					'transient' => $transient,
-				]
-			);
+			$this->logger->debug( 'Entering StandardCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactory->create();
 			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
 			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
@@ -92,17 +96,60 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 				$localPackageMetaValue,
 				$remotePackageMetaValue
 			);
+			$this->logger->debug(
+				'Checking for updates',
+				[
+					'fullSlug'  => $localPackageMetaValue->getFullSlug(),
+					'transient' => $transient,
+				]
+			);
+			if ( empty( $transient->checked ) ) {
+				$this->logger->debug( 'No checked packages in transient, skipping' );
+				return $transient;
+			}
+			$localVersion  = $localPackageMetaValue->getVersion();
+			$remoteVersion = $remotePackageMetaValue->getVersion();
 
-			$checkUpdate = new StandardCheckUpdateStrategy(
-				$localPackageMetaValue,
-				$remotePackageMetaValue,
-				$standardClassFactory,
-				$this->logger
+			$this->logger->debug(
+				'Local version: ' . $localVersion . ', Remote version: ' . $remoteVersion
 			);
 
-			$transient = $checkUpdate->checkUpdate( $transient );
+			if ( null === $localVersion || null === $remoteVersion ) {
+				$this->logger->warning( 'Missing version information, skipping update check' );
+				return $transient;
+			}
+
+			if ( version_compare( $localVersion, $remoteVersion, '<' ) ) {
+				// Define the response property if it doesn't exist.
+				if ( ! property_exists( $transient, 'response' ) ) {
+					$transient->response = [];
+				}
+				// Ensure $transient->response is an array.
+				if ( ! is_array( $transient->response ) ) {
+					$transient->response = [];
+				}
+				$transient->response[ $localPackageMetaValue->getFullSlug() ] =
+					$standardClassFactory->create();
+			} else {
+				// Define the noUpdate property if it doesn't exist.
+				if ( ! property_exists( $transient, 'noUpdate' ) ) {
+					$transient->noUpdate = [];
+				}
+				// Ensure $transient->noUpdate is an array.
+				if ( ! is_array( $transient->noUpdate ) ) {
+					$transient->noUpdate = [];
+				}
+				$transient->noUpdate[ $localPackageMetaValue->getFullSlug() ] =
+					$standardClassFactory->create();
+			}
 		} catch ( Throwable $e ) {
-			$this->logger->error( 'Error in StandardCheckUpdateHook: ' . $e->getMessage() );
+			$this->logger->error(
+				'Unable to get remote package version: ' . $e->getMessage(),
+				[
+					'transient' => $transient,
+				]
+			);
+			return $transient;
 		}
 		$this->logger->debug( 'Exiting StandardCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;

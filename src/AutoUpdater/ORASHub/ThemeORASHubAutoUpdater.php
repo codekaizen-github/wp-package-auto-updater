@@ -97,6 +97,7 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 			$this->logger
 		);
 		$checkUpdateHook                  = new StandardCheckUpdateHook(
+			'pre_set_site_transient_update_themes',
 			$localPackageMetaProviderFactory,
 			$remotePackageMetaProviderFactory,
 			$this->logger

@@ -97,6 +97,7 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 			$this->logger
 		);
 		$checkUpdateHook                  = new StandardCheckUpdateHook(
+			'pre_set_site_transient_update_plugins',
 			$localPackageMetaProviderFactory,
 			$remotePackageMetaProviderFactory,
 			$this->logger
