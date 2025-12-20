@@ -1,6 +1,6 @@
 <?php
 /**
- * File containing PluginCheckUpdateHook class.
+ * File containing StandardCheckUpdateHook class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  * @subpackage CheckUpdate
@@ -14,30 +14,30 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContrac
 use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\StandardCheckUpdateObjectFactory;
 use CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 use stdClass;
 use Throwable;
 
 /**
- * PluginCheckUpdateHook class.
+ * StandardCheckUpdateHook class.
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  */
-class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
+class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
 
 	/**
 	 * The local package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceFactoryContract
+	 * @var PackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory;
+	protected PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory;
 
 	/**
 	 * The remote package meta provider factory.
 	 *
-	 * @var PluginPackageMetaValueServiceFactoryContract
+	 * @var PackageMetaValueServiceFactoryContract
 	 */
-	protected PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory;
+	protected PackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory;
 
 	/**
 	 * The logger instance.
@@ -48,13 +48,13 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	/**
 	 * Constructor.
 	 *
-	 * @param PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local factory.
-	 * @param PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory Remote factory.
-	 * @param LoggerInterface                              $logger Logger instance.
+	 * @param PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory Local factory.
+	 * @param PackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory Remote factory.
+	 * @param LoggerInterface                        $logger Logger instance.
 	 */
 	public function __construct(
-		PluginPackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
-		PluginPackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory,
+		PackageMetaValueServiceFactoryContract $localPackageMetaValueServiceFactory,
+		PackageMetaValueServiceFactoryContract $remotePackageMetaValueServiceFactory,
 		LoggerInterface $logger
 	) {
 		$this->localPackageMetaValueServiceFactory  = $localPackageMetaValueServiceFactory;
@@ -79,7 +79,7 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 	public function checkUpdate( stdClass $transient ): stdClass {
 		try {
 			$this->logger->debug(
-				'Entering PluginCheckUpdateHook::checkUpdate',
+				'Entering StandardCheckUpdateHook::checkUpdate',
 				[
 					'transient' => $transient,
 				]
@@ -102,9 +102,9 @@ class PluginCheckUpdateHook implements InitializerContract, CheckUpdateStrategyC
 
 			$transient = $checkUpdate->checkUpdate( $transient );
 		} catch ( Throwable $e ) {
-			$this->logger->error( 'Error in PluginCheckUpdateHook: ' . $e->getMessage() );
+			$this->logger->error( 'Error in StandardCheckUpdateHook: ' . $e->getMessage() );
 		}
-		$this->logger->debug( 'Exiting PluginCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
+		$this->logger->debug( 'Exiting StandardCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
 	}
 }

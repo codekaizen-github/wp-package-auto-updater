@@ -1,18 +1,18 @@
 <?php
 /**
- * Test for ThemeCheckUpdateHook.
+ * Test for StandardCheckUpdateHook.
  *
  *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate
  */
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 
-use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\ThemeCheckUpdateHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -21,26 +21,26 @@ use WP_Mock;
 use WP_Mock\Tools\TestCase;
 
 /**
- * Tests for the ThemeCheckUpdateHook class.
+ * Tests for the StandardCheckUpdateHook class.
  */
-class ThemeCheckUpdateHookTest extends TestCase {
+class StandardCheckUpdateHookTest extends TestCase {
 
 	/**
 	 * Test that init() adds the filter.
 	 */
 	public function testInitAddsFilter(): void {
 		// Mock the dependencies.
-		$localFactory  = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
-		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
+		$localFactory  = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
+		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 
-		$sut = new ThemeCheckUpdateHook( $localFactory, $remoteFactory, $logger );
+		$sut = new StandardCheckUpdateHook( $localFactory, $remoteFactory, $logger );
 		// Set up expectations.
 		WP_Mock::expectFilterAdded(
-			'pre_set_site_transient_update_themes',
+			'pre_set_site_transient_update_plugins',
 			[ $sut , 'checkUpdate' ]
 		);
 
@@ -59,21 +59,21 @@ class ThemeCheckUpdateHookTest extends TestCase {
 	 */
 	public function testExceptionHandlingInCheckUpdate(): void {
 		// Mock the dependencies.
-		$localFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
+		$localFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$localFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( ThemePackageMetaValueServiceContract::class )
+			Mockery::mock( PluginPackageMetaValueServiceContract::class )
 		);
-		$remoteFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
+		$remoteFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
-			Mockery::mock( ThemePackageMetaValueContract::class )
+			Mockery::mock( PluginPackageMetaValueServiceContract::class )
 		);
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
-		$sut = new ThemeCheckUpdateHook( $localFactory, $remoteFactory, $logger );
+		$sut = new StandardCheckUpdateHook( $localFactory, $remoteFactory, $logger );
 		Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\ThemeCheckUpdateFormatter'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\PluginCheckUpdateFormatter'
 		);
 		$strategy = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\CheckUpdate\StandardCheckUpdateStrategy'

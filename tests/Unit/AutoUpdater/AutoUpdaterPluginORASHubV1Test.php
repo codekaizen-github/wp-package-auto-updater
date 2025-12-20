@@ -38,7 +38,7 @@ class PluginORASHubAutoUpdaterTest extends TestCase {
 		);
 		$checkInfoHook->shouldReceive( 'init' )->once();
 		$checkUpdateHook = Mockery::mock(
-			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook'
+			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook'
 		);
 		$checkUpdateHook->shouldReceive( 'init' )->once();
 		$sut = new PluginORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $logger );

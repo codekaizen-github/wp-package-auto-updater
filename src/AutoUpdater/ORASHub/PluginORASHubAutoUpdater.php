@@ -11,7 +11,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\LocalPluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
-use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\PluginCheckUpdateHook;
+use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
 use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\PluginCheckInfoObjectFactory;
@@ -96,7 +96,7 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 			$this->httpOptions,
 			$this->logger
 		);
-		$checkUpdateHook                  = new PluginCheckUpdateHook(
+		$checkUpdateHook                  = new StandardCheckUpdateHook(
 			$localPackageMetaProviderFactory,
 			$remotePackageMetaProviderFactory,
 			$this->logger
