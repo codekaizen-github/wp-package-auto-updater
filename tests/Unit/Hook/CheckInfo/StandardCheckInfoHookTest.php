@@ -15,6 +15,7 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Mockery;
 use Psr\Log\LoggerInterface;
+use stdClass;
 use WP_Mock\Tools\TestCase;
 
 /**
@@ -136,5 +137,52 @@ class StandardCheckInfoHookTest extends TestCase {
 		$arg    = (object) [ 'slug' => 'test-plugin' ];
 		$result = $sut->checkInfo( false, 'plugin_information', $arg );
 		$this->assertFalse( $result );
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testSlugNotSetValid(): void {
+		$hookName      = 'plugins_api';
+		$remoteFactory = Mockery::mock( ObjectFactoryContract::class );
+		$localFactory  = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
+		$localService  = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
+		$localValue->shouldReceive( 'getShortSlug' )->andReturn( 'test-plugin' );
+		$localService->shouldReceive( 'getPackageMeta' )->andReturn( $localValue );
+		$localFactory->shouldReceive( 'create' )->andReturn( $localService );
+		$logger = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$sut       = new StandardCheckInfoHook( $hookName, $remoteFactory, $localFactory, $logger );
+		$arg       = new stdClass();
+		$arg->slug = null;
+		$actual    = $sut->checkInfo( false, '', $arg );
+		$this->assertFalse( $actual );
+	}
+	/**
+	 * Undocumented function
+	 *
+	 * @return void
+	 */
+	public function testSlugsDoNotMatchValid(): void {
+		$hookName      = 'plugins_api';
+		$remoteFactory = Mockery::mock( ObjectFactoryContract::class );
+		$localFactory  = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
+		$localService  = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
+		$localValue->shouldReceive( 'getShortSlug' )->andReturn( 'test-plugin' );
+		$localService->shouldReceive( 'getPackageMeta' )->andReturn( $localValue );
+		$localFactory->shouldReceive( 'create' )->andReturn( $localService );
+		$logger = Mockery::mock( LoggerInterface::class );
+		$logger->shouldReceive( 'debug' );
+		$logger->shouldReceive( 'info' );
+		$logger->shouldReceive( 'error' );
+		$sut       = new StandardCheckInfoHook( $hookName, $remoteFactory, $localFactory, $logger );
+		$arg       = new stdClass();
+		$arg->slug = null;
+		$actual    = $sut->checkInfo( false, 'other-plugin', $arg );
+		$this->assertFalse( $actual );
 	}
 }
