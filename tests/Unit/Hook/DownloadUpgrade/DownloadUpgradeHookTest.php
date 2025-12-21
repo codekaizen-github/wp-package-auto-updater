@@ -61,15 +61,17 @@ class DownloadUpgradeHookTest extends TestCase {
 		Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor'
 		);
-		Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient' );
+		$fileDownloader = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient'
+		);
+		$fileDownloader->shouldReceive( 'getFileName' )->andReturn( 'downloaded-file.zip' );
 		Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Strategy\DownloadUpgrade\StandardDownloadUpgradeStrategy'
-		)
-			->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
+		)->shouldReceive( 'downloadUpgrade' )->andReturn( 'downloaded-file.zip' );
 		$sut = new StandardDownloadUpgradeHook( $localFactory, $transientAccessor, $httpOptions, $logger );
 
 		// Act.
-		$result = $sut->downloadUpgrade( false, 'any-package', null, [] );
+		$result = $sut->downloadUpgrade( false, 'https://example.com/download.zip', null, [] );
 
 		// Assert.
 		$this->assertSame( 'downloaded-file.zip', $result );
@@ -123,7 +125,7 @@ class DownloadUpgradeHookTest extends TestCase {
 		$httpOptions = [];
 		$logger      = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'error' )
-			->with( 'Error in StandardDownloadUpgradeHook: Test exception' )
+			->with( 'Error in StandardDownloadUpgradeHook: Test exception', [ 'exception' => $error ] )
 			->once();
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );

@@ -149,7 +149,6 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 					'transient' => $transient,
 				]
 			);
-			return $transient;
 		}
 		$this->logger->debug( 'Exiting StandardCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
 		return $transient;
