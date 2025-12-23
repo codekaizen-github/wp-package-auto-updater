@@ -88,18 +88,9 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 	public function checkUpdate( stdClass $transient ): stdClass {
 		try {
 			$this->logger->debug( 'Entering StandardCheckUpdateHook::checkUpdate', [ 'transient' => $transient ] );
-			$localPackageMetaValueService  = $this->localPackageMetaValueServiceFactory->create();
-			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
-			$localPackageMetaValue         = $localPackageMetaValueService->getPackageMeta();
-			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
-			$standardClassFactory          = new StandardCheckUpdateObjectFactory(
-				$localPackageMetaValue,
-				$remotePackageMetaValue
-			);
 			$this->logger->debug(
 				'Checking for updates',
 				[
-					'fullSlug'  => $localPackageMetaValue->getFullSlug(),
 					'transient' => $transient,
 				]
 			);
@@ -107,17 +98,34 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrateg
 				$this->logger->debug( 'No checked packages in transient, skipping' );
 				return $transient;
 			}
-			$localVersion  = $localPackageMetaValue->getVersion();
-			$remoteVersion = $remotePackageMetaValue->getVersion();
+
+			$localPackageMetaValueService = $this->localPackageMetaValueServiceFactory->create();
+			$localPackageMetaValue        = $localPackageMetaValueService->getPackageMeta();
+
+			$localVersion = $localPackageMetaValue->getVersion();
+
+			if ( null === $localVersion ) {
+				$this->logger->warning( 'Missing local version information, skipping update check' );
+				return $transient;
+			}
+
+			$remotePackageMetaValueService = $this->remotePackageMetaValueServiceFactory->create();
+			$remotePackageMetaValue        = $remotePackageMetaValueService->getPackageMeta();
+			$remoteVersion                 = $remotePackageMetaValue->getVersion();
+
+			if ( null === $remoteVersion ) {
+				$this->logger->warning( 'Missing remote version information, skipping update check' );
+				return $transient;
+			}
 
 			$this->logger->debug(
 				'Local version: ' . $localVersion . ', Remote version: ' . $remoteVersion
 			);
 
-			if ( null === $localVersion || null === $remoteVersion ) {
-				$this->logger->warning( 'Missing version information, skipping update check' );
-				return $transient;
-			}
+			$standardClassFactory = new StandardCheckUpdateObjectFactory(
+				$localPackageMetaValue,
+				$remotePackageMetaValue
+			);
 
 			if ( version_compare( $localVersion, $remoteVersion, '<' ) ) {
 				// Define the response property if it doesn't exist.
