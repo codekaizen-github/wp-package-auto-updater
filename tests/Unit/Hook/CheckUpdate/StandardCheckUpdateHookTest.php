@@ -114,6 +114,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when local version is less than remote version.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenVersionLessThan(): void {
 		// Mock the dependencies.
@@ -167,6 +169,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when local version is greater than remote version.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenVersionGreaterThan(): void {
 		// Mock the dependencies.
@@ -220,6 +224,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when local version equals remote version.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenVersionEqual(): void {
 		// Mock the dependencies.
@@ -323,6 +329,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when response property doesn't exist.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenResponsePropertyDoesNotExist(): void {
 		// No response property set.
@@ -375,6 +383,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when noUpdate property doesn't exist .
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenNoUpdatePropertyDoesNotExist(): void {
 		// Mock the dependencies.
@@ -426,6 +436,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when response property is not an array.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenResponsePropertyIsNotArray(): void {
 
@@ -480,6 +492,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when noUpdate property is not an array.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenNoUpdatePropertyIsNotArray(): void {
 		// Set up transient object with non-array noUpdate property.
@@ -534,6 +548,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when local version is null.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenLocalVersionIsNull(): void {
 		// Mock the dependencies.
@@ -582,6 +598,8 @@ class StandardCheckUpdateHookTest extends TestCase {
 	 * Tests the checkUpdate method when remote version is null.
 	 *
 	 * @return void
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenRemoteVersionIsNull(): void {
 		// Mock the dependencies.
