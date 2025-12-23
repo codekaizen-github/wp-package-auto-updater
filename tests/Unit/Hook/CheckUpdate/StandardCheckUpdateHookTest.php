@@ -8,12 +8,15 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Hook\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PackageMetaValueServiceContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
 use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -101,7 +104,9 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$logger->shouldReceive( 'info' );
 		$logger->shouldReceive( 'error' );
 		$logger->shouldReceive( 'error' );
-		$objectFactory = Mockery::mock( 'overload:CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract' );
+		$objectFactory = Mockery::mock(
+			'overload:CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract'
+		);
 		$objectFactory->shouldReceive( 'create' )->andThrow( new Exception( 'Test exception' ) );
 		// Call the method under test.
 		$transient = new stdClass();
@@ -122,7 +127,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '1.0.0';
 		$remoteVersion = '1.1.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -131,7 +136,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -139,10 +144,12 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$remoteFactory->shouldReceive( 'create' )->andReturn(
 			$remoteService
 		);
+		// phpcs:disable Generic.Files.LineLength.TooLong
 		$objectFactory = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\StandardCheckUpdateObjectFactory'
 		);
-		$objectData    = (object) [ 'new_version' => $remoteVersion ];
+		// phpcs:enable Generic.Files.LineLength.TooLong
+		$objectData = (object) [ 'new_version' => $remoteVersion ];
 		$objectFactory->shouldReceive( 'create' )->andReturn( $objectData );
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
@@ -177,7 +184,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '2.0.0';
 		$remoteVersion = '1.0.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -186,7 +193,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -232,7 +239,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '2.0.0';
 		$remoteVersion = '2.0.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -241,7 +248,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -315,9 +322,21 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory  = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
 		$remoteFactory = Mockery::mock( PackageMetaValueServiceFactoryContract::class );
 		$logger        = Mockery::mock( LoggerInterface::class );
-		// Set up logger to expect debug message.
-		$logger->shouldReceive( 'debug' )->with( 'No checked packages in transient, skipping' );
-		$transient = new stdClass();
+		$transient     = new stdClass();
+		// Set up logger to expect debug messages.
+		$logger->shouldReceive( 'debug' )->once()->with(
+			'Entering StandardCheckUpdateHook::checkUpdate',
+			[ 'transient' => $transient ]
+		)->andReturnNull();
+		$logger->shouldReceive( 'debug' )->once()->with(
+			'Checking for updates',
+			[
+				'transient' => $transient,
+			]
+		)->andReturnNull();
+		$logger->shouldReceive( 'debug' )->once()->with(
+			'No checked packages in transient, skipping'
+		)->andReturnNull();
 		// Call the method under test.
 		$sut    = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
 		$result = $sut->checkUpdate( $transient );
@@ -338,7 +357,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '1.0.0';
 		$remoteVersion = '1.1.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -347,7 +366,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -391,7 +410,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '2.0.0';
 		$remoteVersion = '1.0.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -400,7 +419,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -446,7 +465,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '1.0.0';
 		$remoteVersion = '1.1.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -455,7 +474,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -502,7 +521,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '2.0.0';
 		$remoteVersion = '1.0.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -511,7 +530,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -556,7 +575,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = null;
 		$remoteVersion = '1.1.0';
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -565,7 +584,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
@@ -606,7 +625,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localVersion  = '1.0.0';
 		$remoteVersion = null;
 		$hookName      = 'pre_set_site_transient_update_plugins';
-		$localValue    = Mockery::mock( PackageMetaValueServiceContract::class );
+		$localValue    = Mockery::mock( PackageMetaValueContract::class );
 		$localValue->shouldReceive( 'getVersion' )->andReturn( $localVersion );
 		$localValue->shouldReceive( 'getFullSlug' )->andReturn( 'some-plugin/plugin.php' );
 		$localService = Mockery::mock( PackageMetaValueServiceContract::class );
@@ -615,7 +634,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$localFactory->shouldReceive( 'create' )->andReturn(
 			$localService
 		);
-		$remoteValue = Mockery::mock( PackageMetaValueServiceContract::class );
+		$remoteValue = Mockery::mock( PackageMetaValueContract::class );
 		$remoteValue->shouldReceive( 'getVersion' )->andReturn( $remoteVersion );
 		$remoteService = Mockery::mock( PackageMetaValueServiceContract::class );
 		$remoteService->shouldReceive( 'getPackageMeta' )->andReturn( $remoteValue );
