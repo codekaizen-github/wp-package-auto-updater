@@ -71,7 +71,6 @@ class StandardCheckUpdateFormatterTest extends TestCase {
 			$requiresExpected
 		);
 		$sut            = new StandardCheckUpdateObjectFactory(
-			$localPackageMetaProvider,
 			$remotePackageMetaProvider
 		);
 		$actualResponse = $sut->create();

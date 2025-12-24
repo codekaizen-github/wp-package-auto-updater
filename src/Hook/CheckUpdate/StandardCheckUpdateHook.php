@@ -123,7 +123,6 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateHookCon
 			);
 
 			$standardClassFactory = new StandardCheckUpdateObjectFactory(
-				$localPackageMetaValue,
 				$remotePackageMetaValue
 			);
 

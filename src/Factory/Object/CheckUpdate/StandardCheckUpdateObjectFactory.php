@@ -19,12 +19,6 @@ use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageM
  */
 class StandardCheckUpdateObjectFactory implements ObjectFactoryContract {
 	/**
-	 * The local plugin package meta provider.
-	 *
-	 * @var PackageMetaValueContract
-	 */
-	protected PackageMetaValueContract $localPackageMetaProvider;
-	/**
 	 * The remote plugin package meta provider.
 	 *
 	 * @var PackageMetaValueContract
@@ -33,14 +27,11 @@ class StandardCheckUpdateObjectFactory implements ObjectFactoryContract {
 	/**
 	 * Constructor.
 	 *
-	 * @param PackageMetaValueContract $localPackageMetaProvider  The local package meta provider.
 	 * @param PackageMetaValueContract $remotePackageMetaProvider The remote package meta provider.
 	 */
 	public function __construct(
-		PackageMetaValueContract $localPackageMetaProvider,
 		PackageMetaValueContract $remotePackageMetaProvider
 	) {
-		$this->localPackageMetaProvider  = $localPackageMetaProvider;
 		$this->remotePackageMetaProvider = $remotePackageMetaProvider;
 		// Constructor can be empty or used for dependency injection if needed in the future.
 	}
