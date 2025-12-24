@@ -103,6 +103,14 @@ class StandardDownloadUpgradeHook implements InitializerContract, DownloadUpgrad
 					'hookExtra' => $hookExtra,
 				]
 			);
+			// If reply is already set (not false), return it immediately.
+			if ( $reply ) {
+				$this->logger->debug(
+					'Reply already set, returning early from StandardDownloadUpgradeStrategy::downloadUpgrade',
+					[ 'reply' => $reply ]
+				);
+				return $reply;
+			}
 			$localPackageMetaValueService                      = $this->localPackageMetaValueServiceFactory->create();
 			$localPackageMetaValue                             = $localPackageMetaValueService->getPackageMeta();
 			$standardCheckUpdatePackageMetaValueServiceFactory = new StandardCheckUpdatePackageMetaValueServiceFactory(
@@ -131,17 +139,9 @@ class StandardDownloadUpgradeHook implements InitializerContract, DownloadUpgrad
 					'hookExtra' => $hookExtra,
 				]
 			);
-			// If reply is already set (not false), return it immediately.
-			if ( $reply ) {
-				$this->logger->debug(
-					'Reply already set, returning early from StandardDownloadUpgradeStrategy::downloadUpgrade',
-					[ 'reply' => $reply ]
-				);
-				return $reply;
-			}
 
 			$this->logger->debug( 'Checking if we should handle download for package: ' . $package );
-			$downloadURL = $checkUpdatePackageMetaValue->getDownloadUrl();
+			$downloadURL = $checkUpdatePackageMetaValue->getDownloadURL();
 			// If the package URL matches our download URL, handle it.
 			if ( $package === $downloadURL ) {
 				// Get the download URL from our remote provider.

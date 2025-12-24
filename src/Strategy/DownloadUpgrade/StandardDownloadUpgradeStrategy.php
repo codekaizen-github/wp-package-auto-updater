@@ -86,7 +86,7 @@ class StandardDownloadUpgradeStrategy implements DownloadUpgradeStrategyContract
 		}
 		try {
 			$this->logger->debug( 'Checking if we should handle download for package: ' . $package );
-			$downloadUrl = $this->checkUpdatePackageMetaProvider->getDownloadUrl();
+			$downloadUrl = $this->checkUpdatePackageMetaProvider->getDownloadURL();
 			// If the package URL matches our download URL, handle it.
 			if ( $package === $downloadUrl ) {
 				// Get the download URL from our remote provider.
