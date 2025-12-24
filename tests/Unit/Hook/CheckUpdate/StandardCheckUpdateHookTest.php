@@ -389,9 +389,6 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$result             = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->noUpdate );
 		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
 		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
@@ -445,9 +442,6 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$this->assertObjectHasProperty( 'noUpdate', $result );
 		$this->assertIsArray( $result->noUpdate );
 		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
-		$this->assertObjectHasProperty( 'response', $result );
-		$this->assertIsArray( $result->response );
-		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
 		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
 	}
 
@@ -498,9 +492,6 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$result              = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->noUpdate );
 		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
 		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
@@ -557,9 +548,6 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$this->assertObjectHasProperty( 'noUpdate', $result );
 		$this->assertIsArray( $result->noUpdate );
 		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
-		$this->assertObjectHasProperty( 'response', $result );
-		$this->assertIsArray( $result->response );
-		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
 		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
 	}
 
