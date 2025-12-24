@@ -13,8 +13,6 @@ use stdClass;
 
 /**
  * Class CheckUpdatePackageMetaProviderTest
- *
- * @covers \CodeKaizen\WPPackageAutoUpdater\Provider\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValue
  */
 class CheckUpdatePackageMetaProviderTest extends TestCase {
 	/**

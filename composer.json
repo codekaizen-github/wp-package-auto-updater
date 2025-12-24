@@ -39,6 +39,7 @@
         "analyze": "php -d memory_limit=512M vendor/bin/phpstan",
         "sniff": "phpcs -ps src/ tests/",
         "fix": "phpcbf src/ tests/",
+        "cover-php": ["@putenv XDEBUG_MODE=coverage", "phpunit --coverage-clover clover.xml --coverage-html coverage-report"],
         "debug": [
             "@putenv XDEBUG_SESSION=1",
             "@composer run --"
