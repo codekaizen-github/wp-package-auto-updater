@@ -11,7 +11,7 @@ use CodeKaizen\WPPackageAutoUpdater\Client\Downloader\FileDownloaderClient;
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\DownloadUpgradeStrategyContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Hook\DownloadUpgradeHookContract;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
@@ -22,7 +22,7 @@ use Throwable;
 /**
  * Hook for handling package downloads during upgrades.
  */
-class StandardDownloadUpgradeHook implements InitializerContract, DownloadUpgradeStrategyContract {
+class StandardDownloadUpgradeHook implements InitializerContract, DownloadUpgradeHookContract {
 
 	/**
 	 * Undocumented variable

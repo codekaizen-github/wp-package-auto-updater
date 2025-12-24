@@ -1,14 +1,14 @@
 <?php
 /**
- * File containing CheckInfoStrategyContract Interface class.
+ * File containing CheckInfoHookContract Interface class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Strategy
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Hook
  * @subpackage Strategy
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Hook;
 
-interface CheckInfoStrategyContract {
+interface CheckInfoHookContract {
 
 	/**
 	 * Add our self-hosted description to the filter.

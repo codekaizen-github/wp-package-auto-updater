@@ -1,16 +1,16 @@
 <?php
 /**
- * File containing CheckUpdateStrategyContract Interface class.
+ * File containing CheckUpdateHookContract Interface class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Strategy
+ *  @package CodeKaizen\WPPackageAutoUpdater\Contract\Hook
  * @subpackage Strategy
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Hook;
 
 use stdClass;
 
-interface CheckUpdateStrategyContract {
+interface CheckUpdateHookContract {
 
 	/**
 	 * Check for updates.

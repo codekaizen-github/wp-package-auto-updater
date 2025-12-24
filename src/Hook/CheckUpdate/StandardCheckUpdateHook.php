@@ -10,7 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate;
 
 use Psr\Log\LoggerInterface;
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Contract\Strategy\CheckUpdateStrategyContract;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Hook\CheckUpdateHookContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckUpdate\StandardCheckUpdateObjectFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
@@ -22,7 +22,7 @@ use Throwable;
  *
  *  @package CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate
  */
-class StandardCheckUpdateHook implements InitializerContract, CheckUpdateStrategyContract {
+class StandardCheckUpdateHook implements InitializerContract, CheckUpdateHookContract {
 
 	/**
 	 * Undocumented variable

@@ -1,16 +1,16 @@
 <?php
 /**
- * File containing DownloadUpgradeStrategyContract interface.
+ * File containing DownloadUpgradeHookContract interface.
  *
- * @package CodeKaizen\WPPackageAutoUpdater\Contract\Strategy
+ * @package CodeKaizen\WPPackageAutoUpdater\Contract\Hook
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Contract\Strategy;
+namespace CodeKaizen\WPPackageAutoUpdater\Contract\Hook;
 
 /**
  * Interface for download upgrade strategy.
  */
-interface DownloadUpgradeStrategyContract {
+interface DownloadUpgradeHookContract {
 
 	/**
 	 * Downloads an upgrade package if appropriate.
