@@ -44,10 +44,9 @@ class ThemeCheckInfoObjectFactoryTest extends TestCase {
 		$factory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
 		$factory->shouldReceive( 'create' )->andReturn( $service );
 
-		$sut = new ThemeCheckInfoObjectFactory( $factory );
+		$sut    = new ThemeCheckInfoObjectFactory( $factory );
 		$result = $sut->create();
 
 		$this->assertInstanceOf( ThemeCheckInfoStandardClass::class, $result );
 	}
 }
-

@@ -42,4 +42,3 @@ class ThemeCheckInfoStandardClassTest extends TestCase {
 		$this->assertEquals( 'Test Author', $sut->author );
 	}
 }
-

@@ -44,4 +44,3 @@ class PluginCheckInfoStandardClassTest extends TestCase {
 		$this->assertTrue( $sut->external );
 	}
 }
-

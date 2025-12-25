@@ -46,4 +46,3 @@ class PluginORASHubAutoUpdaterTest extends TestCase {
 		$this->expectNotToPerformAssertions();
 	}
 }
-

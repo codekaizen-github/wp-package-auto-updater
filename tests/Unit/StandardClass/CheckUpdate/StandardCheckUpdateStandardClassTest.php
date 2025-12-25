@@ -39,7 +39,7 @@ class StandardCheckUpdateStandardClassTest extends TestCase {
 
 		$this->assertEquals( 'test-plugin/test-plugin.php', $sut->id );
 		$this->assertEquals( 'test-plugin', $sut->slug );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
 		$this->assertEquals( '1.0.0', $sut->new_version );
 	}
 }
-

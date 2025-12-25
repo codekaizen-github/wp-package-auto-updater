@@ -45,10 +45,9 @@ class PluginCheckInfoObjectFactoryTest extends TestCase {
 		$factory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
 		$factory->shouldReceive( 'create' )->andReturn( $service );
 
-		$sut = new PluginCheckInfoObjectFactory( $factory );
+		$sut    = new PluginCheckInfoObjectFactory( $factory );
 		$result = $sut->create();
 
 		$this->assertInstanceOf( PluginCheckInfoStandardClass::class, $result );
 	}
 }
-

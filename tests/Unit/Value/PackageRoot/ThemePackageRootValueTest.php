@@ -43,4 +43,3 @@ class ThemePackageRootValueTest extends TestCase {
 		$this->assertEquals( '/path/to/themes', $root->getPackageRoot() );
 	}
 }
-

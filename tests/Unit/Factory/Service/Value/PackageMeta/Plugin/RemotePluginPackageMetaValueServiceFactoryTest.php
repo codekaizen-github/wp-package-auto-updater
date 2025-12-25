@@ -237,4 +237,3 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 }
-

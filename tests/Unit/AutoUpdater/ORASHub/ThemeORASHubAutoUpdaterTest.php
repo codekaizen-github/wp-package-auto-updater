@@ -46,4 +46,3 @@ class ThemeORASHubAutoUpdaterTest extends TestCase {
 		$this->expectNotToPerformAssertions();
 	}
 }
-

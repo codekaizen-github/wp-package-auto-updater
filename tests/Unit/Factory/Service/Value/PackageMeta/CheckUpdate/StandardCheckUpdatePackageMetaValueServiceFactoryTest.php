@@ -8,6 +8,7 @@
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Service\Value\PackageMeta\CheckUpdate;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\Accessor\MixedAccessorContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Service\Value\PackageMeta\CheckUpdate\StandardCheckUpdatePackageMetaValueService;
 use Mockery;
@@ -28,10 +29,9 @@ class StandardCheckUpdatePackageMetaValueServiceFactoryTest extends TestCase {
 		$fullSlug = 'test-plugin/test-plugin.php';
 		$logger   = Mockery::mock( LoggerInterface::class );
 
-		$sut = new StandardCheckUpdatePackageMetaValueServiceFactory( $accessor, $fullSlug, $logger );
+		$sut    = new StandardCheckUpdatePackageMetaValueServiceFactory( $accessor, $fullSlug, $logger );
 		$result = $sut->create();
 
 		$this->assertInstanceOf( StandardCheckUpdatePackageMetaValueService::class, $result );
 	}
 }
-

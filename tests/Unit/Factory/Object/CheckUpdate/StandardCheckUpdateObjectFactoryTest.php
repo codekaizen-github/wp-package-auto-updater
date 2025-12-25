@@ -36,10 +36,9 @@ class StandardCheckUpdateObjectFactoryTest extends TestCase {
 		$packageMeta->shouldReceive( 'getRequiresWordPressVersion' )->andReturn( '5.0' );
 		$packageMeta->shouldReceive( 'getRequiresPHPVersion' )->andReturn( '7.4' );
 
-		$sut = new StandardCheckUpdateObjectFactory( $packageMeta );
+		$sut    = new StandardCheckUpdateObjectFactory( $packageMeta );
 		$result = $sut->create();
 
 		$this->assertInstanceOf( StandardCheckUpdateStandardClass::class, $result );
 	}
 }
-

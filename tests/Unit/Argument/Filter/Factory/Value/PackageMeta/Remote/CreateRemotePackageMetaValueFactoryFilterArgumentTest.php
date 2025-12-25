@@ -53,4 +53,3 @@ class CreateRemotePackageMetaValueFactoryFilterArgumentTest extends TestCase {
 		$this->assertSame( $newLogger, $argument->getLogger() );
 	}
 }
-

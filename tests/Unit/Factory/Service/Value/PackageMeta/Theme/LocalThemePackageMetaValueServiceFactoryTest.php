@@ -45,4 +45,3 @@ class LocalThemePackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertInstanceOf( ThemePackageMetaValueServiceContract::class, $return );
 	}
 }
-

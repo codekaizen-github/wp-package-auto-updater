@@ -21,14 +21,14 @@ class CheckUpdateStandardClassValidatorTest extends TestCase {
 	 * @return void
 	 */
 	public function testIsValidReturnsTrueForValidObject(): void {
-		$validator = new CheckUpdateStandardClassValidator();
-		$object    = new stdClass();
-		$object->id = 'test-plugin/test-plugin.php';
+		$validator    = new CheckUpdateStandardClassValidator();
+		$object       = new stdClass();
+		$object->id   = 'test-plugin/test-plugin.php';
 		$object->slug = 'test-plugin';
 
 		$result = $validator->isValid( $object );
 
-		$this->assertIsBool( $result );
+		$this->assertTrue( $result );
 	}
 
 	/**
@@ -45,4 +45,3 @@ class CheckUpdateStandardClassValidatorTest extends TestCase {
 		$this->assertFalse( $result );
 	}
 }
-

@@ -232,4 +232,3 @@ class RemoteThemePackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertConditionsMet();
 	}
 }
-

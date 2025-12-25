@@ -132,4 +132,3 @@ class ThemeSlugValueTest extends TestCase {
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
 }
-

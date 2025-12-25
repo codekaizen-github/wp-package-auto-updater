@@ -167,4 +167,3 @@ class PluginSlugValueTest extends TestCase {
 		$this->assertEquals( $fullSlugExpected, $sut->getFullSlug() );
 	}
 }
-

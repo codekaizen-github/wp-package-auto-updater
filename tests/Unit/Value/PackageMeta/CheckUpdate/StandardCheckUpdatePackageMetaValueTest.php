@@ -22,8 +22,8 @@ class StandardCheckUpdatePackageMetaValueTest extends TestCase {
 	 * @return void
 	 */
 	public function testConstructorAcceptsValidData(): void {
-		$data    = new stdClass();
-		$data->id = 'test-plugin/test-plugin.php';
+		$data       = new stdClass();
+		$data->id   = 'test-plugin/test-plugin.php';
 		$data->slug = 'test-plugin';
 
 		$sut = new StandardCheckUpdatePackageMetaValue( $data );
@@ -46,4 +46,3 @@ class StandardCheckUpdatePackageMetaValueTest extends TestCase {
 		new StandardCheckUpdatePackageMetaValue( $data );
 	}
 }
-

@@ -45,4 +45,3 @@ class LocalPluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertInstanceOf( PluginPackageMetaValueServiceContract::class, $return );
 	}
 }
-
