@@ -40,9 +40,9 @@ pipeline {
         }
         stage('Generate Coverage Report') {
             steps {
-                sh "composer run cover-php-html"
-                recordCoverage(tools: [[parser: 'CLOVER', pattern: 'clover.xml']], 
-                    sourceCodeRetention: 'MODIFIED', 
+                sh "composer run cover-php"
+                recordCoverage(tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
+                    sourceCodeRetention: 'MODIFIED',
                 )
             }
         }
