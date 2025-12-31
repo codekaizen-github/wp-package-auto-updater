@@ -33,17 +33,13 @@ pipeline {
                             sh "composer run analyze"
                             sh "composer run test"
                             sh "composer run sniff"
+                            sh "composer run cover-php"
+                            recordCoverage(tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
+                                sourceCodeRetention: 'MODIFIED',
+                            )
                         }
                     }
                 }
-            }
-        }
-        stage('Generate Coverage Report') {
-            steps {
-                sh "composer run cover-php"
-                recordCoverage(tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
-                    sourceCodeRetention: 'MODIFIED',
-                )
             }
         }
         stage('Update Packagist') {
