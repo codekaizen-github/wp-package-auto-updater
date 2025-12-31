@@ -2,6 +2,9 @@
 <phpunit bootstrap="tests/bootstrap.php"
          colors="true"
          stopOnFailure="false">
+    <php>
+        <ini name="error_reporting" value="E_ALL &amp; ~E_DEPRECATED" />
+    </php>
     <testsuites>
         <testsuite name="Unit">
             <directory>tests/Unit</directory>
