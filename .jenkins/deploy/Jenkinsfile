@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Update Packagist') {
             steps {
-                withCredentials([conjurSecretCredential(credentialsId: 'andrewjdawes-packagist-api-token', variable: 'PACKAGIST_API_TOKEN')]) {
+                withCredentials([conjurSecretCredential(credentialsId: 'andrewjdawes/packagist/api-token', variable: 'PACKAGIST_API_TOKEN')]) {
                     script {
                         echo "Notifying Packagist of new changes"
                         sh '''
