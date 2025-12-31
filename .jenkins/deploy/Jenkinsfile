@@ -34,7 +34,7 @@ pipeline {
                             sh "composer run test"
                             sh "composer run sniff"
                             sh "composer run cover-php"
-                            recordCoverage(tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
+                            recordCoverage(name: "Code Coverage: PHP ${PHP_VERSION}", tools: [[parser: 'CLOVER', pattern: 'clover.xml']],
                                 sourceCodeRetention: 'MODIFIED',
                             )
                         }
