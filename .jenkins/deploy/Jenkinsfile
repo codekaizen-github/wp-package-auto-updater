@@ -48,16 +48,20 @@ pipeline {
                     script {
                         echo "Notifying Packagist of new changes"
                         sh '''
-                            RESPONSE=$(curl -s -XPOST -H "content-type:application/json" \
+                            TMPFILE=$(mktemp)
+                            curl -s -XPOST -H "content-type:application/json" \
                             "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_API_TOKEN}" \
-                            -d "{\\\"repository\\\":{\\\"url\\\":\\\"${PACKAGE_URL}\\\"}}")
+                            -d "{\\\"repository\\\":{\\\"url\\\":\\\"${PACKAGE_URL}\\\"}}" > "$TMPFILE"
 
-                            echo "$RESPONSE"
+                            cat "$TMPFILE"
 
-                            if ! echo "$RESPONSE" | grep -q '"status":"success"'; then
+                            if ! grep -q '"status":"success"' "$TMPFILE"; then
                                 echo "ERROR: Packagist API did not return success status"
+                                rm -f "$TMPFILE"
                                 exit 1
                             fi
+
+                            rm -f "$TMPFILE"
                         '''
                     }
                 }
