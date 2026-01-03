@@ -2,14 +2,14 @@
 /**
  * Test
  *
- *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Service\Value\PackageMeta\Plugin
+ *  @package CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Service\Value\PackageMeta\Plugin\Remote
  */
 
-namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Service\Value\PackageMeta\Plugin;
+namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Factory\Service\Value\PackageMeta\Plugin\Remote;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Contract\Argument\Filter\Factory\Value\PackageMeta\Remote\CreateRemotePackageMetaValueFactoryFilterArgumentContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Remote\StandardRemotePluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
 use Mockery;
 use Mockery\MockInterface;
@@ -24,7 +24,7 @@ use WP_Mock;
 /**
  * Undocumented class
  */
-class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
+class StandardRemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 
 	/**
 	 * Undocumented variable
@@ -53,10 +53,10 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		);
 		// phpcs:enable Generic.Files.LineLength.TooLong
 		$this->logger = Mockery::mock( LoggerInterface::class );
-		$this->getServiceFactory()->allows(
-			[
-				'create' => Mockery::mock( PluginPackageMetaValueServiceContract::class ),
-			]
+		$this->getServiceFactory()->shouldReceive( 'create' )->andReturnUsing(
+			function () {
+				return Mockery::mock( PluginPackageMetaValueServiceContract::class );
+			}
 		);
 		$this->logger->allows(
 			[
@@ -108,7 +108,7 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$baseUrl     = '';
 		$metaKey     = '';
 		$httpOptions = [];
-		$sut         = new RemotePluginPackageMetaValueServiceFactory(
+		$sut         = new StandardRemotePluginPackageMetaValueServiceFactory(
 			$baseUrl,
 			$metaKey,
 			$httpOptions,
@@ -129,7 +129,7 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$baseUrl     = '';
 		$metaKey     = '';
 		$httpOptions = [];
-		$sut         = new RemotePluginPackageMetaValueServiceFactory(
+		$sut         = new StandardRemotePluginPackageMetaValueServiceFactory(
 			$baseUrl,
 			$metaKey,
 			$httpOptions,
@@ -162,7 +162,7 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$metaKey     = '';
 		$httpOptions = [];
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$sut    = new RemotePluginPackageMetaValueServiceFactory(
+		$sut    = new StandardRemotePluginPackageMetaValueServiceFactory(
 			$baseUrl,
 			$metaKey,
 			$httpOptions,
@@ -220,7 +220,7 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		$argument->shouldReceive( 'getHttpOptions' )->andReturn( $httpOptionsUpdated );
 		$argument->shouldReceive( 'getLogger' )->andReturn( $loggerUpdated );
 		// phpcs:enable Generic.Files.LineLength.TooLong
-		$sut    = new RemotePluginPackageMetaValueServiceFactory( $baseUrl, $metaKey, $httpOptions, $logger );
+		$sut    = new StandardRemotePluginPackageMetaValueServiceFactory( $baseUrl, $metaKey, $httpOptions, $logger );
 		$filter = WP_Mock::onFilter(
 			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
 		);
@@ -235,5 +235,40 @@ class RemotePluginPackageMetaValueServiceFactoryTest extends TestCase {
 		);
 		$sut->create();
 		$this->assertConditionsMet();
+	}
+
+	/**
+	 * Test that create() does not cache the provider and returns a new instance on each call.
+	 *
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 * @link https://stackoverflow.com/a/72639610/13461208
+	 * @return void
+	 */
+	public function testCreateDoesNotCacheProvider(): void {
+		$baseUrl     = '';
+		$metaKey     = '';
+		$httpOptions = [];
+		$logger      = $this->getLogger();
+		$argument    = Mockery::mock( CreateRemotePackageMetaValueFactoryFilterArgumentContract::class );
+		$argument->shouldReceive( 'getBaseURL' )->andReturn( $baseUrl );
+		$argument->shouldReceive( 'getMetaKey' )->andReturn( $metaKey );
+		$argument->shouldReceive( 'getHttpOptions' )->andReturn( $httpOptions );
+		$argument->shouldReceive( 'getLogger' )->andReturn( $logger );
+		// phpcs:enable Generic.Files.LineLength.TooLong
+		$filter = WP_Mock::onFilter(
+			'wp_package_auto_updater_remote_plugin_package_meta_provider_factory_v1_instance_options'
+		);
+		/**
+		 * Fix PHPStan error
+		 *
+		 * @var WP_Mock\Filter_Responder $responder
+		 */
+		$responder = $filter->withAnyArgs();
+		$responder->reply( $argument );
+		$sut     = new StandardRemotePluginPackageMetaValueServiceFactory( $baseUrl, $metaKey, $httpOptions, $logger );
+		$return1 = $sut->create();
+		$return2 = $sut->create();
+		$this->assertNotSame( $return1, $return2, 'Standard factory should return different instances on each call.' );
 	}
 }

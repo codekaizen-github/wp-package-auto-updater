@@ -13,7 +13,10 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Local\CachingLocalPluginPackageMetaValueServiceFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Local\StandardLocalPluginPackageMetaValueServiceFactory;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Remote\CachingRemotePluginPackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Remote\StandardRemotePluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
 use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
@@ -95,11 +98,13 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 				$this->logger
 			)
 		);
-		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaValueServiceFactory(
-			$this->baseURL,
-			$this->metaKey,
-			$this->httpOptions,
-			$this->logger
+		$remotePackageMetaProviderFactory = new CachingRemotePluginPackageMetaValueServiceFactory(
+			new StandardRemotePluginPackageMetaValueServiceFactory(
+				$this->baseURL,
+				$this->metaKey,
+				$this->httpOptions,
+				$this->logger
+			)
 		);
 		$checkUpdateHook                  = new StandardCheckUpdateHook(
 			'pre_set_site_transient_update_plugins',
