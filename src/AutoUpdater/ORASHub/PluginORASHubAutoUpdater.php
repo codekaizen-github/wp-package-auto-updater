@@ -9,7 +9,10 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\LocalPluginPackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Local\CachingLocalPluginPackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Local\StandardLocalPluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\RemotePluginPackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
@@ -86,9 +89,11 @@ class PluginORASHubAutoUpdater implements InitializerContract {
 	 * @return void
 	 */
 	public function init(): void {
-		$localPackageMetaProviderFactory  = new LocalPluginPackageMetaValueServiceFactory(
-			$this->filePath,
-			$this->logger
+		$localPackageMetaProviderFactory  = new CachingLocalPluginPackageMetaValueServiceFactory(
+			new StandardLocalPluginPackageMetaValueServiceFactory(
+				$this->filePath,
+				$this->logger
+			)
 		);
 		$remotePackageMetaProviderFactory = new RemotePluginPackageMetaValueServiceFactory(
 			$this->baseURL,

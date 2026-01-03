@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing LocalPluginPackageMetaValueServiceFactory class.
+ * File containing StandardLocalPluginPackageMetaValueServiceFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
- * @subpackage Local
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Plugin\Local;
 
 use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\PluginPackageRootValue;
 use CodeKaizen\WPPackageAutoUpdater\Value\Slug\PluginSlugValue;
@@ -18,11 +17,11 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Plug
 use Psr\Log\LoggerInterface;
 
 /**
- * LocalPluginPackageMetaValueServiceFactory class.
+ * StandardLocalPluginPackageMetaValueServiceFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Plugin\Local
  */
-class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValueServiceFactoryContract {
+class StandardLocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The plugin file path.
@@ -39,13 +38,6 @@ class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValu
 	protected LoggerInterface $logger;
 
 	/**
-	 * The plugin package meta provider instance.
-	 *
-	 * @var PluginPackageMetaValueServiceContract|null
-	 */
-	protected ?PluginPackageMetaValueServiceContract $provider;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param string          $filePath Description for filePath.
@@ -54,7 +46,6 @@ class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValu
 	public function __construct( string $filePath, LoggerInterface $logger ) {
 		$this->filePath = $filePath;
 		$this->logger   = $logger;
-		$this->provider = null;
 	}
 	/**
 	 * Create a new instance.
@@ -62,16 +53,13 @@ class LocalPluginPackageMetaValueServiceFactory implements PluginPackageMetaValu
 	 * @return PluginPackageMetaValueServiceContract The created plugin package meta provider.
 	 */
 	public function create(): PluginPackageMetaValueServiceContract {
-		if ( null === $this->provider ) {
-			$this->logger->debug( 'Creating new plugin package meta provider.' );
-			$slugParser     = new PluginSlugValue( $this->filePath, new PluginPackageRootValue(), $this->logger );
-			$factory        = new StandardPluginPackageMetaValueServiceFactory(
-				$this->filePath,
-				$slugParser,
-				$this->logger
-			);
-			$this->provider = $factory->create();
-		}
-		return $this->provider;
+		$this->logger->debug( 'Creating new plugin package meta provider.' );
+		$slugParser = new PluginSlugValue( $this->filePath, new PluginPackageRootValue(), $this->logger );
+		$factory    = new StandardPluginPackageMetaValueServiceFactory(
+			$this->filePath,
+			$slugParser,
+			$this->logger
+		);
+		return $factory->create();
 	}
 }
