@@ -53,4 +53,3 @@ class CachingLocalThemePackageMetaValueServiceFactory implements ThemePackageMet
 		return $this->provider;
 	}
 }
-

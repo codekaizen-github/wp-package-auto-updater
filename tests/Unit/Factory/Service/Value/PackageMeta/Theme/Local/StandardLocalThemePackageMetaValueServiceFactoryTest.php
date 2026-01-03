@@ -83,4 +83,3 @@ class StandardLocalThemePackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertNotSame( $return1, $return2, 'Standard factory should return different instances on each call.' );
 	}
 }
-

@@ -51,4 +51,3 @@ class CachingLocalThemePackageMetaValueServiceFactoryTest extends TestCase {
 		$this->assertSame( $mockProvider, $return1, 'Caching factory should return the provider from the decorated factory.' );
 	}
 }
-

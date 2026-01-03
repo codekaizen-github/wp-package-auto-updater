@@ -69,4 +69,3 @@ class StandardLocalThemePackageMetaValueServiceFactory implements ThemePackageMe
 		return $factory->create();
 	}
 }
-
