@@ -10,6 +10,7 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater\ORASHub;
 use CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub\ThemeORASHubAutoUpdater;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
 use Mockery;
+use Mockery\MockInterface;
 use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
 
@@ -19,6 +20,13 @@ use WP_Mock\Tools\TestCase;
  * in order for the `overload` mock and its assertions to work.
  */
 class ThemeORASHubAutoUpdaterTest extends TestCase {
+	/**
+	 * Undocumented variable
+	 *
+	 * @var MockInterface&LoggerInterface
+	 */
+	protected MockInterface $logger;
+
 	/**
 	 * Undocumented function.
 	 *
@@ -32,7 +40,7 @@ class ThemeORASHubAutoUpdaterTest extends TestCase {
 		$baseURL       = 'https://codekaizen.net';
 		$metaKey       = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata';
 		$httpOptions   = [];
-		$logger        = Mockery::mock( LoggerInterface::class );
+		$this->logger  = Mockery::mock( LoggerInterface::class );
 		$checkInfoHook = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\StandardCheckInfoHook'
 		);
@@ -41,7 +49,7 @@ class ThemeORASHubAutoUpdaterTest extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook'
 		);
 		$checkUpdateHook->shouldReceive( 'init' )->once();
-		$sut = new ThemeORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $logger );
+		$sut = new ThemeORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $this->logger );
 		$sut->init();
 		$this->expectNotToPerformAssertions();
 	}
