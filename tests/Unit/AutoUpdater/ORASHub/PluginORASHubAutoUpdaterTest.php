@@ -9,7 +9,11 @@ namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\AutoUpdater\ORASHub;
 
 use CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub\PluginORASHubAutoUpdater;
 use CodeKaizen\WPPackageAutoUpdaterTests\Helper\FixturePathHelper;
+use CodeKaizen\WPPackageAutoUpdater\Contract\Factory\ObjectFactoryContract;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PackageMetaValueServiceFactoryContract;
 use Mockery;
+use Mockery\MockInterface;
 use Psr\Log\LoggerInterface;
 use WP_Mock\Tools\TestCase;
 
@@ -19,6 +23,27 @@ use WP_Mock\Tools\TestCase;
  * in order for the `overload` mock and its assertions to work.
  */
 class PluginORASHubAutoUpdaterTest extends TestCase {
+	/**
+	 * Undocumented variable
+	 *
+	 * @var MockInterface&LoggerInterface
+	 */
+	protected MockInterface $logger;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var PackageMetaValueServiceFactoryContract&MockInterface
+	 */
+	protected PackageMetaValueServiceFactoryContract $localFactory;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var ObjectFactoryContract&MockInterface
+	 */
+	protected ObjectFactoryContract $remoteFactory;
+
 	/**
 	 * Undocumented function.
 	 *
@@ -32,7 +57,7 @@ class PluginORASHubAutoUpdaterTest extends TestCase {
 		$baseURL       = 'https://codekaizen.net';
 		$metaKey       = 'org.codekaizen-github.wp-package-deploy.wp-package-metadata';
 		$httpOptions   = [];
-		$logger        = Mockery::mock( LoggerInterface::class );
+		$this->logger  = Mockery::mock( LoggerInterface::class );
 		$checkInfoHook = Mockery::mock(
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckInfo\StandardCheckInfoHook'
 		);
@@ -41,7 +66,7 @@ class PluginORASHubAutoUpdaterTest extends TestCase {
 			'overload:CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook'
 		);
 		$checkUpdateHook->shouldReceive( 'init' )->once();
-		$sut = new PluginORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $logger );
+		$sut = new PluginORASHubAutoUpdater( $filePath, $baseURL, $metaKey, $httpOptions, $this->logger );
 		$sut->init();
 		$this->expectNotToPerformAssertions();
 	}
