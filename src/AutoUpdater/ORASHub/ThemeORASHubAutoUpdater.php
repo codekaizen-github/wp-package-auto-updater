@@ -13,7 +13,10 @@ use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Local\CachingLocalThemePackageMetaValueServiceFactory;
 // phpcs:ignore Generic.Files.LineLength.TooLong
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Local\StandardLocalThemePackageMetaValueServiceFactory;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\RemoteThemePackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Remote\CachingRemoteThemePackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Remote\StandardRemoteThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
 use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
@@ -95,11 +98,13 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 				$this->logger
 			)
 		);
-		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaValueServiceFactory(
-			$this->baseURL,
-			$this->metaKey,
-			$this->httpOptions,
-			$this->logger
+		$remotePackageMetaProviderFactory = new CachingRemoteThemePackageMetaValueServiceFactory(
+			new StandardRemoteThemePackageMetaValueServiceFactory(
+				$this->baseURL,
+				$this->metaKey,
+				$this->httpOptions,
+				$this->logger
+			)
 		);
 		$checkUpdateHook                  = new StandardCheckUpdateHook(
 			'pre_set_site_transient_update_themes',
