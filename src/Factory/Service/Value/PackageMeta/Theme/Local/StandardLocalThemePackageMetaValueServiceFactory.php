@@ -1,12 +1,11 @@
 <?php
 /**
- * File containing LocalThemePackageMetaValueServiceFactory class.
+ * File containing StandardLocalThemePackageMetaValueServiceFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
- * @subpackage Local
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\Local
  */
 
-namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme;
+namespace CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Local;
 
 use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\ThemePackageRootValue;
 use CodeKaizen\WPPackageAutoUpdater\Value\Slug\ThemeSlugValue;
@@ -18,11 +17,11 @@ use CodeKaizen\WPPackageMetaProviderLocal\Factory\Service\Value\PackageMeta\Them
 use Psr\Log\LoggerInterface;
 
 /**
- * LocalThemePackageMetaValueServiceFactory class.
+ * StandardLocalThemePackageMetaValueServiceFactory class.
  *
- *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme
+ *  @package CodeKaizen\WPPackageAutoUpdater\Factory\Provider\PackageMeta\Theme\Local
  */
-class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueServiceFactoryContract {
+class StandardLocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueServiceFactoryContract {
 
 	/**
 	 * The file path for the theme package.
@@ -39,12 +38,6 @@ class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueS
 	protected LoggerInterface $logger;
 
 	/**
-	 * The theme package meta provider instance.
-	 *
-	 * @var ?ThemePackageMetaValueServiceContract
-	 */
-	protected ?ThemePackageMetaValueServiceContract $provider;
-	/**
 	 * Constructor.
 	 *
 	 * @param string          $filePath Description for filePath.
@@ -53,7 +46,6 @@ class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueS
 	public function __construct( string $filePath, LoggerInterface $logger ) {
 		$this->filePath = $filePath;
 		$this->logger   = $logger;
-		$this->provider = null;
 	}
 	/**
 	 * Create a new instance.
@@ -61,22 +53,20 @@ class LocalThemePackageMetaValueServiceFactory implements ThemePackageMetaValueS
 	 * @return ThemePackageMetaValueServiceContract The created theme package meta provider.
 	 */
 	public function create(): ThemePackageMetaValueServiceContract {
-		if ( null === $this->provider ) {
-			$this->logger->debug( 'Creating new theme package meta provider.' );
-			$themeSlugValue = new ThemeSlugValue(
-				$this->filePath,
-				new ThemePackageRootValue(),
-				$this->logger
-			);
+		$this->logger->debug( 'Creating new theme package meta provider.' );
+		$themeSlugValue = new ThemeSlugValue(
+			$this->filePath,
+			new ThemePackageRootValue(),
+			$this->logger
+		);
 
-			$factory = new StandardThemePackageMetaValueServiceFactory(
-				$this->filePath,
-				$themeSlugValue,
-				$this->logger
-			);
+		$factory = new StandardThemePackageMetaValueServiceFactory(
+			$this->filePath,
+			$themeSlugValue,
+			$this->logger
+		);
 
-			$this->provider = $factory->create();
-		}
-		return $this->provider;
+		return $factory->create();
 	}
 }
+

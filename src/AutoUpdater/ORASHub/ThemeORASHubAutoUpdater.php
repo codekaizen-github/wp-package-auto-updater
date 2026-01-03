@@ -9,7 +9,10 @@
 namespace CodeKaizen\WPPackageAutoUpdater\AutoUpdater\ORASHub;
 
 use CodeKaizen\WPPackageAutoUpdater\Contract\InitializerContract;
-use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\LocalThemePackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Local\CachingLocalThemePackageMetaValueServiceFactory;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\Local\StandardLocalThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Factory\Service\Value\PackageMeta\Theme\RemoteThemePackageMetaValueServiceFactory;
 use CodeKaizen\WPPackageAutoUpdater\Hook\CheckUpdate\StandardCheckUpdateHook;
 use CodeKaizen\WPPackageAutoUpdater\Hook\DownloadUpgrade\StandardDownloadUpgradeHook;
@@ -86,9 +89,11 @@ class ThemeORASHubAutoUpdater implements InitializerContract {
 	 * @return void
 	 */
 	public function init(): void {
-		$localPackageMetaProviderFactory  = new LocalThemePackageMetaValueServiceFactory(
-			$this->filePath,
-			$this->logger
+		$localPackageMetaProviderFactory  = new CachingLocalThemePackageMetaValueServiceFactory(
+			new StandardLocalThemePackageMetaValueServiceFactory(
+				$this->filePath,
+				$this->logger
+			)
 		);
 		$remotePackageMetaProviderFactory = new RemoteThemePackageMetaValueServiceFactory(
 			$this->baseURL,
