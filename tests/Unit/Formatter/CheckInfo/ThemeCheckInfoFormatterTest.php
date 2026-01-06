@@ -7,9 +7,13 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\ThemeCheckInfoFormatter;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\ThemeCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\ThemeCheckInfoObjectFactory;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\ThemeCheckInfoStandardClass;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\ThemePackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\ThemePackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PackageMetaValueContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\ThemePackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +38,7 @@ class ThemeCheckInfoFormatterTest extends TestCase {
 		$updateUriExpected    = $downloadLinkExpected;
 		$testedExpected       = '6.8.2';
 		$tagsExpected         = [ 'tag1', 'tag2', 'tag3' ];
-		$provider             = Mockery::mock( PackageMetaProviderContract::class );
+		$provider             = Mockery::mock( ThemePackageMetaValueContract::class );
 		$provider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );
@@ -45,8 +49,12 @@ class ThemeCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getViewURL' )->with()->andReturn( $homepageExpected );
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut              = ( new ThemeCheckInfoFormatter( $provider ) );
-		$actualMetaObject = $sut->formatForCheckInfo();
-		$this->assertInstanceOf( ThemeCheckInfoMetaObject::class, $actualMetaObject );
+		$service = Mockery::mock( ThemePackageMetaValueServiceContract::class );
+		$service->shouldReceive( 'getPackageMeta' )->with()->andReturn( $provider );
+		$serviceFactory = Mockery::mock( ThemePackageMetaValueServiceFactoryContract::class );
+		$serviceFactory->shouldReceive( 'create' )->with()->andReturn( $service );
+		$sut                 = ( new ThemeCheckInfoObjectFactory( $serviceFactory ) );
+		$actualStandardClass = $sut->create();
+		$this->assertInstanceOf( ThemeCheckInfoStandardClass::class, $actualStandardClass );
 	}
 }

@@ -7,9 +7,12 @@
 
 namespace CodeKaizen\WPPackageAutoUpdaterTests\Unit\Formatter\CheckInfo;
 
-use CodeKaizen\WPPackageAutoUpdater\Formatter\CheckInfo\PluginCheckInfoFormatter;
-use CodeKaizen\WPPackageAutoUpdater\MetaObject\CheckInfo\PluginCheckInfoMetaObject;
-use CodeKaizen\WPPackageMetaProviderContract\Contract\Provider\PackageMeta\PluginPackageMetaProviderContract;
+use CodeKaizen\WPPackageAutoUpdater\Factory\Object\CheckInfo\PluginCheckInfoObjectFactory;
+use CodeKaizen\WPPackageAutoUpdater\StandardClass\CheckInfo\PluginCheckInfoStandardClass;
+// phpcs:ignore Generic.Files.LineLength.TooLong
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Factory\Service\Value\PackageMeta\PluginPackageMetaValueServiceFactoryContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Service\Value\PackageMeta\PluginPackageMetaValueServiceContract;
+use CodeKaizen\WPPackageMetaProviderContract\Contract\Value\PackageMeta\PluginPackageMetaValueContract;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
@@ -37,7 +40,7 @@ class PluginCheckInfoFormatterTest extends TestCase {
 			'changelog' => 'changed',
 			'about'     => 'this is a plugin about section',
 		];
-		$provider             = Mockery::mock( PluginPackageMetaProviderContract::class );
+		$provider             = Mockery::mock( PluginPackageMetaValueContract::class );
 		$provider->shouldReceive( 'getName' )->with()->andReturn( $nameExpected );
 		$provider->shouldReceive( 'getShortSlug' )->with()->andReturn( $slugExpected );
 		$provider->shouldReceive( 'getVersion' )->with()->andReturn( $versionExpected );
@@ -49,8 +52,12 @@ class PluginCheckInfoFormatterTest extends TestCase {
 		$provider->shouldReceive( 'getDownloadURL' )->with()->andReturn( $downloadLinkExpected );
 		$provider->shouldReceive( 'getSections' )->with()->andReturn( $sectionsExpected );
 		$provider->shouldReceive( 'getTags' )->with()->andReturn( $tagsExpected );
-		$sut              = ( new PluginCheckInfoFormatter( $provider ) );
-		$actualMetaObject = $sut->formatForCheckInfo();
-		$this->assertInstanceOf( PluginCheckInfoMetaObject::class, $actualMetaObject );
+		$service = Mockery::mock( PluginPackageMetaValueServiceContract::class );
+		$service->shouldReceive( 'getPackageMeta' )->with()->andReturn( $provider );
+		$serviceFactory = Mockery::mock( PluginPackageMetaValueServiceFactoryContract::class );
+		$serviceFactory->shouldReceive( 'create' )->with()->andReturn( $service );
+		$sut                 = ( new PluginCheckInfoObjectFactory( $serviceFactory ) );
+		$actualStandardClass = $sut->create();
+		$this->assertInstanceOf( PluginCheckInfoStandardClass::class, $actualStandardClass );
 	}
 }

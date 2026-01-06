@@ -1,29 +1,29 @@
 <?php
 /**
- * Unit test for TransientWordPressProvider.
+ * Unit test for WordPressTransientProxyMixedAccessor.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Provider\WordPress\Transient
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\Provider\WordPress\Transient;
 
-use CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider;
+use CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class TransientWordPressProviderTest
  *
- * @covers \CodeKaizen\WPPackageAutoUpdater\Provider\WordPress\Transient\TransientWordPressProvider
+ * @covers \CodeKaizen\WPPackageAutoUpdater\Accessor\Mixed\WordPressTransientProxyMixedAccessor
  */
 class TransientWordPressProviderTest extends TestCase {
 
 	/**
-	 * Test instantiation of TransientWordPressProvider.
+	 * Test instantiation of WordPressTransientProxyMixedAccessor.
 	 *
 	 * @return void
 	 */
 	public function testCanBeInstantiated(): void {
-		$provider = new TransientWordPressProvider( 'test_key' );
-		$this->assertInstanceOf( TransientWordPressProvider::class, $provider );
+		$provider = new WordPressTransientProxyMixedAccessor( 'test_key' );
+		$this->assertInstanceOf( WordPressTransientProxyMixedAccessor::class, $provider );
 	}
 }

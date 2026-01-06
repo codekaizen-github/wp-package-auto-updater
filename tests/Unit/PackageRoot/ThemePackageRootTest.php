@@ -1,28 +1,28 @@
 <?php
 /**
- * Unit test for ThemePackageRoot.
+ * Unit test for ThemePackageRootValue.
  *
  * @package CodeKaizen\WPPackageAutoUpdater\Tests\Unit\PackageRoot
  */
 
 namespace CodeKaizen\WPPackageAutoUpdater\Tests\Unit\PackageRoot;
 
-use CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot;
+use CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\ThemePackageRootValue;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class ThemePackageRootTest
  *
- * @covers \CodeKaizen\WPPackageAutoUpdater\PackageRoot\ThemePackageRoot
+ * @covers \CodeKaizen\WPPackageAutoUpdater\Value\PackageRoot\ThemePackageRootValue
  */
 class ThemePackageRootTest extends TestCase {
 	/**
-	 * Test instantiation of ThemePackageRoot.
+	 * Test instantiation of ThemePackageRootValue.
 	 *
 	 * @return void
 	 */
 	public function testCanBeInstantiated(): void {
-		$root = new ThemePackageRoot();
-		$this->assertInstanceOf( ThemePackageRoot::class, $root );
+		$root = new ThemePackageRootValue();
+		$this->assertInstanceOf( ThemePackageRootValue::class, $root );
 	}
 }
