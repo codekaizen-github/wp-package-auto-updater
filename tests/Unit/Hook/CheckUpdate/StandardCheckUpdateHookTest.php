@@ -158,14 +158,17 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '1.0.0' ];
 		$transient->response = [];
-		$transient->noUpdate = [];
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = [];
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectHasProperty( 'no_update', $result );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertIsArray( $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->no_update );
 		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
 		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->response );
@@ -213,18 +216,22 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => $remoteVersion ];
 		$transient->response = [];
-		$transient->noUpdate = [];
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = [];
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectHasProperty( 'no_update', $result );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertIsArray( $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->no_update );
 		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
 		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
-		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame( $result->no_update['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -268,18 +275,22 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => $remoteVersion ];
 		$transient->response = [];
-		$transient->noUpdate = [];
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = [];
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
+		$this->assertObjectHasProperty( 'no_update', $result );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertIsArray( $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->no_update );
 		$this->assertObjectHasProperty( 'response', $result );
 		$this->assertIsArray( $result->response );
 		$this->assertArrayNotHasKey( 'some-plugin/plugin.php', $result->response );
-		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame( $result->no_update['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -308,7 +319,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$this->assertIsArray( $result->checked );
 		$this->assertCount( 0, $result->checked );
 		$this->assertObjectNotHasProperty( 'response', $result );
-		$this->assertObjectNotHasProperty( 'noUpdate', $result );
+		$this->assertObjectNotHasProperty( 'no_update', $result );
 	}
 
 	/**
@@ -396,7 +407,7 @@ class StandardCheckUpdateHookTest extends TestCase {
 	}
 
 	/**
-	 * Tests the checkUpdate method when noUpdate property doesn't exist .
+	 * Tests the checkUpdate method when no_update property doesn't exist .
 	 *
 	 * @return void
 	 * @runInSeparateProcess
@@ -432,17 +443,20 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
-		// Set up transient object without noUpdate property.
+		// Set up transient object without no_update property.
 		$transient          = new stdClass();
 		$transient->checked = [ 'some-plugin/plugin.php' => '2.0.0' ];
 		$sut                = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
 		$result             = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
-		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
+		$this->assertObjectHasProperty( 'no_update', $result );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertIsArray( $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame( $result->no_update['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -499,14 +513,14 @@ class StandardCheckUpdateHookTest extends TestCase {
 	}
 
 	/**
-	 * Tests the checkUpdate method when noUpdate property is not an array.
+	 * Tests the checkUpdate method when no_update property is not an array.
 	 *
 	 * @return void
 	 * @runInSeparateProcess
 	 * @preserveGlobalState disabled
 	 */
 	public function testCheckUpdateWhenNoUpdatePropertyIsNotArray(): void {
-		// Set up transient object with non-array noUpdate property.
+		// Set up transient object with non-array no_update property.
 
 		// Mock the dependencies.
 		$localVersion  = '2.0.0';
@@ -537,18 +551,22 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$logger = Mockery::mock( LoggerInterface::class );
 		$logger->shouldReceive( 'debug' );
 		$logger->shouldReceive( 'info' );
-		// Set up transient object without noUpdate property.
-		$transient           = new stdClass();
-		$transient->checked  = [ 'some-plugin/plugin.php' => '2.0.0' ];
-		$transient->noUpdate = 'not-an-array';
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// Set up transient object without no_update property.
+		$transient          = new stdClass();
+		$transient->checked = [ 'some-plugin/plugin.php' => '2.0.0' ];
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = 'not-an-array';
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
-		$this->assertObjectHasProperty( 'noUpdate', $result );
-		$this->assertIsArray( $result->noUpdate );
-		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->noUpdate );
-		$this->assertSame( $result->noUpdate['some-plugin/plugin.php'], $objectData );
+		$this->assertObjectHasProperty( 'no_update', $result );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertIsArray( $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertArrayHasKey( 'some-plugin/plugin.php', $result->no_update );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$this->assertSame( $result->no_update['some-plugin/plugin.php'], $objectData );
 	}
 
 	/**
@@ -593,9 +611,10 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '1.0.0' ];
 		$transient->response = [];
-		$transient->noUpdate = [];
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = [];
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
 		$this->assertSame( $transient, $result );
@@ -643,9 +662,10 @@ class StandardCheckUpdateHookTest extends TestCase {
 		$transient           = new stdClass();
 		$transient->checked  = [ 'some-plugin/plugin.php' => '1.0.0' ];
 		$transient->response = [];
-		$transient->noUpdate = [];
-		$sut                 = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
-		$result              = $sut->checkUpdate( $transient );
+		// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+		$transient->no_update = [];
+		$sut                  = new StandardCheckUpdateHook( $hookName, $localFactory, $remoteFactory, $logger );
+		$result               = $sut->checkUpdate( $transient );
 		// Call the method under test.
 		$result = $sut->checkUpdate( $transient );
 		$this->assertSame( $transient, $result );

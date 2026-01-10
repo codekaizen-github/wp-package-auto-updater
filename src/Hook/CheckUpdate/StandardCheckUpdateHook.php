@@ -138,15 +138,19 @@ class StandardCheckUpdateHook implements InitializerContract, CheckUpdateHookCon
 				$transient->response[ $localPackageMetaValue->getFullSlug() ] =
 					$standardClassFactory->create();
 			} else {
-				// Define the noUpdate property if it doesn't exist.
-				if ( ! property_exists( $transient, 'noUpdate' ) ) {
-					$transient->noUpdate = [];
+				// Define the no_update property if it doesn't exist.
+				if ( ! property_exists( $transient, 'no_update' ) ) {
+					// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+					$transient->no_update = [];
 				}
-				// Ensure $transient->noUpdate is an array.
-				if ( ! is_array( $transient->noUpdate ) ) {
-					$transient->noUpdate = [];
+				// Ensure $transient->no_update is an array.
+				// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+				if ( ! is_array( $transient->no_update ) ) {
+					// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+					$transient->no_update = [];
 				}
-				$transient->noUpdate[ $localPackageMetaValue->getFullSlug() ] =
+				// phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
+				$transient->no_update[ $localPackageMetaValue->getFullSlug() ] =
 					$standardClassFactory->create();
 			}
 		} catch ( Throwable $e ) {
